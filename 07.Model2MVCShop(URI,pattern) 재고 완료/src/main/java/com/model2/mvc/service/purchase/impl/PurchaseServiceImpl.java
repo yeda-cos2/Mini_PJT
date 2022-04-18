@@ -58,5 +58,6 @@ public class PurchaseServiceImpl implements PurchaseService{
 		purchaseDao.updateTranCode(purchase);
 	}
 
+
 	
 }

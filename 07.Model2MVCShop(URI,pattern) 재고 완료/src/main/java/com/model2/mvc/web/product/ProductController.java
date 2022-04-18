@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
+import com.model2.mvc.service.domain.Purchase;
 import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.product.ProductService;
 import com.model2.mvc.service.purchase.PurchaseService;
@@ -104,14 +105,17 @@ public class ProductController {
 
 	//@RequestMapping("/updateProduct.do")
 	@RequestMapping( value="updateProduct", method=RequestMethod.POST )
-	public String updateProduct(@ModelAttribute("product") Product product, Model model, HttpSession session)
+	public String updateProduct(@ModelAttribute("product") Product product,
+			@ModelAttribute("purchase") Purchase purchase,Model model, HttpSession session)
 			throws Exception {
 
 		System.out.println("/product/updateProduct :  POST");
 		// Business Logic
 		product.setManuDate(product.getManuDate().replace("-", ""));
 
+		
 		productService.updateProduct(product);
+		
 
 		return "forward:/product/getProduct.jsp?prodNo=" + product.getProdNo();
 	}
@@ -134,7 +138,7 @@ public class ProductController {
 			search.setSortCondition("3");
 		}
 		search.setSortCondition(search.getSortCondition().replace(",", ""));
-		System.out.println("뭐냐고요"+search.getSortCondition());
+		System.out.println("listProduct::SortCondition"+search.getSortCondition());
 		search.setPageSize(pageSize);
 		
 		// Business logic 수행
@@ -149,7 +153,7 @@ public class ProductController {
 		
 		// Model 과 View 연결
 		model.addAttribute("list", map.get("list"));
-		System.out.println("머냐고"+map.get("list"));
+		System.out.println("listProduct::list="+map.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		System.out.println("resultPage는"+resultPage);
 		model.addAttribute("search", search);

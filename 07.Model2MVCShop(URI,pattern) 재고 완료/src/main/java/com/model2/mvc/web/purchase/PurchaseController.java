@@ -145,22 +145,22 @@ public class PurchaseController {
 
 			System.out.println("/purchase/updatePurchase : POST");
 			//Business Logic
-			Purchase purchase1=new Purchase();
-			purchase1.setBuyer(purchase.getBuyer());
-			purchase1.setPurchaseProd(purchase.getPurchaseProd());
-			purchase1.setPaymentOption(purchase.getPaymentOption());
-			purchase1.setReceiverName(purchase.getReceiverName());
-			purchase1.setReceiverPhone(purchase.getReceiverPhone());
-			purchase1.setDivyAddr(purchase.getDivyAddr());
-			purchase1.setDivyRequest(purchase.getDivyRequest());
-			purchase1.setDivyDate(purchase.getDivyDate());	
-			purchase1.setPurchaseCount(purchase.getPurchaseCount());
-			System.out.println("테스트:"+purchase1);
+//			Purchase purchase1=new Purchase();
+//			purchase1.setBuyer(purchase.getBuyer());
+//			purchase1.setPurchaseProd(purchase.getPurchaseProd());
+//			purchase1.setPaymentOption(purchase.getPaymentOption());
+//			purchase1.setReceiverName(purchase.getReceiverName());
+//			purchase1.setReceiverPhone(purchase.getReceiverPhone());
+//			purchase1.setDivyAddr(purchase.getDivyAddr());
+//			purchase1.setDivyRequest(purchase.getDivyRequest());
+//			purchase1.setDivyDate(purchase.getDivyDate());	
+//			purchase1.setPurchaseCount(purchase.getPurchaseCount());
+			System.out.println("테스트:"+purchase);
 
-			purchaseService.updatePurchase(purchase1);
+			purchaseService.updatePurchase(purchase);
 			
 			ModelAndView modelAndView=new ModelAndView();
-			modelAndView.addObject(purchase1);
+			modelAndView.addObject(purchase);
 			modelAndView.setViewName("forward:/purchase/getPurchase?tranNo="+purchase.getTranNo());
 			
 			return modelAndView;
@@ -179,6 +179,7 @@ public class PurchaseController {
 			
 			System.out.println("trancode전:"+tranCode);
 			
+			
 			if(tranCode.equals("100")) {
 				tranCode="200";
 			}else if(tranCode.equals("200")) {
@@ -191,11 +192,20 @@ public class PurchaseController {
 
 			purchaseService.updateTranCode(purchase1);
 			
+		
+			System.out.println("음음"+purchase1);
+			
 			ModelAndView modelAndView=new ModelAndView();
+			if(tranCode.equals("000")) {
+			Product product2=productService.getProduct(purchase1.getPurchaseProd().getProdNo());	
+			product2.setTotal(purchase1.getPurchaseCount()+product2.getTotal());
+			productService.updateProduct(product2);
+			}
 			
 			if(tranCode.equals("200")) {
 			modelAndView.setViewName("forward:/purchase/listSale");
-			}else {
+			}
+			else {
 			modelAndView.setViewName("forward:/purchase/listPurchase");
 			}
 			

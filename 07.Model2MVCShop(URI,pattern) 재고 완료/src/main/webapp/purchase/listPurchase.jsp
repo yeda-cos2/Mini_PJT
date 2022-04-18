@@ -96,13 +96,21 @@
 		<c:when test="${purchase.tranCode=='200' }">
 		현재 배송중입니다.
 		</c:when>
+		<c:when test="${purchase.tranCode=='300' }">
+		<b>배송 완료</b>되었습니다.
+		</c:when>
 		<c:otherwise>
-		배송 완료되었습니다.
+		<b>구매 취소</b>되었습니다.
+		
 		</c:otherwise>
 		</c:choose>
 		</td>
 		<td></td>
 		<td align="left">
+		<c:if test="${purchase.tranCode=='100'}">
+		<a href="/purchase/updateTranCode?menu=search&tranCode=000&tranNo=${purchase.tranNo}">구매취소</a>
+		
+		</c:if>
 		<c:if test="${purchase.tranCode=='200'}">
 		<a href="/purchase/updateTranCode?menu=search&tranCode=${purchase.tranCode}&tranNo=${purchase.tranNo}">물건도착</a>
 		</c:if>

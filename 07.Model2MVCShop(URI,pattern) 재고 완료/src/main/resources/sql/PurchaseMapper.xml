@@ -51,7 +51,7 @@
 			RECEIVER_PHONE	= #{receiverPhone},
 			DEMAILADDR 				= #{divyAddr} ,
 			DLVY_REQUEST				=	#{divyRequest},
-			DLVY_DATE=#{divyDate}
+			DLVY_DATE=#{divyDate},
 			purchase_count=#{purchaseCount}
 	   	</set>
 	   	WHERE tran_no = #{tranNo}
@@ -65,6 +65,8 @@
 	   	</set>
 	   	WHERE PROD_NO = #{purchaseProd.prodNo}
 	 </update>
+	 
+
 	 
 	 
 	 <!-- SQL : SELECT LIST -->

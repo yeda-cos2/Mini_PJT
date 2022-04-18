@@ -13,11 +13,21 @@
 </script>
 
 <script type="text/javascript">
-<!--
+
 function fncAddPurchase() {
+	
+	var purchaseCount = document.addPurchase.purchaseCount.value;
+	var total = document.addPurchase.total.value;
+
+	if (purchaseCount > total) {
+		console.log("아");
+		alert("구매 가능 개수가 초과되었습니다");
+		return;
+	}
 	document.addPurchase.submit();
+	
 }
--->
+
 </script>
 </head>
 
@@ -83,7 +93,7 @@ function fncAddPurchase() {
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">${product.prodDetail}</td>
 	</tr>
-	
+
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 	</tr>
@@ -174,9 +184,10 @@ function fncAddPurchase() {
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
 			<input 	type="number" name="purchaseCount" class="ct_input_g" 
-							style="width: 100px; height: 19px" maxLength="20"  />
+							style="width: 100px; height: 19px" min="0" />
 		</td>
 	</tr>
+	<input type="hidden" name="total" value="${product.total }"/>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 	</tr>

@@ -25,6 +25,7 @@ public class Product {
 	public void setProTranCode(String proTranCode) {
 		this.proTranCode = proTranCode;
 	}
+
 	public String getFileName() {
 		return fileName;
 	}
@@ -88,6 +89,6 @@ public class Product {
 	public String toString() {
 		return "ProductVO : [tranCode]"+proTranCode+"[fileName]" + fileName
 				+ "[manuDate]" + manuDate+ "[price]" + price + "[prodDetail]" + prodDetail
-				+ "[prodName]" + prodName + "[prodNo]" + prodNo;
+				+ "[prodName]" + prodName + "[prodNo]" + prodNo+"°³¼ö"+purchaseCount;
 	}	
 }
