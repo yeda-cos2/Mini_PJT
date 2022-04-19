@@ -52,7 +52,7 @@
 			DEMAILADDR 				= #{divyAddr} ,
 			DLVY_REQUEST				=	#{divyRequest},
 			DLVY_DATE=#{divyDate},
-			purchase_count=#{purchaseCount}
+			PURCHASE_COUNT=#{purchaseCount}
 	   	</set>
 	   	WHERE tran_no = #{tranNo}
 	 </update>

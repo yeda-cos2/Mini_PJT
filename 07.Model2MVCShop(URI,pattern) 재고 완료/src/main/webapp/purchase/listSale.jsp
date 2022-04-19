@@ -81,12 +81,16 @@
 			<td></td>--%>
 			
 			<c:choose>
+			
 				<c:when test="${purchase.tranCode.equals('100')}">
 					<td align="left">현재 구매완료 상태입니다.
 					</td>
 				</c:when>
 				<c:when test="${purchase.tranCode.equals('200')}">
 					<td align="left">현재 배송중 상태입니다.</td>
+				</c:when>
+				<c:when test="${purchase.tranCode.equals('000')}">
+					<td align="left">구매취소 상품입니다.</td>
 				</c:when>
 				<c:otherwise>
 					<td align="left">현재 배송완료 상태입니다.</td>
@@ -109,6 +113,9 @@
 			</c:when>
 			<c:when test="${purchase.tranCode=='300'}">
 			배송완료
+			</c:when>
+			<c:when test="${purchase.tranCode=='000'}">
+			구매취소
 			</c:when>
 			<c:otherwise>
 			판매중

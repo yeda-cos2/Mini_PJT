@@ -67,31 +67,25 @@ public class PurchaseController {
 		
 		//@RequestMapping("/addPurchase.do")
 		@RequestMapping( value="addPurchase", method=RequestMethod.POST )
-		public ModelAndView addPurchase(  @ModelAttribute("product") Product product
+		public ModelAndView addPurchase(  @ModelAttribute("purchase") Purchase purchase,@ModelAttribute("product") Product product
 				, HttpServletRequest request) throws Exception {
 			
 			System.out.println("/purchase/addPurchase : POST");
 			//Business Logic
-			System.out.println(product.getProdNo());
+			
+			System.out.println("prodNo="+product.getProdNo());
+			
 			Product product1=productService.getProduct(product.getProdNo());
+			product1.setTotal(product1.getTotal()-purchase.getPurchaseCount());
+			purchase.setPurchaseProd(product1);
 
 			HttpSession session=request.getSession();
-			User user=(User)session.getAttribute("user");
-			
-			Purchase purchase=new Purchase();
+			User user=(User)session.getAttribute("user");			
 			purchase.setBuyer(user);
-			purchase.setPurchaseCount(Integer.parseInt(request.getParameter("purchaseCount")));
-			product1.setTotal(product1.getTotal()-purchase.getPurchaseCount());
 
-			purchase.setPurchaseProd(product1);
-			purchase.setPaymentOption(request.getParameter("paymentOption"));
-			purchase.setReceiverName(request.getParameter("receiverName"));
-			purchase.setReceiverPhone(request.getParameter("receiverPhone"));
-			purchase.setDivyAddr(request.getParameter("receiverAddr"));
-			purchase.setDivyRequest(request.getParameter("receiverRequest"));
-			purchase.setDivyDate(request.getParameter("receiverDate"));	
 			purchase.setTranCode("100");
-			System.out.println("테스트:"+purchase);
+			
+			System.out.println("purchase:"+purchase);
 			
 			purchaseService.addPurchase(purchase);
 			productService.updateProduct(product1);
@@ -145,23 +139,14 @@ public class PurchaseController {
 
 			System.out.println("/purchase/updatePurchase : POST");
 			//Business Logic
-//			Purchase purchase1=new Purchase();
-//			purchase1.setBuyer(purchase.getBuyer());
-//			purchase1.setPurchaseProd(purchase.getPurchaseProd());
-//			purchase1.setPaymentOption(purchase.getPaymentOption());
-//			purchase1.setReceiverName(purchase.getReceiverName());
-//			purchase1.setReceiverPhone(purchase.getReceiverPhone());
-//			purchase1.setDivyAddr(purchase.getDivyAddr());
-//			purchase1.setDivyRequest(purchase.getDivyRequest());
-//			purchase1.setDivyDate(purchase.getDivyDate());	
-//			purchase1.setPurchaseCount(purchase.getPurchaseCount());
+			
 			System.out.println("테스트:"+purchase);
 
 			purchaseService.updatePurchase(purchase);
 			
 			ModelAndView modelAndView=new ModelAndView();
 			modelAndView.addObject(purchase);
-			modelAndView.setViewName("forward:/purchase/getPurchase?tranNo="+purchase.getTranNo());
+			modelAndView.setViewName("forward:/purchase/getPurchase");
 			
 			return modelAndView;
 		}
