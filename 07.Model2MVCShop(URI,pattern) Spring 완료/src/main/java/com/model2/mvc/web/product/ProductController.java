@@ -66,11 +66,11 @@ public class ProductController {
 	//@RequestMapping("/addProduct.do")
 	@RequestMapping( value="addProduct", method=RequestMethod.POST )
 
-	public String addProduct(@RequestParam("file") MultipartFile file,@ModelAttribute("product") Product product,Model model) throws Exception {
+	public String addProduct(@RequestParam("fileName2") MultipartFile file,@ModelAttribute("product") Product product,Model model) throws Exception {
 
 		System.out.println("/product/addProduct : post");
 		// Business Logic
-		String FILE_SERVER_PATH="C:\\workspace2\\07.Model2MVCShop(URI,pattern) Spring\\src\\main\\webapp\\images\\uploadFiles\\";
+		String FILE_SERVER_PATH="C:\\workspace1\\07.Model2MVCShop(URI,pattern) Spring\\src\\main\\webapp\\images\\uploadFiles\\";
 		
 		if(!file.getOriginalFilename().isEmpty()) {
 			file.transferTo(new File(FILE_SERVER_PATH, file.getOriginalFilename()));
