@@ -29,7 +29,7 @@ public class UserRestController {
 	@Qualifier("userServiceImpl")
 	private UserService userService;
 	// setter Method 구현 않음
-	
+
 	@Value("#{commonProperties['pageUnit']}")
 	int pageUnit;
 	@Value("#{commonProperties['pageSize']}")
@@ -64,71 +64,56 @@ public class UserRestController {
 	public User updateUser(@RequestBody User user, HttpSession session) throws Exception {
 
 		System.out.println("/user/updateUser : POST");
-		
+
 		// Business Logic
-		
+
 		System.out.println(user.getUserId());
 		System.out.println(user);
 		userService.updateUser(user);
 
-	System.out.println("끝");
+		System.out.println("끝");
 		return userService.getUser(user.getUserId());
 	}
-
 
 	@RequestMapping(value = "json/checkDuplication", method = RequestMethod.POST)
 	public Map checkDuplication(@RequestBody User user) throws Exception {
 
 		System.out.println("/user/json/checkDuplication : POST");
 		// Business Logic
-		boolean result=userService.checkDuplication(user.getUserId());
-		Map map=new HashMap();
+		boolean result = userService.checkDuplication(user.getUserId());
+		Map map = new HashMap();
 		map.put("result", result);
 		map.put("userId", user.getUserId());
-		
+
 		return map;
 	}
-	
+
 	@RequestMapping(value = "json/listUser", method = RequestMethod.POST)
-	public Map listUser( @RequestBody Search search) throws Exception {
+	public Map listUser(@RequestBody Search search) throws Exception {
 
 		System.out.println("/user/json/listUser : POST");
 		// Business Logic
 		System.out.println(pageUnit);
 		System.out.println(pageSize);
-		if(search.getCurrentPage() ==0 ){
+		if (search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);
 
-		Map<String , Object> map=userService.getUserList(search);
-		
-		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		Map<String, Object> map = userService.getUserList(search);
+
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit,
+				pageSize);
 		System.out.println(resultPage);
-		
-		Map map2=new HashMap();
+
+		Map map2 = new HashMap();
 		map2.put("list", map.get("list"));
 		map2.put("resultPage", map);
 		map2.put("search", search);
-		System.out.println("map"+map);
+		System.out.println("map" + map);
 		return map2;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	@RequestMapping(value = "json/login", method = RequestMethod.POST)
 	public User login(@RequestBody User user, HttpSession session) throws Exception {
 

@@ -39,7 +39,9 @@ public class ProductDaoImpl implements ProductDao{
 	}
 	
 	public void updateProduct(Product product) throws Exception {
+		System.out.println("implµé");
 		sqlSession.update("ProductMapper.updateProduct", product);
+		System.out.println("impl¾Æ¿ô");
 	}
 
 	public List<Product> getProductList(Search search) throws Exception {
