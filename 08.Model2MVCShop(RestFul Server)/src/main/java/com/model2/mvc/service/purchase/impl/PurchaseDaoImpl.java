@@ -34,7 +34,9 @@ public class PurchaseDaoImpl implements PurchaseDao{
 
 	///Method
 	public void addPurchase(Purchase purchase) throws Exception {
+		System.out.println("들어감"+purchase);
 		sqlSession.insert("PurchaseMapper.addPurchase", purchase);
+		System.out.println("나감");
 	}
 
 	public List<Purchase> getPurchaseList(Search search,String buyerId) throws Exception {

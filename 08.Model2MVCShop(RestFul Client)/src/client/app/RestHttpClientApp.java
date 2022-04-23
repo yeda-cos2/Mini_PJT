@@ -16,6 +16,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
 import com.model2.mvc.service.domain.Product;
+import com.model2.mvc.service.domain.Purchase;
 import com.model2.mvc.service.domain.Search;
 import com.model2.mvc.service.domain.User;
 
@@ -50,9 +51,11 @@ public class RestHttpClientApp {
 //		RestHttpClientApp.LoginTest_Codehaus();		
 		
 //		RestHttpClientApp.addProductTest_JsonSimple();
+//		RestHttpClientApp.addPurchaseTest_JsonSimple();
 //		RestHttpClientApp.updateProductTest_JsonSimple();
 //		RestHttpClientApp.getProductTest_Codehaus();
-		RestHttpClientApp.listProductTest_Codehaus();
+		RestHttpClientApp.addPurchaseTest_Codehaus();
+//		RestHttpClientApp.listProductTest_Codehaus();
 
 	}
 
@@ -614,4 +617,99 @@ public class RestHttpClientApp {
 //		 System.out.println(user);
 	}
 	
+	public static void addPurchaseTest_JsonSimple() throws Exception {
+
+		// HttpClient : Http Protocol 의 client 추상화
+				HttpClient httpClient = new DefaultHttpClient();
+
+				String url = "http://127.0.0.1:8080/purchase/json/addPurchase/10012";
+
+				// HttpGet : Http Protocol 의 GET 방식 Request
+				HttpGet httpGet = new HttpGet(url);
+				httpGet.setHeader("Accept", "application/json");
+				httpGet.setHeader("Content-Type", "application/json");
+
+				// HttpResponse : Http Protocol 응답 Message 추상화
+				HttpResponse httpResponse = httpClient.execute(httpGet);
+
+				// ==> Response 확인
+				System.out.println(httpResponse);
+				System.out.println();
+
+				// ==> Response 중 entity(DATA) 확인
+				HttpEntity httpEntity = httpResponse.getEntity();
+
+				// ==> InputStream 생성
+				InputStream is = httpEntity.getContent();
+				BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+
+				// ==> 다른 방법으로 serverData 처리
+				 System.out.println("[ Server 에서 받은 Data 확인 ] ");
+				 String serverData = br.readLine();
+				 System.out.println(serverData);
+	}
+	
+	public static void addPurchaseTest_Codehaus() throws Exception {
+
+
+		// HttpClient : Http Protocol 의 client 추상화
+		HttpClient httpClient = new DefaultHttpClient();
+
+		String url = "http://127.0.0.1:8080/purchase/json/addPurchase";
+		HttpPost httpPost = new HttpPost(url);
+		httpPost.setHeader("Accept", "application/json");
+		httpPost.setHeader("Content-Type", "application/json");
+
+
+		// [ 방법 3 : codehaus 사용]
+		Product product=new Product();
+		product.setProdNo(10012);
+		
+		User user=new User();
+		user.setUserId("user09");
+		
+		Purchase purchase=new Purchase();
+		purchase.setBuyer(user);
+		purchase.setPurchaseProd(product);
+		purchase.setDivyRequest("주세요");
+		purchase.setDivyAddr("수수원");
+		purchase.setDivyDate("20220254");
+		purchase.setPaymentOption("1");
+		purchase.setPurchaseCount(1);
+		purchase.setReceiverName("박재웅");
+		purchase.setReceiverPhone("");
+		
+		ObjectMapper objectMapper01 = new ObjectMapper();
+		// Object ==> JSON Value 로 변환
+		String jsonValue = objectMapper01.writeValueAsString(purchase);
+
+		System.out.println(jsonValue);
+
+		HttpEntity httpEntity01 = new StringEntity(jsonValue, "utf-8");
+
+		httpPost.setEntity(httpEntity01);
+		HttpResponse httpResponse = httpClient.execute(httpPost);
+
+		// ==> Response 확인
+		System.out.println(httpResponse);
+		System.out.println();
+
+		// ==> Response 중 entity(DATA) 확인
+		HttpEntity httpEntity = httpResponse.getEntity();
+
+		// ==> InputStream 생성
+		InputStream is = httpEntity.getContent();
+		BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+
+		// ==> 다른 방법으로 serverData 처리
+		// System.out.println("[ Server 에서 받은 Data 확인 ] ");
+		String serverData = br.readLine();
+		System.out.println(serverData);
+
+		// ==> API 확인 : Stream 객체를 직접 전달
+//		JSONObject jsonobj = (JSONObject)JSONValue.parse(br);
+//		System.out.println(jsonobj);
+
+	
+	}
 	}

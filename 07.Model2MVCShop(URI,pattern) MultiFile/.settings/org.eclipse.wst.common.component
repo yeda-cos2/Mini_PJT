@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-                                                        
+                                                            
     
     
     
@@ -12,8 +12,10 @@
     
     
     
-    <wb-module deploy-name="07.Model2MVCShop(URI,pattern) MultiFile">
-                                                                                                                
+    
+    <wb-module deploy-name="07.Model2MVCShop(URI,pattern) MultiFile 완료">
+                                                                                                                        
+        
         
         
         
@@ -27,7 +29,8 @@
         
         
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-                                                                                                                
+                                                                                                                        
+        
         
         
         
@@ -41,7 +44,8 @@
         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-                                                                                                                
+                                                                                                                        
+        
         
         
         
@@ -55,7 +59,8 @@
         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-                                                                                                                
+                                                                                                                        
+        
         
         
         
@@ -69,7 +74,7 @@
         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
-                                                                                                                
+                                                                                                                        
         
         
         
@@ -82,8 +87,10 @@
         
         
         
-        <property name="java-output-path" value="/07.Model2MVCShop(URI,pattern) MultiFile/build/classes"/>
-                                                                                                                
+        
+        <property name="java-output-path" value="/07.Model2MVCShop(URI,pattern) MultiFile 완료/build/classes"/>
+                                                                                                                        
+        
         
         
         
@@ -97,7 +104,8 @@
         
         
         <property name="context-root" value="/"/>
-                                                                                                            
+                                                                                                                    
+    
     
     
     
@@ -111,7 +119,8 @@
     
     
     </wb-module>
-                                                    
+                                                        
+
 
 
 
