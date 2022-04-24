@@ -51,49 +51,49 @@ public class PurchaseRestController {
 		System.out.println(this.getClass());
 	}
 
-
-	@RequestMapping(value = "json/addPurchase/{prodNo}", method = RequestMethod.GET)
-	public Product addPurchase(@PathVariable int prodNo) throws Exception {
-
-		System.out.println("/purchase/addPurchase : GET");
-		// Business Logic
-
-		System.out.println("prodNo="+prodNo);
-		
-		return productService.getProduct(prodNo);
-	}
-	
-	@RequestMapping(value = "json/addPurchase", method = RequestMethod.POST)
-	public Map addPurchase(@RequestBody Purchase purchase) throws Exception {
-
-		System.out.println("/purchase/addPurchase : POST");
-		// Business Logic
-
-		System.out.println("add시작");
-		Product product1=productService.getProduct(purchase.getPurchaseProd().getProdNo());
-//		product1.setTotal(product1.getTotal()-purchase.getPurchaseCount());
-
-		User user1=userService.getUser(purchase.getBuyer().getUserId());
-		System.out.println("user:"+user1);
-
-		purchase.setPurchaseProd(product1);
-		purchase.setBuyer(user1);
-		purchase.setTranCode("100");
-		System.out.println("purchase:"+purchase);
-		
-		purchaseService.addPurchase(purchase);
-//		productService.updateProduct(product1);
-		
-		System.out.println("add끝");
-		
-		Map map=new HashMap();
-		map.put("purchase", purchase);
-		//map.put("product", product1);
-		
-		return map;
-	}
 //
-//	
+//	@RequestMapping(value = "json/addPurchase/{prodNo}", method = RequestMethod.GET)
+//	public Product addPurchase(@PathVariable int prodNo) throws Exception {
+//
+//		System.out.println("/purchase/addPurchase : GET");
+//		// Business Logic
+//
+//		System.out.println("prodNo="+prodNo);
+//		
+//		return productService.getProduct(prodNo);
+//	}
+	
+//	@RequestMapping(value = "json/addPurchase", method = RequestMethod.POST)
+//	public Map addPurchase(@RequestBody Purchase purchase,@RequestBody User user,@RequestBody Product product) throws Exception {
+//
+//		System.out.println("/purchase/addPurchase : POST");
+//		// Business Logic
+//
+//		System.out.println("add시작, purchase="+purchase);
+//		Product product1=productService.getProduct(purchase.getPurchaseProd().getProdNo());
+////		product1.setTotal(product1.getTotal()-purchase.getPurchaseCount());
+//
+//		User user1=userService.getUser(purchase.getBuyer().getUserId());
+//		System.out.println("user:"+user1);
+//
+//		purchase.setPurchaseProd(product1);
+//		purchase.setBuyer(user1);
+//		purchase.setTranCode("100");
+//		System.out.println("purchase:"+purchase);
+//		
+//		purchaseService.addPurchase(purchase);
+////		productService.updateProduct(product1);
+//		
+//		System.out.println("add끝");
+//		
+//		Map map=new HashMap();
+//		map.put("purchase", purchase);
+//		//map.put("product", product1);
+//		
+//		return map;
+//	}
+
+	
 //	@RequestMapping(value = "json/getPurchase/{prodNo}", method = RequestMethod.GET)
 //	public Purchase getPurchase(@PathVariable int prodNo) throws Exception {
 //

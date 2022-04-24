@@ -53,8 +53,9 @@ public class UserRestController {
 
 		System.out.println("/user/addUser : POST");
 		// Business Logic
-
-		System.out.println(user.getUserId());
+		
+		System.out.println("UserId:"+user.getUserId());
+		System.out.println(user);
 		userService.addUser(user);
 
 		return userService.getUser(user.getUserId());

@@ -59,7 +59,6 @@
 		 	$( ".Depth03:contains('상품검색')" ).on("click" , function() {
 				//Debug..
 				//alert(  $( ".Depth03:contains('회원정보조회')" ) );
-				console.log("아에오");
 		 		$(window.parent.frames["rightFrame"].document.location).attr("href","/product/listProduct?menu=search");
 		
 		});	
