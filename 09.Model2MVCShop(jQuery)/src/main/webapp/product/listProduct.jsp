@@ -24,8 +24,8 @@ $(function() {
 	$( ".ct_list_pop td:nth-child(3)" ).on("click" , function() {
 			//self.location ="/user/getUser?userId="+$(this).text().trim();
 			console.log("A¸óµ¥"+'${param.menu}');
-			console.log(	$( ".ct_list_pop td:nth-child(1)" )[0]);
-			console.log('${user.userId}');
+			console.log($(this).attr("value"));
+			self.location ="/product/getProduct?prodNo="+$(this).attr("value")+"&menu="+'${param.menu}';
 
 	});
 	
@@ -36,7 +36,6 @@ $(function() {
 	 
 	 
 });	
-
 
 
 </script>
@@ -150,31 +149,16 @@ $(function() {
 					<tr>
 						<td colspan="11" bgcolor="808285" height="1"></td>
 					</tr>
-
-
 					<c:set var="i" value="0" />
 					<c:forEach var="product" items="${list}" varStatus="status">
+					<input type="hidden" id="prodno" name="prodNo" value="${product.prodNo }"/>
 						<c:set var="i" value="${ i+1 }" />
 						<tr class="ct_list_pop">
 							<td align="center">${ i }</td>
 							<td></td>
-
-							<td align="left"><c:if
-									test="${param.menu.contains('manage')}">
-									<c:if
-										test="${!(product.proTranCode=='100'||product.proTranCode=='200'||product.proTranCode=='300') }">
+							<td align="left"  value="${product.prodNo }">
 										${product.prodName}
-										</c:if>
-
-								</c:if> 
-								<c:if test="${param.menu.contains('search')}">
-
-										<c:if
-											test="${(product.proTranCode=='100'||product.proTranCode=='200'||product.proTranCode=='300')&&(product.total==0)}">
-							${product.prodName }
-						</c:if>
-
-								</c:if></td>
+								</td>
 
 							<td></td>
 							<td align="left">${product.price}</td>
