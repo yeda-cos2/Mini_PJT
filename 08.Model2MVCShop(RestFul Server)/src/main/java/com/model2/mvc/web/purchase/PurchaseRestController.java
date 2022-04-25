@@ -3,8 +3,6 @@ package com.model2.mvc.web.purchase;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,57 +49,61 @@ public class PurchaseRestController {
 		System.out.println(this.getClass());
 	}
 
-//
-//	@RequestMapping(value = "json/addPurchase/{prodNo}", method = RequestMethod.GET)
-//	public Product addPurchase(@PathVariable int prodNo) throws Exception {
-//
-//		System.out.println("/purchase/addPurchase : GET");
-//		// Business Logic
-//
-//		System.out.println("prodNo="+prodNo);
-//		
-//		return productService.getProduct(prodNo);
-//	}
+
+	@RequestMapping(value = "json/addPurchase/{prodNo}", method = RequestMethod.GET)
+	public Product addPurchase(@PathVariable int prodNo) throws Exception {
+
+		System.out.println("/purchase/addPurchase : GET");
+		// Business Logic
+		
+		System.out.println("prodNo="+prodNo);
+		
+		return productService.getProduct(prodNo);
+	}
 	
-//	@RequestMapping(value = "json/addPurchase", method = RequestMethod.POST)
-//	public Map addPurchase(@RequestBody Purchase purchase,@RequestBody User user,@RequestBody Product product) throws Exception {
-//
-//		System.out.println("/purchase/addPurchase : POST");
-//		// Business Logic
-//
-//		System.out.println("add시작, purchase="+purchase);
-//		Product product1=productService.getProduct(purchase.getPurchaseProd().getProdNo());
-////		product1.setTotal(product1.getTotal()-purchase.getPurchaseCount());
-//
-//		User user1=userService.getUser(purchase.getBuyer().getUserId());
-//		System.out.println("user:"+user1);
-//
-//		purchase.setPurchaseProd(product1);
-//		purchase.setBuyer(user1);
-//		purchase.setTranCode("100");
-//		System.out.println("purchase:"+purchase);
-//		
-//		purchaseService.addPurchase(purchase);
-////		productService.updateProduct(product1);
-//		
-//		System.out.println("add끝");
-//		
-//		Map map=new HashMap();
-//		map.put("purchase", purchase);
-//		//map.put("product", product1);
-//		
-//		return map;
-//	}
+	@RequestMapping(value = "json/addPurchase")
+	public Map addPurchase(@RequestBody Purchase purchase) throws Exception {
+
+		System.out.println("/purchase/addPurchase : POST");
+		// Business Logic
+		System.out.println("add시작, purchase="+purchase);
+		Product product1=productService.getProduct(purchase.getPurchaseProd().getProdNo());
+		product1.setTotal(product1.getTotal()-purchase.getPurchaseCount());
+		System.out.println("재고:"+(product1.getTotal()-purchase.getPurchaseCount()));
+		
+		User user1=userService.getUser(purchase.getBuyer().getUserId());
+		System.out.println("user:"+user1);
+
+		purchase.setPurchaseProd(product1);
+		purchase.setBuyer(user1);
+		purchase.setTranCode("100");
+		purchase.setReceiverPhone(purchase.getReceiverPhone().replace("-", ""));
+		purchase.setDivyDate(purchase.getDivyDate().replace("-", ""));
+		System.out.println("purchase:"+purchase);
+		
+		purchaseService.addPurchase(purchase);
+		System.out.println("왜안돼");
+		productService.updateProduct(product1);
+		
+		System.out.println("add끝");
+		
+		Map map=new HashMap();
+		map.put("purchase", purchase);
+		map.put("product", product1);
+		
+		return map;
+	}
 
 	
-//	@RequestMapping(value = "json/getPurchase/{prodNo}", method = RequestMethod.GET)
-//	public Purchase getPurchase(@PathVariable int prodNo) throws Exception {
-//
-//		System.out.println("/purchase/json/getPurchase : GET");
-//
-//		// Business Logic
-//		return purchaseService.getPurchase(prodNo);
-//	}
+	@RequestMapping(value = "json/getPurchase/{tranNo}", method = RequestMethod.GET)
+	public Purchase getPurchase(@PathVariable int tranNo) throws Exception {
+
+		System.out.println("/purchase/json/getPurchase : GET");
+		System.out.println(tranNo);
+
+		// Business Logic
+		return purchaseService.getPurchase(tranNo);
+	}
 	
 //	@RequestMapping(value = "json/updatePurchase", method = RequestMethod.POST)
 //	public Purchase updatePurchase(@RequestBody Purchase purchase) throws Exception {

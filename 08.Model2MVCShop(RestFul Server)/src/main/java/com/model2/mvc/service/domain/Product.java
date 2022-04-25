@@ -89,6 +89,6 @@ public class Product {
 	public String toString() {
 		return "ProductVO : [tranCode]"+proTranCode+"[fileName]" + fileName
 				+ "[manuDate]" + manuDate+ "[price]" + price + "[prodDetail]" + prodDetail
-				+ "[prodName]" + prodName + "[prodNo]" + prodNo+"°³¼ö"+purchaseCount;
+				+ "[prodName]" + prodName + "[prodNo]" + prodNo+"[total]"+total;
 	}	
 }

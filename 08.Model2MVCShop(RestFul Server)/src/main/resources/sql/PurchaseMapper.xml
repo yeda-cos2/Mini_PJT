@@ -9,8 +9,8 @@
  	
 	<resultMap id="purchaseSelectMap" type="purchase">
 		<result property="tranNo" 			column="tran_no" 			jdbcType="NUMERIC"/>
-		<result property="paymentOption" 		column="PAYMENT_OPTION" 					jdbcType="NUMERIC" />
-		<result property="receiverName" 				column="RECEIVER_NAME" 					jdbcType="CHAR" />
+		<result property="paymentOption" 		column="PAYMENT_OPTION" 					jdbcType="VARCHAR" />
+		<result property="receiverName" 				column="RECEIVER_NAME" 					jdbcType="VARCHAR" />
 		<result property="receiverPhone" 			column="RECEIVER_PHONE" 		jdbcType="VARCHAR" />
 		<result property="divyAddr" 				column="DEMAILADDR" 					jdbcType="VARCHAR" />
 		<result property="divyRequest" 				column="DLVY_REQUEST" 					jdbcType="VARCHAR" />
@@ -30,9 +30,9 @@
 	<insert 	id="addPurchase"		parameterType="purchase" >
 	
 	 	INSERT
-		INTO transaction( tran_no , PROD_NO , BUYER_ID , PAYMENT_OPTION , RECEIVER_NAME, RECEIVER_PHONE, DEMAILADDR,DLVY_REQUEST,TRAN_STATUS_CODE,DLVY_DATE,ORDER_DATA,purchase_count) 
+		INTO transaction( tran_no , PROD_NO , BUYER_ID , PAYMENT_OPTION , RECEIVER_NAME, RECEIVER_PHONE, DEMAILADDR, DLVY_REQUEST, TRAN_STATUS_CODE, ORDER_DATA, DLVY_DATE, purchase_count) 
 		VALUES	 (	seq_transaction_tran_no.nextval , #{purchaseProd.prodNo},#{buyer.userId}, #{paymentOption} , #{receiverName} , #{receiverPhone} , #{divyAddr} , #{divyRequest},
-							#{tranCode},#{divyDate} ,SYSDATE,#{purchaseCount})
+							#{tranCode}, SYSDATE,  #{divyDate}, #{purchaseCount})
 	 </insert>
 	 
 	  <!-- SQL : SELECT ONE -->
