@@ -10,6 +10,7 @@ public interface PurchaseDao {
 	public void addPurchase(Purchase purchase) throws Exception;
 
 	public List<Purchase> getPurchaseList(Search search,String buyerId) throws Exception;
+	
 
 	public Purchase getPurchase(int tranNo) throws Exception;
 

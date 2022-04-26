@@ -181,6 +181,7 @@ public class PurchaseController {
 			System.out.println("À½À½"+purchase1);
 			
 			ModelAndView modelAndView=new ModelAndView();
+			
 			if(tranCode.equals("000")) {
 			Product product2=productService.getProduct(purchase1.getPurchaseProd().getProdNo());	
 			product2.setTotal(purchase1.getPurchaseCount()+product2.getTotal());

@@ -69,8 +69,6 @@
 			<a href="/user/getUser?userId=${purchase.buyer.userId}">${purchase.buyer.userId}</a>
 		
 			
-			
-			
 			</td>
 		
 		

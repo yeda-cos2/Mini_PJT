@@ -102,7 +102,7 @@
 			<td></td>
 			<td align="left">
 			
-			<c:if test="${user.role=='admin'}">
+			<c:if test="${user.role=='admin' }">
 			<c:choose>
 			<c:when test="${purchase.tranCode=='100'}">
 			구매완료 
@@ -122,10 +122,6 @@
 			</c:otherwise>
 			</c:choose>
 			</c:if>
-			
-			
-			
-			
 			
 			
 			<td></td>

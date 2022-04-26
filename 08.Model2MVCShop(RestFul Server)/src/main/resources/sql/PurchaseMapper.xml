@@ -87,7 +87,7 @@
 		
 		
 	 </select>
-	 
+	
 	 	<!-- SQL : SELECT ROW Count -->	 
 	 <select  id="getTotalCount"  parameterType="map"	 resultType="int">
 	  	SELECT COUNT(*)

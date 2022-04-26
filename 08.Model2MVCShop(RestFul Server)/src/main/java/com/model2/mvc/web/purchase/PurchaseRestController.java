@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.model2.mvc.common.Page;
+import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.Purchase;
 import com.model2.mvc.service.domain.User;
@@ -105,47 +107,103 @@ public class PurchaseRestController {
 		return purchaseService.getPurchase(tranNo);
 	}
 	
-//	@RequestMapping(value = "json/updatePurchase", method = RequestMethod.POST)
-//	public Purchase updatePurchase(@RequestBody Purchase purchase) throws Exception {
-//
-//		System.out.println("/purchase/updatePurchase : POST");
-//		
-//		// Business Logic
-//		
-//		System.out.println(purchase);
-//		System.out.println("시작"+purchase.getProdName());
-//		purchase.setManuDate(purchase.getManuDate().replace("-", ""));
-//
-//		purchaseService.updatePurchase(purchase);
-//		
-//		System.out.println("끝"+purchase.getProdName());
-//		return purchaseService.getPurchase(purchase.getProdNo());
-//	}
-//	
-//	@RequestMapping(value = "json/listPurchase", method = RequestMethod.POST)
-//	public Map listPurchase(@RequestBody Search search) throws Exception {
-//
-//		System.out.println("/purchase/json/listPurchase : POST");
-//		// Business Logic
-//		System.out.println(pageUnit);
-//		System.out.println(pageSize);
-//		if (search.getCurrentPage() == 0) {
-//			search.setCurrentPage(1);
-//		}
-//		search.setPageSize(pageSize);
-//
-//		Map<String, Object> map = purchaseService.getPurchaseList(search);
-//
-//		Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit,
-//				pageSize);
-//		System.out.println(resultPage);
-//
-//		Map map2 = new HashMap();
-//		map2.put("list", map.get("list"));
-//		map2.put("resultPage", map);
-//		map2.put("search", search);
-//		System.out.println("map" + map);
-//		return map2;
-//	}
-//	
+	@RequestMapping(value = "json/updatePurchase", method = RequestMethod.POST)
+	public Purchase updatePurchase(@RequestBody Purchase purchase) throws Exception {
+
+		System.out.println("/purchase/updatePurchase : POST");
+		
+		// Business Logic
+		
+		System.out.println(purchase);
+		System.out.println("시작"+purchase.getReceiverPhone());
+		purchase.setReceiverPhone(purchase.getReceiverPhone().replace("-", ""));
+		purchase.setDivyDate(purchase.getDivyDate().replace("-", ""));
+
+		purchaseService.updatePurchase(purchase);
+		
+		System.out.println("끝");
+		return purchaseService.getPurchase(purchase.getTranNo());
+	}
+	
+	@RequestMapping(value = "json/listPurchase/{buyerId}", method = RequestMethod.POST)
+	public Map listPurchase(@RequestBody Search search,@PathVariable String buyerId) throws Exception {
+
+		System.out.println("/purchase/json/listPurchase : POST");
+		// Business Logic
+		System.out.println(pageUnit);
+		System.out.println(pageSize);
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+
+		Map<String, Object> map = purchaseService.getPurchaseList(search, buyerId);
+
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit,
+				pageSize);
+		System.out.println(resultPage);
+
+		Map map2 = new HashMap();
+		map2.put("list", map.get("list"));
+		map2.put("resultPage", map);
+		map2.put("search", search);
+		System.out.println("map" + map);
+		return map2;
+	}
+	
+	@RequestMapping(value = "json/listSale/{buyerId}", method = RequestMethod.POST)
+	public Map listSale(@RequestBody Search search,@PathVariable String buyerId) throws Exception {
+
+		System.out.println("/purchase/json/listSale : POST");
+		// Business Logic
+		System.out.println(pageUnit);
+		System.out.println(pageSize);
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+
+		Map<String, Object> map = purchaseService.getPurchaseList(search, buyerId);
+
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit,
+				pageSize);
+		System.out.println(resultPage);
+
+		Map map2 = new HashMap();
+		map2.put("list", map.get("list"));
+		map2.put("resultPage", map);
+		map2.put("search", search);
+		System.out.println("map" + map);
+		return map2;
+	}
+	
+	@RequestMapping(value = "json/updateTranCode", method = RequestMethod.POST)
+	public Purchase updateTranCode(@RequestBody Purchase purchase) throws Exception {
+
+		System.out.println("/purchase/updatePurchase : POST");
+		
+		// Business Logic
+		Purchase purchase1=purchaseService.getPurchase(purchase.getTranNo());
+		System.out.println(purchase1.getTranCode());
+		
+		if(purchase1.getTranCode().equals("100")) {
+			purchase1.setTranCode("200");
+		}else if(purchase1.getTranCode().equals("200")) {
+			purchase1.setTranCode("300");
+		}
+		
+		System.out.println(purchase1.getTranCode());
+
+		
+		purchaseService.updateTranCode(purchase1);
+
+		if(purchase1.getTranCode().equals("000")) {
+			Product product2=productService.getProduct(purchase1.getPurchaseProd().getProdNo());	
+			product2.setTotal(purchase1.getPurchaseCount()+product2.getTotal());
+			productService.updateProduct(product2);
+			}
+		
+		System.out.println("끝");
+		return purchaseService.getPurchase(purchase1.getTranNo());
+	}
 }

@@ -200,8 +200,8 @@ function fncGetList(currentPage) {
 			</c:if>
 			<c:if test="${user.role=='admin' }">
 			<c:choose>
-			<c:when test="${product.proTranCode=='100'||product.proTranCode=='200'||product.proTranCode=='300'}">
-			구매완료
+			<c:when test="${(product.proTranCode=='100'||product.proTranCode=='200'||product.proTranCode=='300')&&(product.total==0)}">
+			재고없음
 			</c:when>
 			<c:otherwise>
 			판매중
