@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -13,12 +14,33 @@
 
 <script type="text/javascript">
 
+
 function fncGetList(currentPage) {
 	$("#currentPage").val(currentPage);
 	$("form").attr("method" , "POST").attr("action" , "/product/listProduct?menu=${param.menu}").submit();
 	console.log('${param.menu}');
 
 }
+
+
+let isEnd = false;
+
+$(function(){
+    $(window).scroll(function(){
+        let $window = $(this);
+        let scrollTop = $window.scrollTop();
+        let windowHeight = $window.height();
+        let documentHeight = $(document).height();
+        
+        console.log("documentHeight:" + documentHeight + " | scrollTop:" + scrollTop + " | windowHeight: " + windowHeight );
+        
+        // scrollbar의 thumb가 바닥 전 30px까지 도달 하면 리스트를 가져온다.
+        if( scrollTop + windowHeight + 30 > documentHeight ){
+        	fncGetList(1);
+        }
+    })
+    fncGetList(1);
+})
 
 $(function() {
 	 
@@ -35,8 +57,38 @@ $(function() {
 	
 	$( ".ct_list_pop td:nth-child(3)#search" ).on("click" , function() {
 			console.log($(this).attr("value"));
-			self.location ="/product/getProduct?menu=${param.menu}&prodNo="+$(this).attr("value")
+		//	self.location ="/product/getProduct?menu=${param.menu}&prodNo="+$(this).attr("value")
+			
+			var prodNo =$(this).attr("value");
+			$.ajax( 
+					{
+						url : "/product/json/getProduct/"+prodNo ,
+						method : "GET" ,
+						dataType : "json" ,
+						headers : {
+							"Accept" : "application/json",
+							"Content-Type" : "application/json"
+						},
+						success : function(JSONData , status) {
+							
+						//	alert("JSONData : \n"+JSONData);
 
+							var displayValue = "<h4>"
+														+":: 상품 조회 ::<br/><br/>"
+														+"상품번호 : "+JSONData.prodNo+"<br/><br/>"
+														+"상품명: "+JSONData.prodName+"<br/><br/>"
+														+"상세정보 : "+JSONData.prodDetail+"<br/><br/>"
+														+"재고 : "+JSONData.total+"<br/><br/>"
+														+"제조일자 : "+JSONData.manuDate+"<br/><br/>"
+														+"파일이미지  </br>"+"<img src='/images/uploadFiles/"+JSONData.fileName+"' width='300' height='300' /><br/>"
+														+"</h4>";
+							//Debug...									
+							//alert(displayValue);
+							$("h4").remove();
+							$( "#"+prodNo+"" ).html(displayValue);
+						}
+				});
+			
 	});
 	
 	$( ".ct_list_pop td:nth-child(3)#manage" ).on("click" , function() {
@@ -96,7 +148,7 @@ $(function() {
 							<option value="2"
 								${!empty search.searchCondition && search.searchCondition==2 ? "selected" : ""}>상품가격</option>
 					</select> 
-					<input type="text" name="searchKeyword" value="${!empty search.searchKeyword ? search.searchKeyword :"" }"  
+					<input type="text" id="keyword" name="searchKeyword" autocomplete="on" value="${!empty search.searchKeyword ? search.searchKeyword :"" }"  
 						class="ct_input_g" style="width: 200px; height: 20px"/>
 					</td>
 					<td align="right" width="70">
@@ -149,10 +201,6 @@ $(function() {
 
 
 
-			</td>
-			</tr>
-			</table>
-			<td align="right" width="70">
 
 				<table width="100%" border="0" cellspacing="0" cellpadding="0"
 					style="margin-top: 10px;">
@@ -176,13 +224,14 @@ $(function() {
 					<tr>
 						<td colspan="11" bgcolor="808285" height="1"></td>
 					</tr>
-					
 					<c:set var="i" value="0" />
-					<c:forEach var="product" items="${list}">
+					<c:forEach var="product" items="${list}" varStatus="status">
 						<c:set var="i" value="${ i+1 }" />
 						<tr class="ct_list_pop">
 							<td align="center">${ i }</td>
+							
 							<td></td>
+							
 										<c:if test="${param.menu.contains('manage')}">
 												<td align="left" id="manage" value="${product.prodNo }">${product.prodName}</td>
 										</c:if>
@@ -190,14 +239,13 @@ $(function() {
 									
 										<c:if test="${param.menu.contains('search')}">
 											<c:if test="${(product.proTranCode=='100'||product.proTranCode=='200'||product.proTranCode=='300')&&(product.total==0)}">
-												<td align="left" style="background-color:pink">${product.prodName}</td>	
+												<td align="left" style="background-color:#B4A696">${product.prodName}</td>	
 											</c:if>
 											<c:if test="${!(product.proTranCode=='100'||product.proTranCode=='200'||product.proTranCode=='300')}">
 												<td align="left"	id="search"  value="${product.prodNo }">${product.prodName}</td>	
 											</c:if>
 
 								</c:if>
-								</td>
 
 							<td></td>
 							<td align="left">${product.price}</td>
@@ -229,10 +277,15 @@ $(function() {
 								</c:if></td>
 						</tr>
 						<tr>
-							<td colspan="11" bgcolor="D6D7D6" height="1"></td>
+							<td  id="${product.prodNo }" colspan="11" bgcolor="#ffffff" height="1"></td>
+						
 						</tr>
 					</c:forEach>
-				</table> <!-- PageNavigation Start... -->
+				</table> 
+				
+				
+				
+				<!-- PageNavigation Start... -->
 				<table width="100%" border="0" cellspacing="0" cellpadding="0"
 					style="margin-top: 10px;">
 					<tr>
