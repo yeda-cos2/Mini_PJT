@@ -10,7 +10,14 @@
 <title>상품 목록조회</title>
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
+
+
 
 <script type="text/javascript">
 
@@ -23,26 +30,10 @@ function fncGetList(currentPage) {
 }
 
 
-let isEnd = false;
-
-$(function(){
-    $(window).scroll(function(){
-        let $window = $(this);
-        let scrollTop = $window.scrollTop();
-        let windowHeight = $window.height();
-        let documentHeight = $(document).height();
-        
-        console.log("documentHeight:" + documentHeight + " | scrollTop:" + scrollTop + " | windowHeight: " + windowHeight );
-        
-        // scrollbar의 thumb가 바닥 전 30px까지 도달 하면 리스트를 가져온다.
-        if( scrollTop + windowHeight + 30 > documentHeight ){
-        	fncGetList(1);
-        }
-    })
-    fncGetList(1);
-})
 
 $(function() {
+	
+
 	 
 	$( "td.ct_btn01:contains('검색')" ).on("click" , function() {
 		//Debug..
@@ -54,6 +45,8 @@ $(function() {
 		//Debug..
 		fncGetList(1);
 	});
+	
+
 	
 	$( ".ct_list_pop td:nth-child(3)#search" ).on("click" , function() {
 			console.log($(this).attr("value"));
@@ -73,23 +66,36 @@ $(function() {
 							
 						//	alert("JSONData : \n"+JSONData);
 
-							var displayValue = "<h4>"
-														+":: 상품 조회 ::<br/><br/>"
+							var displayValue = "<table class='display' width='100%' height='37' border='0' cellspacing=''>"
+														+"<tr>"
+														+"<td width='300px'>"
+														+"<h3>:: 상품 조회 ::</h3><br/>"
+				                                        +"<h4>"
 														+"상품번호 : "+JSONData.prodNo+"<br/><br/>"
 														+"상품명: "+JSONData.prodName+"<br/><br/>"
 														+"상세정보 : "+JSONData.prodDetail+"<br/><br/>"
 														+"재고 : "+JSONData.total+"<br/><br/>"
 														+"제조일자 : "+JSONData.manuDate+"<br/><br/>"
-														+"파일이미지  </br>"+"<img src='/images/uploadFiles/"+JSONData.fileName+"' width='300' height='300' /><br/>"
-														+"</h4>";
+														+"<img src='/images/uploadFiles/"+JSONData.fileName+"' width='300' height='300' /></td>"
+			                                            +"</h4>"
+			                                            +"</td>"
+			                                            +"<td></td>"
+				                                        +"<td width='975px' class='ct_btn01' align='right'> <b>구매</b></td>"
+														+"</tr>"
+														+"</table>";
 							//Debug...									
 							//alert(displayValue);
-							$("h4").remove();
+							$("table.display").remove();
 							$( "#"+prodNo+"" ).html(displayValue);
+							
+							$( "td.ct_btn01:contains('구매')" ).on("click" , function() {
+		            			self.location = "/purchase/addPurchase?menu=${param.menu}&prodNo="+prodNo
+		            		});
 						}
 				});
 			
 	});
+	
 	
 	$( ".ct_list_pop td:nth-child(3)#manage" ).on("click" , function() {
 		console.log($(this).attr("value"));
@@ -100,10 +106,29 @@ $(function() {
 	
 	//==> UI 수정 추가부분  :  userId LINK Event End User 에게 보일수 있도록 
 	$( ".ct_list_pop td:nth-child(3)" ).css("color" , "red");
-	 
-	 
+	//$("table.display").css("color","red");
 });	
 
+/*
+$(function() {
+	$("#auto").autocomplete({
+		source:function(request,response){
+			$.ajax( 
+					{
+						url : "json/autocomplete" ,
+						method : "POST" ,
+						dataType : "json" ,
+						data:request,
+						success : function(data) {
+							var result=data;
+							response(reulst);
+						};
+		                                });
+		}
+					});
+});
+		                                
+*/
 
 </script>
 </head>
@@ -133,7 +158,8 @@ $(function() {
 						width="12" height="37"></td>
 				</tr>
 			</table>
-
+			
+			
 			<table width="100%" border="0" cellspacing="0" cellpadding="0"
 				style="margin-top: 10px;">
 				<tr>
@@ -148,7 +174,7 @@ $(function() {
 							<option value="2"
 								${!empty search.searchCondition && search.searchCondition==2 ? "selected" : ""}>상품가격</option>
 					</select> 
-					<input type="text" id="keyword" name="searchKeyword" autocomplete="on" value="${!empty search.searchKeyword ? search.searchKeyword :"" }"  
+					<input type="text" id="auto" name="searchKeyword"  value="${!empty search.searchKeyword ? search.searchKeyword :"" }"  
 						class="ct_input_g" style="width: 200px; height: 20px"/>
 					</td>
 					<td align="right" width="70">
