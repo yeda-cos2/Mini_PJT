@@ -66,10 +66,11 @@ public class ProductController {
 
 	public String addProduct(@ModelAttribute("product") Product product,Model model) throws Exception {
 
-		System.out.println("/product/addProduct : post");
+		System.out.println("/product/addProduct : post ¿©±â");
 		// Business Logic
-		product.setManuDate(product.getManuDate().replace("-", ""));
-		
+		System.out.println("¿Ö¾Æ³­¿È"+product.getManuDate());
+		product.setManuDate(product.getManuDate().replace("/", ""));
+		System.out.println("¹¹¾ß"+product.getManuDate());
 		productService.addProduct(product);
 		
 		return "forward:/product/readProduct.jsp";

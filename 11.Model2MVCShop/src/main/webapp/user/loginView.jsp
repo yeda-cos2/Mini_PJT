@@ -44,8 +44,8 @@
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
     	 body >  div.container{ 
-        	border: 3px solid #D6CDB7;
-            margin-top: 10px;
+        	border: 4px solid #D6CDB7;
+            margin-top: 170px;
         }
     </style>
     
@@ -121,7 +121,7 @@
 	   	 	
 	 	 	<div class="col-md-6">
 	 	 	
-		 	 	<br/><br/>
+		 	 	<br/>
 				
 		 	 		<h1><img src="/images/bbbb.PNG"  width="300" height="150" /><br/></h1>
 
@@ -129,7 +129,7 @@
 			        <form class="form-horizontal">
 		  
 					  <div class="form-group">
-					    <label for="userId" class="col-sm-4 control-label">Id</label>
+					    <label for="userId" class="col-sm-4 control-label">Id&nbsp;</label>
 					    <div class="col-sm-6">
 					      <input type="text" class="form-control" name="userId" id="userId"  placeholder="¾ÆÀÌµð" >
 					    </div>

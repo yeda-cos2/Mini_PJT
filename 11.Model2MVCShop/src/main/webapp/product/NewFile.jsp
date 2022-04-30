@@ -1,6 +1,9 @@
 <%@ page contentType="text/html; charset=EUC-KR" %>
 <%@ page pageEncoding="EUC-KR"%>
 
+<!--  ///////////////////////// JSTL  ////////////////////////// -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <!DOCTYPE html>
 
@@ -18,176 +21,190 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	
+	
+	<!-- Bootstrap Dropdown Hover CSS -->
+   <link href="/css/animate.min.css" rel="stylesheet">
+   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+    <!-- Bootstrap Dropdown Hover JS -->
+   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+   
+   
+   <!-- jQuery UI toolTip 사용 CSS-->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <!-- jQuery UI toolTip 사용 JS-->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
-       body > div.container{
-        	border: 3px solid #D6CDB7;
-            margin-top: 10px;
+	  body {
+            padding-top : 50px;
         }
     </style>
     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
-	<script type="text/javascript" >
+	<script type="text/javascript">
+	
+		//=============    검색 / page 두가지 경우 모두  Event  처리 =============	
+		function fncGetList(currentPage) {
+			$("#currentPage").val(currentPage)
+			$("form").attr("method" , "POST").attr("action" , "/user/listUser").submit();
+		}
+		
+		
+		
+		//============= userId 에 회원정보보기  Event  처리(Click) =============	
+		 $(function() {
+		
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$( "td:nth-child(2)" ).on("click" , function() {
+				 self.location ="/user/getUser?userId="+$(this).text().trim();
+			});
+						
+			//==> userId LINK Event End User 에게 보일수 있도록 
+			$( "td:nth-child(2)" ).css("color" , "red");
+			
+		});	
+		
+		
+		//============= userId 에 회원정보보기  Event  처리 (double Click)=============
+		 $(function() {
+			 
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$(  "td:nth-child(5) > i" ).on("click" , function() {
 
+					var userId = $(this).next().val();
+				
+					$.ajax( 
+							{
+								url : "/user/json/getUser/"+userId ,
+								method : "GET" ,
+								dataType : "json" ,
+								headers : {
+									"Accept" : "application/json",
+									"Content-Type" : "application/json"
+								},
+								success : function(JSONData , status) {
 
-
-function fncAddProduct(){
-	//Form 유효성 검증
- 	var name = $("input[name='prodName']").val();
- 	var detail = $("input[name='prodDetail']").val();
- 	var manuDate = $("input[name='manuDate']").val();
- 	var price = $("input[name='price']").val();
-
-	if(name == null || name.length<1){
-		alert("상품명은 반드시 입력하여야 합니다.");
-		return;
-	}
-	if(detail == null || detail.length<1){
-		alert("상품상세정보는 반드시 입력하여야 합니다.");
-		return;
-	}
-	if(manuDate == null || manuDate.length<1){
-		alert("제조일자는 반드시 입력하셔야 합니다.");
-		return;
-	}
-	if(price == null || price.length<1){
-		alert("가격은 반드시 입력하셔야 합니다.");
-		return;
-	}
-
-	$("form").attr("method" , "POST").attr("action" , "/product/addProduct").submit();
-
-}
-
-
-$(function() {
-	 $( "td.ct_btn01:contains('등록')" ).on("click" , function() {
-		fncAddProduct();
-	});
-});
-
-$(function() {
-	//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-	//==> 1 과 3 방법 조합 : $("tagName.className:filter함수") 사용함.	
-	 $( "td.ct_btn01:contains('취소')" ).on("click" , function() {
-			//Debug..
-			//alert(  $( "td.ct_btn01:contains('취소')" ).html() );
-			$("form")[0].reset();
-	});
-});
-
-	</script>		
-    
+									var displayValue = "<h6>"
+																+"아이디 : "+JSONData.userId+"<br/>"
+																+"이  름 : "+JSONData.userName+"<br/>"
+																+"이메일 : "+JSONData.email+"<br/>"
+																+"ROLE : "+JSONData.role+"<br/>"
+																+"등록일 : "+JSONData.regDateString+"<br/>"
+																+"</h6>";
+									$("h6").remove();
+									$( "#"+userId+"" ).html(displayValue);
+								}
+						});
+						////////////////////////////////////////////////////////////////////////////////////////////
+					
+			});
+			
+			//==> userId LINK Event End User 에게 보일수 있도록 
+			$( ".ct_list_pop td:nth-child(3)" ).css("color" , "red");
+			$("h7").css("color" , "red");
+			
+			//==> 아래와 같이 정의한 이유는 ??
+			$(".ct_list_pop:nth-child(4n+6)" ).css("background-color" , "whitesmoke");
+		});	
+	
+	</script>
+	
 </head>
 
 <body>
-	<form name="detailForm">
-
+	
 	<!-- ToolBar Start /////////////////////////////////////-->
-	<div class="navbar  navbar-default">
-        <div class="container">
-        	<a class="navbar-brand" href="/index.jsp">Model2 MVC Shop</a>
-   		</div>
-   	</div>
+	<jsp:include page="/layout/toolbar.jsp" />
    	<!-- ToolBar End /////////////////////////////////////-->
-
+	
 	<!--  화면구성 div Start /////////////////////////////////////-->
 	<div class="container">
 	
-		<h1 class="bg-primary text-center">회 원 가 입</h1>
+		<div class="page-header text-info">
+	       <h3>회원목록조회</h3>
+	    </div>
+	    
+	    <!-- table 위쪽 검색 Start /////////////////////////////////////-->
+	    <div class="row">
+	    
+		    <div class="col-md-6 text-left">
+		    	<p class="text-primary">
+		    		전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지
+		    	</p>
+		    </div>
+		    
+		    <div class="col-md-6 text-right">
+			    <form class="form-inline" name="detailForm">
+			    
+				  <div class="form-group">
+				    <select class="form-control" name="searchCondition" >
+						<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>회원ID</option>
+						<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>회원명</option>
+					</select>
+				  </div>
+				  
+				  <div class="form-group">
+				    <label class="sr-only" for="searchKeyword">검색어</label>
+				    <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어"
+				    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
+				  </div>
+				  
+				  <button type="button" class="btn btn-default">검색</button>
+				  
+				  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
+				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
+				  
+				</form>
+	    	</div>
+	    	
+		</div>
+		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
 		
-		<!-- form Start /////////////////////////////////////-->
-		<form class="form-horizontal">
 		
-		  <div class="form-group">
-		    <label for="userId" class="col-sm-offset-1 col-sm-3 control-label">아 이 디</label>
-		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="userId" name="userId" placeholder="중복확인하세요"  readonly>
-		       <span id="helpBlock" class="help-block">
-		      	<strong class="text-danger">입력전 중복확인 부터..</strong>
-		      </span>
-		    </div>
-		    <div class="col-sm-3">
-		      <button type="button" class="btn btn-info">중복확인</button>
-		    </div>
-		  </div>
-		  
-		  <div class="form-group">
-		    <label for="password" class="col-sm-offset-1 col-sm-3 control-label">비밀번호</label>
-		    <div class="col-sm-4">
-		      <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호">
-		    </div>
-		  </div>
-		  
-		  <div class="form-group">
-		    <label for="password2" class="col-sm-offset-1 col-sm-3 control-label">비밀번호 확인</label>
-		    <div class="col-sm-4">
-		      <input type="password" class="form-control" id="password2" name="password2" placeholder="비밀번호 확인">
-		    </div>
-		  </div>
-		  
-		  <div class="form-group">
-		    <label for="userName" class="col-sm-offset-1 col-sm-3 control-label">이름</label>
-		    <div class="col-sm-4">
-		      <input type="password" class="form-control" id="userName" name="userName" placeholder="회원이름">
-		    </div>
-		  </div>
-		  
-		  <div class="form-group">
-		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">주민번호</label>
-		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="ssn" name="ssn" placeholder="주민번호">
-		      <span id="helpBlock" class="help-block">
-		      	 <strong class="text-danger">" -  " 제외 13자리입력하세요</strong>
-		      </span>
-		    </div>
-		  </div>
-		  
-		  <div class="form-group">
-		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">주소</label>
-		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="addr" name="addr" placeholder="주소">
-		    </div>
-		  </div>
-		  
-		  <div class="form-group">
-		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">휴대전화번호</label>
-		     <div class="col-sm-2">
-		      <select class="form-control" name="phone1" id="phone1">
-				  	<option value="010" >010</option>
-					<option value="011" >011</option>
-					<option value="016" >016</option>
-					<option value="018" >018</option>
-					<option value="019" >019</option>
-				</select>
-		    </div>
-		    <div class="col-sm-2">
-		      <input type="text" class="form-control" id="phone2" name="phone2" placeholder="번호">
-		    </div>
-		    <div class="col-sm-2">
-		      <input type="text" class="form-control" id="phone3" name="phone3" placeholder="번호">
-		    </div>
-		    <input type="hidden" name="phone"  />
-		  </div>
-		  
-		   <div class="form-group">
-		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">이메일</label>
-		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="email" name="email" placeholder="이메일">
-		    </div>
-		  </div>
-		  
-		  <div class="form-group">
-		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button" class="btn btn-primary"  >가 &nbsp;입</button>
-			  <a class="btn btn-primary btn" href="#" role="button">취&nbsp;소</a>
-		    </div>
-		  </div>
-		</form>
-		<!-- form Start /////////////////////////////////////-->
+      <!--  table Start /////////////////////////////////////-->
+      <table class="table table-hover table-striped" >
+      
+        <thead>
+          <tr>
+            <th align="center">No</th>
+            <th align="left" >상품명</th>
+            <th align="left">가격</th>
+            <th align="left">상품재고</th>
+            <th align="left">등록일</th>
+            <th align="left">현재상태</th>
+          </tr>
+        </thead>
+       
+		<tbody>
 		
+		  <c:set var="i" value="0" />
+		  <c:forEach var="user" items="${list}">
+			<c:set var="i" value="${ i+1 }" />
+			<tr>
+			  <td align="center">${ i }</td>
+			  <td align="left"  title="Click : 회원정보 확인">${user.userId}</td>
+			  <td align="left">${user.userName}</td>
+			  <td align="left">${user.email}</td>
+			  <td align="left">
+			  	<i class="glyphicon glyphicon-ok" id= "${user.userId}"></i>
+			  	<input type="hidden" value="${user.userId}">
+			  </td>
+			</tr>
+          </c:forEach>
+        
+        </tbody>
+      
+      </table>
+	  <!--  table End /////////////////////////////////////-->
+	  
  	</div>
-	<!--  화면구성 div end /////////////////////////////////////-->
+ 	<!--  화면구성 div End /////////////////////////////////////-->
+ 	
+ 	
+ 	<!-- PageNavigation Start... -->
+	<jsp:include page="../common/pageNavigator_new.jsp"/>
+	<!-- PageNavigation End... -->
 	
 </body>
 

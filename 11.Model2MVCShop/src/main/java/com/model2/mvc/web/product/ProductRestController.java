@@ -56,7 +56,7 @@ public class ProductRestController {
 
 		System.out.println("add시작");
 		product.setManuDate(product.getManuDate().replace("-", ""));
-
+		
 		productService.addProduct(product);
 		System.out.println("add끝");
 		
@@ -85,6 +85,7 @@ public class ProductRestController {
 		
 		System.out.println(product);
 		System.out.println("시작"+product.getProdName());
+		System.out.println(product.getManuDate());
 		product.setManuDate(product.getManuDate().replace("-", ""));
 
 		productService.updateProduct(product);
