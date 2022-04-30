@@ -105,7 +105,7 @@ public class UserController {
 	@RequestMapping( value="login", method=RequestMethod.GET )
 	public String login() throws Exception{
 		
-		System.out.println("/user/logon : GET");
+		System.out.println("/user/logon : GET ¿©±â");
 
 		return "redirect:/user/loginView.jsp";
 	}

@@ -66,7 +66,7 @@ public class ProductController {
 
 	public String addProduct(@ModelAttribute("product") Product product,Model model) throws Exception {
 
-		System.out.println("/product/addProduct : post 여기");
+		System.out.println("/product/addProduct : POST");
 		// Business Logic
 		System.out.println("왜아난옴"+product.getManuDate());
 		product.setManuDate(product.getManuDate().replace("/", ""));
