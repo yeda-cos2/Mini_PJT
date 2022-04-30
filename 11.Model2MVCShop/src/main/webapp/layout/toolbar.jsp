@@ -83,8 +83,7 @@
 	                         <span class="caret"></span>
 	                     </a>
 	                     <ul class="dropdown-menu">
-	                         <li><a href="#">상 품 검 색</a></li>
-	                         
+	                         <li><a href="#">상품검색</a></li>
 	                         <c:if test="${sessionScope.user.role == 'user'}">
 	                           <li><a href="#">구매이력조회</a></li>
 	                         </c:if>

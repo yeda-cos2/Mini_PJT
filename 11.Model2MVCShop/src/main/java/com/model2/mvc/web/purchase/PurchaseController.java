@@ -87,10 +87,14 @@ public class PurchaseController {
 			HttpSession session=request.getSession();
 			User user=(User)session.getAttribute("user");			
 			purchase.setBuyer(user);
-
+			
+			String a=purchase.getDivyDate().replace("/", "");
+			System.out.println("¿©±â"+a.substring(4,8)+a.substring(0,4));
+			purchase.setDivyDate(a.substring(4,8)+a.substring(0,4));
+			
 			purchase.setTranCode("100");
 			
-			System.out.println("purchase:"+purchase);
+			System.out.println("purchaseporrr:"+purchase);
 			
 			purchaseService.addPurchase(purchase);
 			productService.updateProduct(product1);

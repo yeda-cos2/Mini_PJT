@@ -39,6 +39,8 @@
 	  body {
             padding-top : 50px;
         }
+        
+       
     </style>
     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
@@ -60,68 +62,77 @@
 			 $( "#find" ).on("click" , function() {
 					fncGetList(1);
 				});
+			 
+			 
+			 //$( ".ct_list_pop td:nth-child(3)" ).css("color" , "red");
+				
+			$("td.manage").css("color","green");
+			
+			$("td.manage").on("click" , function() {
+				console.log($(this).attr("value"));
+				self.location ="/product/updateProduct?menu=${param.menu}&prodNo="+$(this).attr("value")
+
+			});
+			
+			$( "td.search" ).on("click" , function() {
+				console.log($(this).attr("value"));
+				self.location ="/product/getProduct?menu=${param.menu}&prodNo="+$(this).attr("value")
+				
+				var prodNo =$(this).attr("value");
+				$.ajax( 
+						{
+							url : "/product/json/getProduct/"+prodNo ,
+							method : "GET" ,
+							dataType : "json" ,
+							headers : {
+								"Accept" : "application/json",
+								"Content-Type" : "application/json"
+							},
+							success : function(JSONData , status) {
+								
+							//	alert("JSONData : \n"+JSONData);
+
+								var displayValue = "<table class='display' width='100%' height='37' border='0' cellspacing=''>"
+															+"<tr>"
+															+"<td width='300px'>"
+															+"<h3>:: 상품 조회 ::</h3><br/>"
+					                                        +"<h4>"
+															+"상품번호 : "+JSONData.prodNo+"<br/><br/>"
+															+"상품명: "+JSONData.prodName+"<br/><br/>"
+															+"상세정보 : "+JSONData.prodDetail+"<br/><br/>"
+															+"재고 : "+JSONData.total+"<br/><br/>"
+															+"제조일자 : "+JSONData.manuDate+"<br/><br/>"
+															+"<img src='/images/uploadFiles/"+JSONData.fileName+"' width='300' height='300' /></td>"
+				                                            +"</h4>"
+				                                            +"</td>"
+				                                            +"<td></td>"
+					                                        +"<td width='975px' class='ct_btn01' align='right'> <b>구매</b></td>"
+															+"</tr>"
+															+"</table>";
+								//Debug...									
+								//alert(displayValue);
+								$("table.display").remove();
+								$( "#"+prodNo+"" ).html(displayValue);
+								
+								$( "td.ct_btn01:contains('구매')" ).on("click" , function() {
+			            			self.location = "/purchase/addPurchase?menu=${param.menu}&prodNo="+prodNo
+			            		});
+							}
+					});
+				
+				});
+			 
+			 
 		 });
 		
 
-		$( ".ct_list_pop td:nth-child(3)#search" ).on("click" , function() {
-			console.log($(this).attr("value"));
-		//	self.location ="/product/getProduct?menu=${param.menu}&prodNo="+$(this).attr("value")
-			
-			var prodNo =$(this).attr("value");
-			$.ajax( 
-					{
-						url : "/product/json/getProduct/"+prodNo ,
-						method : "GET" ,
-						dataType : "json" ,
-						headers : {
-							"Accept" : "application/json",
-							"Content-Type" : "application/json"
-						},
-						success : function(JSONData , status) {
-							
-						//	alert("JSONData : \n"+JSONData);
-
-							var displayValue = "<table class='display' width='100%' height='37' border='0' cellspacing=''>"
-														+"<tr>"
-														+"<td width='300px'>"
-														+"<h3>:: 상품 조회 ::</h3><br/>"
-				                                        +"<h4>"
-														+"상품번호 : "+JSONData.prodNo+"<br/><br/>"
-														+"상품명: "+JSONData.prodName+"<br/><br/>"
-														+"상세정보 : "+JSONData.prodDetail+"<br/><br/>"
-														+"재고 : "+JSONData.total+"<br/><br/>"
-														+"제조일자 : "+JSONData.manuDate+"<br/><br/>"
-														+"<img src='/images/uploadFiles/"+JSONData.fileName+"' width='300' height='300' /></td>"
-			                                            +"</h4>"
-			                                            +"</td>"
-			                                            +"<td></td>"
-				                                        +"<td width='975px' class='ct_btn01' align='right'> <b>구매</b></td>"
-														+"</tr>"
-														+"</table>";
-							//Debug...									
-							//alert(displayValue);
-							$("table.display").remove();
-							$( "#"+prodNo+"" ).html(displayValue);
-							
-							$( "td.ct_btn01:contains('구매')" ).on("click" , function() {
-		            			self.location = "/purchase/addPurchase?menu=${param.menu}&prodNo="+prodNo
-		            		});
-						}
-				});
-			
-	});
+		
 	
 	
-	$( ".ct_list_pop td:nth-child(3)#manage" ).on("click" , function() {
-		console.log($(this).attr("value"));
-		self.location ="/product/updateProduct?menu=${param.menu}&prodNo="+$(this).attr("value")
-
-	});
 	
 	
-	//==> UI 수정 추가부분  :  userId LINK Event End User 에게 보일수 있도록 
-	$( ".ct_list_pop td:nth-child(3)" ).css("color" , "red");
-
+	
+	
 	
 	</script>
 	
@@ -137,7 +148,14 @@
 	<div class="container">
 	
 		<div class="page-header text-info">
-	       <h3>상품목록조회</h3>
+	       <h3>
+	       <c:if test="${param.menu.contains('manage') }">
+	       상품관리
+	       </c:if>
+	       <c:if test="${param.menu.contains('search') }">
+	       상품목록조회
+	       </c:if>
+	       </h3>
 	    </div>
 	    
 	    <!-- table 위쪽 검색 Start /////////////////////////////////////-->
@@ -210,7 +228,7 @@
         <thead>
           <tr>
             <th align="center">No</th>
-            <th align="center" >상품명</th>
+            <th align="center">상품명</th>
             <th align="center">가격</th>
             <th align="center">상품재고</th>
             <th align="center">등록일</th>
@@ -225,14 +243,8 @@
 					<c:set var="i" value="${ i+1 }" />
 					<tr class="ct_list_pop">
 						<td align="center">${ i }</td>
-							
-						
-
-						
-						
-
 						<c:if test="${param.menu.contains('manage')}">
-							<td align="left" id="manage" value="${product.prodNo }">${product.prodName}</td>
+							<td align="left" class="manage" value="${product.prodNo}">${product.prodName}</td>
 						</c:if>
 
 
@@ -243,7 +255,7 @@
 							</c:if>
 							<c:if
 								test="${!(product.proTranCode=='100'||product.proTranCode=='200'||product.proTranCode=='300')}">
-								<td align="left" id="search" value="${product.prodNo }">${product.prodName}</td>
+								<td align="left" class="search" value="${product.prodNo }">${product.prodName}</td>
 							</c:if>
 
 						</c:if>
@@ -274,12 +286,13 @@
 								</c:choose>
 							</c:if></td>
 					</tr>
-					<tr>
+					
+				</c:forEach>
+				<tr>
 						<td id="${product.prodNo }" colspan="11" bgcolor="#ffffff"
 							height="1"></td>
 
 					</tr>
-				</c:forEach>
 
 			</tbody>
 
