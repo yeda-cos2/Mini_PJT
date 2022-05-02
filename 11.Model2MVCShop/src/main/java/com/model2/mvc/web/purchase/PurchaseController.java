@@ -73,6 +73,7 @@ public class PurchaseController {
 			System.out.println("/purchase/addPurchase : POST");
 			//Business Logic
 			String a=purchase.getDivyDate().replace("/", "");
+			System.out.println("저기"+a);
 			System.out.println("여기"+a.substring(4,8)+a.substring(0,4));
 			System.out.println("prodNo="+product.getProdNo());
 			
