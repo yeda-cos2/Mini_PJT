@@ -29,7 +29,17 @@
 	<style>
         body {
             padding-top : 70px;
+			font-family: 'Gowun Batang', serif; 
+     
         }
+        
+        blockquote {
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-left: 10px solid #75574B;
+}
    	</style>
    	
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
@@ -90,40 +100,48 @@
 	
 	</div>
 
+
 	<!-- 참조 : http://getbootstrap.com/css/   : container part..... -->
 	<div class="container">
 	
 <div class="row">
+
 <br/><br/>
+  <div class="col-sm-12 col-md-12 col-lg-12">
+<blockquote>
+  <p style="color:#75574B  ;"><b>이달의 Best 상품</b></p>
+</blockquote>
+</div>
+
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
-      <img src="/images/724f126adf00375bcd26eb1efbc393e23e1c157f468014a1479794687a33.jpg" alt="...">
+      <img src="/images/ddc55d4ef3b0257f17c2bb8560a40c91.jpg" height="300" alt="...">
       <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p>...</p>
-        <p><a href="#" class="btn btn-default" role="button">상세정보</a> <a href="#" class="btn btn-default" role="button">구매</a></p>
+        <h4 style="color:black;">Vintage Plate</h4>
+        <p>31000원</p>
+        <p><a href="/product/getProduct?menu=search&prodNo=10000" class="btn btn-default" role="button">상세정보</a> <a href="/purchase/addPurchase?menu=search&prodNo=10000" class="btn btn-default" role="button">구매</a></p>
       </div>
     </div>
   </div>
   
    <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
-      <img src="/images/724f126adf00375bcd26eb1efbc393e23e1c157f468014a1479794687a33.jpg" alt="...">
+      <img src="/images/ddd.PNG" height="300" alt="...">
       <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p>...</p>
-        <p><a href="#" class="btn btn-default" role="button">상세정보</a> <a href="#" class="btn btn-default" role="button">구매</a></p>
+        <h4 style="color:black;">Wood Tray</h4>
+        <p>12000원</p>
+        <p><a href="/product/getProduct?menu=search&prodNo=10000" class="btn btn-default" role="button">상세정보</a> <a href="/purchase/addPurchase?menu=search&prodNo=10000" class="btn btn-default" role="button">구매</a></p>
       </div>
     </div>
   </div>
   
    <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
-      <img src="/images/724f126adf00375bcd26eb1efbc393e23e1c157f468014a1479794687a33.jpg" alt="...">
+      <img src="/images/1622711370004681.jpg" height="300" alt="...">
       <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p>...</p>
-        <p><a href="#" class="btn btn-default" role="button">상세정보</a> <a href="#" class="btn btn-default" role="button">구매</a></p>
+        <h4 style="color:black;">Conchiglioni Rigati</h4>
+        <p>14000원</p>
+        <p><a href="/product/getProduct?menu=search&prodNo=10000" class="btn btn-default" role="button">상세정보</a> <a href="/purchase/addPurchase?menu=search&prodNo=10000" class="btn btn-default" role="button">구매</a></p>
       </div>
     </div>
   </div>

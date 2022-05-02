@@ -72,7 +72,8 @@ public class PurchaseController {
 			
 			System.out.println("/purchase/addPurchase : POST");
 			//Business Logic
-			
+			String a=purchase.getDivyDate().replace("/", "");
+			System.out.println("여기"+a.substring(4,8)+a.substring(0,4));
 			System.out.println("prodNo="+product.getProdNo());
 			
 			Product product1=productService.getProduct(product.getProdNo());
@@ -88,7 +89,7 @@ public class PurchaseController {
 			User user=(User)session.getAttribute("user");			
 			purchase.setBuyer(user);
 			
-			String a=purchase.getDivyDate().replace("/", "");
+			//String a=purchase.getDivyDate().replace("/", "");
 			System.out.println("여기"+a.substring(4,8)+a.substring(0,4));
 			purchase.setDivyDate(a.substring(4,8)+a.substring(0,4));
 			

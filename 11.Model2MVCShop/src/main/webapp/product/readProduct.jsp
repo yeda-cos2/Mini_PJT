@@ -7,10 +7,14 @@
 <title>상품상세조회</title>
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
 	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	
 	<script type="text/javascript">
+	
 	
 	 $(function() {
 			 $( "td.ct_btn01:contains('확인')" ).on("click" , function() {

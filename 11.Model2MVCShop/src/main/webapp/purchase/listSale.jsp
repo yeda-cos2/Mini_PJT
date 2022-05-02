@@ -1,226 +1,267 @@
-<%@ page contentType="text/html; charset=euc-kr" %>
+<%@ page contentType="text/html; charset=EUC-KR" %>
+<%@ page pageEncoding="EUC-KR"%>
 
+<!--  ///////////////////////// JSTL  ////////////////////////// -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<html>
+
+<!DOCTYPE html>
+
+<html lang="ko">
+	
 <head>
-<title>판매 목록조회</title>
-
-
-<link rel="stylesheet" href="/css/admin.css" type="text/css">
-	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	<meta charset="EUC-KR">
 	
+	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	
+	
+	<!-- Bootstrap Dropdown Hover CSS -->
+   <link href="/css/animate.min.css" rel="stylesheet">
+   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+    <!-- Bootstrap Dropdown Hover JS -->
+   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+   
+   
+   <!-- jQuery UI toolTip 사용 CSS-->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <!-- jQuery UI toolTip 사용 JS-->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
+	<!--  ///////////////////////// CSS ////////////////////////// -->
+	<style>
+	  body {
+            padding-top : 50px;
+        }
+        
+        .tableheader th{
+       text-align:center;
+       }
+    </style>
+    
+       
+            <style>
+	.page-header.text-info {font-family: 'Gowun Batang', serif; font-weight:bold; color:#75574B}
+	.text-info {font-family: 'Gowun Batang', serif; font-weight:bold; color:#75574B}
+	.row { font-family: 'Gowun Batang', serif;}
+	.table.table-hover.table-striped { font-family: 'Gowun Batang', serif;}
+
+</style>
+    
+     <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
-	// 검색 / page 두가지 경우 모두 Form 전송을 위해 JavaScrpt 이용  
-	function fncGetList(currentPage) {
-		document.getElementById("currentPage").value = currentPage;
-	   	document.detailForm.submit();		
-	}
 	
-$(function(){
+		//=============    검색 / page 두가지 경우 모두  Event  처리 =============	
+		function fncGetList(currentPage) {
+			$("#currentPage").val(currentPage)
+			$("form").attr("method" , "POST").attr("action" , "/purchase/listSale").submit();
+		}
 		
-		$( ".ct_list_pop td:nth-child(3)" ).on("click" , function() {
-			console.log($(this).attr("value"));
-					
-			var prodNo =$(this).attr("value");
-			$.ajax( 
-					{
-						url : "/product/json/getProduct/"+prodNo ,
-						method : "GET" ,
-						dataType : "json" ,
-						headers : {
-							"Accept" : "application/json",
-							"Content-Type" : "application/json"
-						},
-						success : function(JSONData , status) {
-							
-						//	alert("JSONData : \n"+JSONData);
-
-							var displayValue = "<h4>"
-														+":: 상품 조회 ::<br/><br/>"
-														+"상품번호 : "+JSONData.prodNo+"<br/><br/>"
-														+"상품명: "+JSONData.prodName+"<br/><br/>"
-														+"상세정보 : "+JSONData.prodDetail+"<br/><br/>"
-														+"재고 : "+JSONData.total+"<br/><br/>"
-														+"제조일자 : "+JSONData.manuDate+"<br/><br/>"
-														+"파일이미지  </br>"+"<img src='/images/uploadFiles/"+JSONData.fileName+"' width='300' height='300' /><br/>"
-														+"</h4>";
-							//Debug...									
-							//alert(displayValue);
-							$("h3").remove();
-							$("h4").remove();
-							$( "#"+prodNo+"" ).html(displayValue);
-						}
-				});
+		
+		 $(function() {
+		
+						
+			$( "td.buyer" ).css("color" , "green");
+			$( "td.dv:contains('배송하기')" ).css("color" , "red");
+			$( ".ct_list_pop td:nth-child(3)" ).css("color" , "green");
 			
-	});
+			$( "td.dv:contains('배송하기')" ).on("click" , function() {
+				console.log("tranNo"+$(this).attr("value"));
+				self.location ="/purchase/updateTranCode?menu=search&tranCode=100&tranNo="+$(this).attr("value")
+		});
+			
+			
+		});	
 		
-		$( ".ct_list_pop td:nth-child(7)" ).on("click" , function() {
-			console.log("tranNo"+$(this).attr("value"));
-			self.location ="/purchase/updateTranCode?menu=search&tranCode=100&tranNo="+$(this).attr("value")
-	});
 		
-		$( ".ct_list_pop td:nth-child(9)" ).on("click" , function() {
-			console.log("userId:"+$(this).attr("value"));
-			//self.location ="/user/getUser?userId="+$(this).attr("value")
-			var userId = $(this).text().trim();
-			$.ajax( 
-					{
-						url : "/user/json/getUser/"+userId ,
-						method : "GET" ,
-						dataType : "json" ,
-						headers : {
-							"Accept" : "application/json",
-							"Content-Type" : "application/json"
-						},
-						success : function(JSONData , status) {
-
-							//Debug...
-							//alert(status);
-							//Debug...
-							//alert("JSONData : \n"+JSONData);
+		 $(function(){
+				
+				$( "td.tno" ).on("click" , function() {
+					console.log($(this).attr("value"));
 							
-							var displayValue = "<h3>"
-														+":: 회원 조회 ::<br/>"
-														+"아이디 : "+JSONData.userId+"<br/>"
-														+"이  름 : "+JSONData.userName+"<br/>"
-														+"이메일 : "+JSONData.email+"<br/>"
-														+"ROLE : "+JSONData.role+"<br/>"
-														+"등록일 : "+JSONData.regDateString+"<br/>"
-														+"</h3>";
-							//Debug...									
-							//alert(displayValue);
-							$("h4").remove();
-							$("h3").remove();
-							$( "#"+userId+"" ).html(displayValue);
-						}
+					var tranNo =$(this).attr("value");
+					
+					$.ajax( 
+							{
+								url : "/purchase/json/getPurchase/"+tranNo ,
+								method : "GET" ,
+								dataType : "json" ,
+								headers : {
+									"Accept" : "application/json",
+									"Content-Type" : "application/json"
+								},
+								success : function(JSONData , status) {
+									
+									alert("JSONData : \n"+JSONData);
+
+									var displayValue = "<h4>"
+																+":: 구매 정보 조회 ::<br/><br/>"
+																+"구매번호 : "+JSONData.tranNo+"<br/>"
+																+"구매방법 : "+JSONData.paymentOption+"<br/>"
+																+"구매자성명 : "+JSONData.receiverName+"<br/>"
+																+"구매자연락처 : "+JSONData.receiverPhone+"<br/>"
+																+"배송지 : "+JSONData.divyAddr+"<br/>"
+																+"구매수량 : "+JSONData.purchaseCount+"개<br/>"
+																+"요청사항 : "+JSONData.divyRequest+"<br/>"
+																+"배송희망일자 : "+JSONData.divyDate+"<br/>"
+																+"</br>"+"<img src='/images/hot1585752371188.jpg' width='300' height='300' /><br/><br/>"
+
+																+"</h4>";
+									//Debug...									
+									//alert(displayValue);
+									$("h3").remove();
+									$("h4").remove();
+									$( "#"+tranNo+"" ).html(displayValue);
+								}
+						});		
+							
 				});
-	});
-		
-		$( ".ct_list_pop td:nth-child(3)" ).css("color" , "orange");
-		$( ".ct_list_pop td:nth-child(7)" ).css("color" , "red");
-		$( ".ct_list_pop td:nth-child(9)" ).css("color" , "green");
-});	
+				
+				$( "td.buyer" ).on("click" , function() {
+					console.log($(this).attr("value"));
+					var userId = $(this).text().trim();
+					$.ajax( 
+							{
+								url : "/user/json/getUser/"+userId ,
+								method : "GET" ,
+								dataType : "json" ,
+								headers : {
+									"Accept" : "application/json",
+									"Content-Type" : "application/json"
+								},
+								success : function(JSONData , status) {
 
-</script>
-
+									//Debug...
+									//alert(status);
+									//Debug...
+									alert("JSONData : \n"+JSONData.userId);
+									
+									var displayValue = "<h3>"
+																+":: 회원 조회 ::<br/>"
+																+"아이디 : "+JSONData.userId+"<br/>"
+																+"이  름 : "+JSONData.userName+"<br/>"
+																+"이메일 : "+JSONData.email+"<br/>"
+																+"ROLE : "+JSONData.role+"<br/>"
+																+"등록일 : "+JSONData.regDateString+"<br/>"
+																+"</h3>";
+									//Debug...									
+									//alert(displayValue);
+									$("h4").remove();
+									$("h3").remove();
+									$( "#"+userId+"" ).html(displayValue);
+								}
+						});
+			});
+				
+			});
+			
+	
+	</script>
+	
 </head>
 
-<body bgcolor="#ffffff" text="#000000">
+<body>
+	
+	<!-- ToolBar Start /////////////////////////////////////-->
+	<jsp:include page="/layout/toolbar.jsp" />
+   	<!-- ToolBar End /////////////////////////////////////-->
+	
+	<!--  화면구성 div Start /////////////////////////////////////-->
+	<div class="container">
+	
+		<div class="page-header text-info">
+	       	       <h3 class=" text-info" style="color:#75574B;">
+판매목록조회</h3>
+	    </div>
+	    
+	    <!-- table 위쪽 검색 Start /////////////////////////////////////-->
+	    <div class="row">
+	    
+		    <div class="col-md-6 text-left">
+		    	<p class="text-primary" style="color:black;">
+		    		전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지
+		    	</p>
+		    </div>
+		    </div>
 
-<div style="width:98%; margin-left:10px;">
-
-<form name="detailForm" action="/purchase/listSale" method="post">
-
-<table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
-	<tr>
-		<td width="15" height="37">
-			<img src="/images/ct_ttl_img01.gif" width="15" height="37"/>
-		</td>
-		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left:10px;">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td width="93%" class="ct_ttl01">판매 목록조회</td>
-				</tr>
-			</table>
-		</td>
-		<td width="12" height="37">
-			<img src="/images/ct_ttl_img03.gif" width="12" height="37">
-		</td>
-	</tr>
-</table>
-
-
-<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
-	<tr>
-		<td colspan="11" >
-			전체  ${resultPage.totalCount } 건수,	현재 ${resultPage.currentPage} 페이지
-		</td>
-	</tr>
-	<tr>
-		<td class="ct_list_b" width="100">No</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">상품번호</td>
-		<td class="ct_line02"></td>
-		<%-- <td class="ct_list_b" width="150">상품명</td>
-		<td class="ct_line02"></td>--%>
-		<td class="ct_list_b">현재상태</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b">배송현황</td>
-		<td class="ct_line02"></td>
+		    
 		
-		<td class="ct_list_b">구매회원</td>
-	</tr>
-	<tr>
-		<td colspan="11" bgcolor="808285" height="1"></td>
-	</tr>
-
-	<c:set var="i" value="0" />
-	<c:forEach var="purchase" items="${list}">
-		<c:set var="i" value="${ i+1 }" />
-		<tr class="ct_list_pop">
-			<td align="center" >${ i }</td>
+		
+      <!--  table Start /////////////////////////////////////-->
+      <table class="table table-hover table-striped" >
+      
+        <thead>
+          <tr class="tableheader">
+            <th align="left">No</th>
+            <th align="left" >상품번호</th>
+            <th align="left">현재상태</th>
+            <th align="left">배송현황</th>
+            <th align="left">구매회원</th>
+          </tr>
+        </thead>
+       
+		<tbody>
+		
+		  <c:set var="i" value="0" />
+		  <c:forEach var="purchase" items="${list}">
+			<c:set var="i" value="${ i+1 }" />
+			<tr>
+			<td align="center">${ i }</td>
 			
-			<td></td>
-			<td align="left" value="${purchase.purchaseProd.prodNo }">${purchase.purchaseProd.prodNo }</td>
-			<td></td>
-			
-			<c:choose>
+			<td align="center"  class="tno" value="${purchase.purchaseProd.prodNo }">${purchase.purchaseProd.prodNo }</td>
+			 <c:choose>
 			
 				<c:when test="${purchase.tranCode.equals('100')}">
-					<td align="left">현재 <b>구매완료</b> 상태입니다.
+					<td align="center">현재 <b>구매완료</b> 상태입니다.
 					</td>
 				</c:when>
 				<c:when test="${purchase.tranCode.equals('200')}">
-					<td align="left">현재 <b>배송중</b> 상태입니다.</td>
+					<td align="center">현재 <b>배송중</b> 상태입니다.</td>
 				</c:when>
 				<c:when test="${purchase.tranCode.equals('000')}">
-					<td align="left"><b>구매취소</b> 상품입니다.</td>
+					<td align="center"><b>구매취소</b> 상품입니다.</td>
 				</c:when>
 				<c:otherwise>
-					<td align="left">현재 배송완료 상태입니다.</td>
+					<td align="center">현재 배송완료 상태입니다.</td>
 				</c:otherwise>
 			</c:choose>
 			
-			
-			
-			<td></td>
-			<td align="center" value="${purchase.tranNo }">
+			<td align="center" class="dv" value="${purchase.tranNo }">
 			<c:if test="${user.role=='admin' }">
 			<c:if test="${purchase.tranCode=='100'}">
 			배송하기
 			</c:if>
 			</c:if>
-			
-			<td></td>
-			<td align="left" value="${purchase.buyer.userId }">
-				${purchase.buyer.userId}
-			
-		</tr>
-		<tr>
+			</td>
+			<td align="center" class="buyer" value="${purchase.buyer.userId }">${purchase.buyer.userId}</td>
+			  
+			</tr>
+          </c:forEach>
+          <tr>
 			<td  colspan="11" id="${purchase.purchaseProd.prodNo }" bgcolor="#ffffff" height="1"></td></tr>
-<tr>			<td id="${purchase.buyer.userId}"  bgcolor="#ffffff" height="1"></td>
-			
+		<tr>			
+			<td id="${purchase.buyer.userId}"  bgcolor="#ffffff" height="1"></td>
 		</tr>
-	</c:forEach>	
+		
+        </tbody>
+      
+      </table>
+	  <!--  table End /////////////////////////////////////-->
+	  
+ 	</div>
+ 	<!--  화면구성 div End /////////////////////////////////////-->
+ 	
+ 	
+ 	<!-- PageNavigation Start... -->
+	<jsp:include page="../common/pageNavigator_new.jsp"/>
+	<!-- PageNavigation End... -->
 	
-</table>
-
-<!-- PageNavigation Start... -->
-<table width="100%" border="0" cellspacing="0" cellpadding="0"	style="margin-top:10px;">
-	<tr>
-		<td align="center">
-		   <input type="hidden" id="currentPage" name="currentPage" value=""/>
-			
-			<jsp:include page="../common/pageNavigator.jsp"/>
-    	</td>
-	</tr>
-</table>
-<!-- PageNavigation End... -->
-
-</form>
-</div>
-
 </body>
+
 </html>
