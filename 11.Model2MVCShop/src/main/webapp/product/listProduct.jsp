@@ -16,6 +16,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -43,6 +46,14 @@
        
     </style>
     
+        <style>
+	.page-header.text-info {font-family: 'Gowun Batang', serif; font-weight:bold; color:#75574B}
+	.text-info {font-family: 'Gowun Batang', serif; font-weight:bold; color:#75574B}
+	.row { font-family: 'Gowun Batang', serif;}
+	.table.table-hover.table-striped { font-family: 'Gowun Batang', serif;}
+
+</style>
+    
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
 	
@@ -53,20 +64,17 @@
 			console.log('${param.menu}');
 		}
 		
+		 
 		 $(function() {
 			 //==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			 $( "#sort" ).on("click" , function() {
+			 $( "button.btn.btn-default" ).on("click" , function() {
 				fncGetList(1);
 			});
 			 
-			 $( "#find" ).on("click" , function() {
-					fncGetList(1);
-				});
-			 
-			 
-			 //$( ".ct_list_pop td:nth-child(3)" ).css("color" , "red");
 				
-			$("td.manage").css("color","green");
+			$("td.manage").css("color","brown");
+			$("td.search").css("color","brown");
+
 			
 			$("td.manage").on("click" , function() {
 				console.log($(this).attr("value"));
@@ -74,66 +82,15 @@
 
 			});
 			
-			$( "td.search" ).on("click" , function() {
+			$("td.search").on("click",function() {
 				console.log($(this).attr("value"));
-				self.location ="/product/getProduct?menu=${param.menu}&prodNo="+$(this).attr("value")
-				
-				var prodNo =$(this).attr("value");
-				$.ajax( 
-						{
-							url : "/product/json/getProduct/"+prodNo ,
-							method : "GET" ,
-							dataType : "json" ,
-							headers : {
-								"Accept" : "application/json",
-								"Content-Type" : "application/json"
-							},
-							success : function(JSONData , status) {
-								
-							//	alert("JSONData : \n"+JSONData);
+				self.location = "/product/getProduct?menu=${param.menu}&prodNo="
+						+ $(this).attr("value")
 
-								var displayValue = "<table class='display' width='100%' height='37' border='0' cellspacing=''>"
-															+"<tr>"
-															+"<td width='300px'>"
-															+"<h3>:: 상품 조회 ::</h3><br/>"
-					                                        +"<h4>"
-															+"상품번호 : "+JSONData.prodNo+"<br/><br/>"
-															+"상품명: "+JSONData.prodName+"<br/><br/>"
-															+"상세정보 : "+JSONData.prodDetail+"<br/><br/>"
-															+"재고 : "+JSONData.total+"<br/><br/>"
-															+"제조일자 : "+JSONData.manuDate+"<br/><br/>"
-															+"<img src='/images/uploadFiles/"+JSONData.fileName+"' width='300' height='300' /></td>"
-				                                            +"</h4>"
-				                                            +"</td>"
-				                                            +"<td></td>"
-					                                        +"<td width='975px' class='ct_btn01' align='right'> <b>구매</b></td>"
-															+"</tr>"
-															+"</table>";
-								//Debug...									
-								//alert(displayValue);
-								$("table.display").remove();
-								$( "#"+prodNo+"" ).html(displayValue);
-								
-								$( "td.ct_btn01:contains('구매')" ).on("click" , function() {
-			            			self.location = "/purchase/addPurchase?menu=${param.menu}&prodNo="+prodNo
-			            		});
-							}
-					});
-				
-				});
-			 
-			 
+			
 		 });
-		
-
-		
-	
-	
-	
-	
-	
-	
-	
+		 
+							});
 	</script>
 	
 </head>
@@ -147,8 +104,8 @@
 	<!--  화면구성 div Start /////////////////////////////////////-->
 	<div class="container">
 	
-		<div class="page-header text-info">
-	       <h3>
+		<div class="page-header">
+	       <h3 class=" text-info" style="color:#75574B;">
 	       <c:if test="${param.menu.contains('manage') }">
 	       상품관리
 	       </c:if>
@@ -162,7 +119,7 @@
 		<div class="row">
 
 			<div class="col-md-6 text-left">
-				<p class="text-primary">전체 ${resultPage.totalCount } 건수, 현재
+				<p class="text-primary" style="color:black;">전체 ${resultPage.totalCount } 건수, 현재
 					${resultPage.currentPage} 페이지</p>
 			</div>
 
@@ -178,6 +135,7 @@
 							<option value="2"
 								${!empty search.searchCondition && search.searchCondition==2 ? "selected" : ""}>상품가격</option>
 						</select>
+
 					</div>
 
 					<div class="form-group">
@@ -185,17 +143,11 @@
 							type="text" class="form-control" id="searchKeyword"
 							name="searchKeyword" placeholder="검색어"
 							value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
+							
 					</div>
 
-					<button type="button" class="btn btn-default" id="find">검색</button>
-				</form>
-			</div>
-
-
-
-
-			<div class="col-md-3 text-left">
-				<form class="form-inline" name="detailForm">
+					<button type="button" class="btn btn-default">검색</button>
+			
 
 					<div class="form-group">
 						<select class="form-control" name="sortCondition">
@@ -206,19 +158,22 @@
 							<option value="2"
 								${!empty search.sortCondition && search.sortCondition==2 ? "selected" : ""}>최신등록순</option>
 						</select>
+						
 					</div>
 
-					<button type="button" id="sort" class="btn btn-default">정렬</button>
-					
+					<button type="button"  class="btn btn-default">정렬</button>
+						<input type="hidden" id="currentPage" name="currentPage" value="" />
+				
+				</form>
+			</div>
+		
 
 					<!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
-					<input type="hidden" id="currentPage" name="currentPage" value="" />
-				</form>
-				<br/>
-			</div>
 
 
 		</div>
+		
+		
 		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
 		
 		

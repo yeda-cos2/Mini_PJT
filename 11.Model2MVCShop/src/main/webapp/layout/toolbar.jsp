@@ -3,17 +3,20 @@
 
 <!--  ///////////////////////// JSTL  ////////////////////////// -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
 
 <style>
-.navbar-brand { font-family: 'πŸ≈¡'; font-weight:bold; color:brown}
-.navbar-brand li { font-family: 'πŸ≈¡'}
-.navbar-header { font-family: 'πŸ≈¡'}
-.nav { font-family: 'πŸ≈¡'; font-weight:bold; color:brown}
-.navbar-right { font-family: 'πŸ≈¡'}
-.navbar-fixed-top { font-family: 'πŸ≈¡'}
-.navbar-default { font-family: 'πŸ≈¡'}
-.navbar-toggle { font-family: 'πŸ≈¡'}
-.navbar-collapse { font-family: 'πŸ≈¡'}
+.navbar-brand {font-family: 'Gowun Batang', serif; font-weight:bold; color:brown}
+.navbar-brand li { font-family: 'Gowun Batang', serif;}
+.navbar-header {font-family: 'Gowun Batang', serif;}
+.nav { font-family: 'Gowun Batang', serif;, cursive; font-weight:bold; color:brown}
+.navbar-right { font-family: 'Gowun Batang', serif;}
+.navbar-fixed-top { font-family: 'Gowun Batang', serif;}
+.navbar-default {font-family: 'Gowun Batang', serif;}
+.navbar-toggle { font-family: 'Gowun Batang', serif;}
+.navbar-collapse {font-family: 'Gowun Batang', serif;}
 
 </style>
 <!-- ToolBar Start /////////////////////////////////////-->

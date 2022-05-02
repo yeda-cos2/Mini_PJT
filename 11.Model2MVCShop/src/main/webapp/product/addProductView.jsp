@@ -9,7 +9,9 @@
 <head>
 	<meta charset="EUC-KR">
 	
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
 
@@ -51,10 +53,11 @@
 <style>
 body>div.container {
 	border: 3px solid #D6CDB7;
-	margin-top: 150px;
+	margin-top: 50px;
+	font-family: 'Gowun Batang', serif; font-weight:bold; color:#75574B
 }
 </style>
-    
+
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
 	
@@ -126,7 +129,7 @@ body>div.container {
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<div class="navbar  navbar-default">
         <div class="container">
-        	<a class="navbar-brand" href="/index.jsp">Model2 MVC Shop</a>
+        	<a class="navbar-brand" href="/index.jsp">식탁의 온도</a>
    		</div>
    	</div>
    	<!-- ToolBar End /////////////////////////////////////-->
@@ -186,8 +189,8 @@ body>div.container {
 		  
 		  <div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button"  class="btn btn-primary"  >등&nbsp;록</button>
-			  <a class="btn btn-primary btn" href="#" role="button">취&nbsp;소</a>
+		      <button type="button"  class="btn btn-default"  >등&nbsp;록</button>
+			  <a class="btn btn-default btn" href="#" role="button">취&nbsp;소</a>
 		    </div>
 		  </div>
 		</form>
