@@ -130,7 +130,7 @@
       <div class="caption">
         <h4 style="color:black;">Wood Tray</h4>
         <p>12000원</p>
-        <p><a href="/product/getProduct?menu=search&prodNo=10000" class="btn btn-default" role="button">상세정보</a> <a href="/purchase/addPurchase?menu=search&prodNo=10000" class="btn btn-default" role="button">구매</a></p>
+        <p><a href="/product/getProduct?menu=search&prodNo=10001" class="btn btn-default" role="button">상세정보</a> <a href="/purchase/addPurchase?menu=search&prodNo=10000" class="btn btn-default" role="button">구매</a></p>
       </div>
     </div>
   </div>
@@ -141,7 +141,7 @@
       <div class="caption">
         <h4 style="color:black;">Conchiglioni Rigati</h4>
         <p>14000원</p>
-        <p><a href="/product/getProduct?menu=search&prodNo=10000" class="btn btn-default" role="button">상세정보</a> <a href="/purchase/addPurchase?menu=search&prodNo=10000" class="btn btn-default" role="button">구매</a></p>
+        <p><a href="/product/getProduct?menu=search&prodNo=10002" class="btn btn-default" role="button">상세정보</a> <a href="/purchase/addPurchase?menu=search&prodNo=10000" class="btn btn-default" role="button">구매</a></p>
       </div>
     </div>
   </div>

@@ -65,7 +65,7 @@ body>div.container {
 		//============= "가입"  Event 연결 =============
 		 $(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "button.btn.btn-primary" ).on("click" , function() {
+			$( "button.btn.btn-default" ).on("click" , function() {
 				fncUpdateProduct();
 			});
 		});	
@@ -129,7 +129,7 @@ body>div.container {
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<div class="navbar  navbar-default">
         <div class="container">
-        	<a class="navbar-brand" href="/index.jsp">Model2 MVC Shop</a>
+        	<a class="navbar-brand" href="/index.jsp">식탁의 온도</a>
    		</div>
    	</div>
    	<!-- ToolBar End /////////////////////////////////////-->
@@ -148,7 +148,7 @@ body>div.container {
 		      <input type="text" class="form-control" id="prodName" name="prodName" value="${product.prodName }">
 		    </div>
 		  </div>
-		  
+		  <input type="hidden" name="prodNo" value="${product.prodNo }"/>
 		  <div class="form-group">
 		    <label for="total" class="col-sm-offset-1 col-sm-3 control-label">상품수량</label>
 		    <div class="col-sm-4">

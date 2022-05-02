@@ -174,87 +174,29 @@
 
 
 		</div>
+	
 		
+<div class="container">
+	
+<div class="row">
+	<c:set var="i" value="0" />
+
+<c:forEach var="product" items="${list}">
+ <div class="col-sm-6 col-md-4">
+ <br/> <br/>
+    <div class="thumbnail">
+      <img src="/images/uploadFiles/${product.fileName}" height="300">
+      <div class="caption">
+        <h4 style="color:black;">${product.prodName }</h4>
+        <p>${product.price }</p>
+        <p><a href="/product/getProduct?menu=search&prodNo=${product.prodNo }" class="btn btn-default" role="button">상세정보</a> 
+        <a href="/purchase/addPurchase?menu=search&prodNo=${product.prodNo }" class="btn btn-default" role="button">구매</a></p>
+      </div>
+    </div>
+  </div>		
+    </c:forEach>
+  </div>
 		
-		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
-		
-		
-      <!--  table Start /////////////////////////////////////-->
-      <table class="table table-hover table-striped" >
-      
-        <thead>
-          <tr>
-            <th align="center">No</th>
-            <th align="center">상품명</th>
-            <th align="center">가격</th>
-            <th align="center">상품재고</th>
-            <th align="center">등록일</th>
-            <th align="center">현재상태</th>
-          </tr>
-        </thead>
-
-			<tbody>
-
-				<c:set var="i" value="0" />
-				<c:forEach var="product" items="${list}">
-					<c:set var="i" value="${ i+1 }" />
-					<tr class="ct_list_pop">
-						<td align="center">${ i }</td>
-						<c:if test="${param.menu.contains('manage')}">
-							<td align="left" class="manage" value="${product.prodNo}">${product.prodName}</td>
-						</c:if>
-
-
-						<c:if test="${param.menu.contains('search')}">
-							<c:if
-								test="${(product.proTranCode=='100'||product.proTranCode=='200'||product.proTranCode=='300')&&(product.total==0)}">
-								<td align="left" style="background-color: #B4A696">${product.prodName}</td>
-							</c:if>
-							<c:if
-								test="${!(product.proTranCode=='100'||product.proTranCode=='200'||product.proTranCode=='300')}">
-								<td align="left" class="search" value="${product.prodNo }">${product.prodName}</td>
-							</c:if>
-
-						</c:if>
-
-						
-						<td align="left">${product.price}</td>
-						<td align="left">${product.total}</td>
-						<td align="left">${product.regDate}</td>
-						<td align="left"><c:if test="${user.role=='user' }">
-								<c:choose>
-									<c:when
-										test="${(product.proTranCode=='100'||product.proTranCode=='200'||product.proTranCode=='300')&&(product.total==0)}">
-											재고없음
-										</c:when>
-									<c:otherwise>
-										판매중
-										</c:otherwise>
-								</c:choose>
-							</c:if> <c:if test="${user.role=='admin' }">
-								<c:choose>
-									<c:when
-										test="${product.proTranCode=='100'||product.proTranCode=='200'||product.proTranCode=='300'}">
-									구매완료
-									</c:when>
-									<c:otherwise>
-								판매중
-							</c:otherwise>
-								</c:choose>
-							</c:if></td>
-					</tr>
-					
-				</c:forEach>
-				<tr>
-						<td id="${product.prodNo }" colspan="11" bgcolor="#ffffff"
-							height="1"></td>
-
-					</tr>
-
-			</tbody>
-
-		</table>
-	  <!--  table End /////////////////////////////////////-->
 	  
  	</div>
  	<!--  화면구성 div End /////////////////////////////////////-->

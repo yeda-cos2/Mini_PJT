@@ -31,11 +31,10 @@
 	 
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getProduct"	parameterType="int"	resultMap="productSelectMap">
-		SELECT
-		p.*, t.TRAN_STATUS_CODE
-		FROM product p LEFT OUTER JOIN transaction t
-		ON t.prod_no=p.prod_no
-		WHERE p.prod_no= #{prodNo}
+		SELECT *
+		FROM product 
+		
+		WHERE prod_no= #{prodNo}
 	 </select>
 	 
 	 <!-- SQL : UPDATE -->
@@ -58,19 +57,18 @@
 	<select  id="getProductList"  parameterType="search"	resultMap="productSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	SELECT p.*,t.TRAN_STATUS_CODE 
-											FROM transaction t, product p
+	  					FROM		(	SELECT *
+											FROM product
 											<where>
-											t.prod_no(+)=p.prod_no
 											<if test="searchCondition != null">
 													<if test="searchCondition == 0 and searchKeyword !='' ">
-										 				and p.PROD_NO LIKE '%'||#{searchKeyword}||'%'
+										 				PROD_NO LIKE '%'||#{searchKeyword}||'%'
 													</if>
 													<if test="searchCondition == 1 and searchKeyword !='' ">
-										 				and p.prod_name LIKE '%'||#{searchKeyword}||'%'
+										 				prod_name LIKE '%'||#{searchKeyword}||'%'
 													</if>
 													<if test="searchCondition == 2 and searchKeyword !='' ">
-										 				and p.PRICE LIKE '%'||#{searchKeyword}||'%'
+										 				PRICE LIKE '%'||#{searchKeyword}||'%'
 													</if>
 											</if>
 													</where>
@@ -78,16 +76,16 @@
 											<if test="sortCondition != null">
 											<choose>
 													<when test="sortCondition == 0  ">
-										 				ORDER BY p.price ASC
+										 				ORDER BY price ASC
 													</when>
 													<when test="sortCondition == 1 ">
-										 				ORDER BY p.price DESC
+										 				ORDER BY price DESC
 													</when>
 													<when test="sortCondition == 2  ">
-										 				ORDER BY p.reg_date DESC
+										 				ORDER BY reg_date DESC
 													</when>
 													<otherwise>
-														ORDER BY p.prod_NO
+														ORDER BY prod_no
 													</otherwise>
 													</choose>
 													</if>

@@ -82,9 +82,9 @@ body>div.container {
 			
 			var purchaseCount=$("input[name='purchaseCount']").val();
 			var total=$("input[name='total']").val();
-
-			if (purchaseCount > total) {
-				console.log("아");
+			console.log(total);
+			console.log(purchaseCount);
+			if (total < purchaseCount) {
 				alert("구매 가능 개수가 초과되었습니다");
 				return;
 			}

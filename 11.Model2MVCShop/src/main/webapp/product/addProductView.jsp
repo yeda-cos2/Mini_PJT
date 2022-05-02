@@ -64,7 +64,7 @@ body>div.container {
 		//============= "가입"  Event 연결 =============
 		 $(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "button.btn.btn-primary" ).on("click" , function() {
+			$( "button.btn.btn-default" ).on("click" , function() {
 				fncAddProduct();
 			});
 		});	
