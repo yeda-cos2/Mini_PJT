@@ -56,6 +56,8 @@ public class PurchaseController {
 		@RequestMapping( value="addPurchase", method=RequestMethod.GET )
 		public ModelAndView addPurchase(@ModelAttribute("product") Product product) throws Exception {
 
+			System.out.println("addPurchase Get");
+			
 			System.out.println("/purchase/addPurchase : GET");
 			Product product1=productService.getProduct(product.getProdNo());
 			
@@ -73,8 +75,8 @@ public class PurchaseController {
 			System.out.println("/purchase/addPurchase : POST");
 			//Business Logic
 			String a=purchase.getDivyDate().replace("/", "");
-			System.out.println("저기"+a);
-			System.out.println("여기"+a.substring(4,8)+a.substring(0,4));
+			System.out.println("aaa: "+a);
+			System.out.println("bbb: "+a.substring(4,8)+a.substring(0,4));
 			System.out.println("prodNo="+product.getProdNo());
 			
 			Product product1=productService.getProduct(product.getProdNo());
