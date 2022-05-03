@@ -17,22 +17,18 @@
 		<result property="regDate" 				column="reg_date" 					jdbcType="DATE" />
 		<result property="proTranCode"      column="TRAN_STATUS_CODE"           jdbcType="VARCHAR"/>
 		<result property="total" 			column="total" 			jdbcType="NUMERIC"/>
+		<result property="cancel"      column="cancel"           jdbcType="VARCHAR"/>
 		
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
 	<insert 	id="addProduct"		parameterType="product" >
 	 	INSERT
-		INTO product( prod_no , prod_name , prod_detail , manufacture_day , price, image_file, reg_date,total) 
+		INTO product( prod_no , prod_name , prod_detail , manufacture_day , price, image_file, reg_date,total,cancel) 
 		VALUES	 (	seq_product_prod_no.nextval , #{prodName} , #{prodDetail} , #{manuDate} , #{price} , 
-							#{fileName} , SYSDATE,#{total} )
+							#{fileName} , SYSDATE,#{total},#{cancel} )
 	 </insert>
 	 
-	 <delete 	id="deleteProduct"		parameterType="product" >
-	 	DELETE
-		FROM product
-		WHERE prod_no=#{prodNo}
-	 </delete>
 	 
 	 
 	 <!-- SQL : SELECT ONE -->
@@ -52,7 +48,8 @@
 			manufacture_day 				= #{manuDate} ,
 			image_file				=	#{fileName},
 			price=#{price},
-			total=#{total} 
+			total=#{total},
+			cancel=#{cancel} 
 	   	</set>
 	   	WHERE prod_no = #{prodNo}
 	 </update>
@@ -65,21 +62,22 @@
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  					FROM		(	SELECT *
 											FROM product
-											<where>
+											
 											<if test="searchCondition != null">
 													<if test="searchCondition == 0 and searchKeyword !='' ">
-										 				PROD_NO LIKE '%'||#{searchKeyword}||'%'
+										 				where PROD_NO LIKE '%'||#{searchKeyword}||'%'
 													</if>
 													<if test="searchCondition == 1 and searchKeyword !='' ">
-										 				prod_name LIKE '%'||#{searchKeyword}||'%'
+										 				 where prod_name LIKE '%'||#{searchKeyword}||'%'
 													</if>
 													<if test="searchCondition == 2 and searchKeyword !='' ">
-										 				PRICE LIKE '%'||#{searchKeyword}||'%'
+										 				where PRICE LIKE '%'||#{searchKeyword}||'%'
 													</if>
 											</if>
-													</where>
+													
 													
 											<if test="sortCondition != null">
+											
 											<choose>
 													<when test="sortCondition == 0  ">
 										 				ORDER BY price ASC
@@ -90,8 +88,14 @@
 													<when test="sortCondition == 2  ">
 										 				ORDER BY reg_date DESC
 													</when>
+													<when test="sortCondition == 3  ">
+														and cancel='0'
+													</when>
+													<when test="sortCondition == 4  ">
+														and cancel='1'
+													</when>
 													<otherwise>
-														ORDER BY prod_no
+														order by prod_no
 													</otherwise>
 													</choose>
 													</if>

@@ -68,6 +68,7 @@ body>div.container {
 			$( "button.btn.btn-default" ).on("click" , function() {
 				fncUpdateProduct();
 			});
+			
 		});	
 		
 		
@@ -80,7 +81,6 @@ body>div.container {
 		});	
 	
 		
-
 
 		function fncUpdateProduct() {
 			//Form 유효성 검증
@@ -183,6 +183,14 @@ body>div.container {
 		     <div class="col-sm-4">
 	     	 <input multiple="multiple"	  type="file" class="form-control" id="fileName" name="multiFiles[]"  >
 
+		    </div>
+		  </div>
+		  
+		   <div class="form-group">
+		    <label for="cancel" class="col-sm-offset-1 col-sm-3 control-label">판매상태</label>
+		     <div class="col-sm-4">
+	     	 <input type="radio"  name="cancel" value="0" checked>&nbsp;판매중&nbsp;&nbsp;&nbsp;&nbsp;
+	     	 <input type="radio"   name="cancel" value="1">&nbsp;판매중지
 		    </div>
 		  </div>
 		  

@@ -90,20 +90,6 @@ public class ProductController {
 		return "forward:/product/readProduct.jsp";
 	}
 	
-	@RequestMapping( value="deleteProduct", method=RequestMethod.GET )
-	public String deleteProduct(@ModelAttribute("product") Product product)
-			throws Exception {
-
-		System.out.println("/product/deleteProduct :  POST");
-		// Business Logic
-		System.out.println(product.getProdNo());
-		
-		productService.deleteProduct(product);
-		
-		return "forward:/product/deleteProduct.jsp";
-
-
-	}
 
 	//@RequestMapping("/getProduct.do")
 	@RequestMapping( value="getProduct")
@@ -178,7 +164,7 @@ public class ProductController {
 		
 		System.out.println("sort"+search.getSortCondition());
 		if(search.getSortCondition()==null) {
-			search.setSortCondition("3");
+			search.setSortCondition("100");
 		}
 		
 		search.setSortCondition(search.getSortCondition().replace(",", ""));

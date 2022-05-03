@@ -44,7 +44,7 @@
         }
         
         div.thumbnail{
-        height:470px;
+        height:500px;
         width:340px;
         
         }
@@ -75,10 +75,6 @@
 		 $(function() {
 			 //==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			
-				$( "button.btn.btn-default:contains('삭제')" ).on("click" , function() {
-					console.log('삭제완료');
-				 
-			 });
 				
 				$( "button.btn.btn-default:contains('정렬')" ).on("click" , function() {
 					fncGetList(1);
@@ -90,7 +86,6 @@
 				 
 			 });
 			 
-		 
 				});
 		 
 	</script>
@@ -105,6 +100,7 @@
    	<!-- ToolBar End /////////////////////////////////////-->
 	
 	<!--  화면구성 div Start /////////////////////////////////////-->
+	
 	<div class="container">
 	
 		<div class="page-header">
@@ -126,9 +122,9 @@
 					${resultPage.currentPage} 페이지</p>
 			</div>
 
-			<div class="col-md-6 text-right">
-				<form class="form-inline" name="detailForm">
-
+			
+			<form class="form-inline" name="detailForm">
+				<div class="col-md-6 text-right">
 					<div class="form-group">
 						<select class="form-control" name="searchCondition">
 							<option value="0"
@@ -147,12 +143,13 @@
 							name="searchKeyword" placeholder="검색어"
 							value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
 							
-					</div>
-
 					<button type="button" class="btn btn-default">검색</button>
-			
-
+					</div>
+					
+				</div>
+				<div class="col-md-6 text-left">
 					<div class="form-group">
+						<c:if test="${user.role=='user' }">
 						<select class="form-control" name="sortCondition">
 							<option value="0"
 								${!empty search.sortCondition && search.sortCondition==0 ? "selected" : ""}>낮은가격순</option>
@@ -160,22 +157,34 @@
 								${!empty search.sortCondition && search.sortCondition==1 ? "selected" : ""}>높은가격순</option>
 							<option value="2"
 								${!empty search.sortCondition && search.sortCondition==2 ? "selected" : ""}>최신등록순</option>
+								
 						</select>
-						
+					</c:if>						
 					</div>
-
+					
+					<c:if test="${user.role=='admin' }">
+						<select class="form-control" name="sortCondition">
+					<option value="3"
+								${!empty search.sortCondition && search.sortCondition==3 ? "selected" : ""}>판매중</option>
+								<option value="4"
+								${!empty search.sortCondition && search.sortCondition==4 ? "selected" : ""}>판매중지</option>
+						</select>
+						</c:if>						
 					<button type="button"  class="btn btn-default">정렬</button>
+				</div>
+					
+					
 						<input type="hidden" id="currentPage" name="currentPage" value="" />
 				
-				</form>
-			</div>
+		</form>
+			
 		
 
 					<!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
 
 
 		</div>
-		</div>
+</div>
 	
 		
 <div class="container">
@@ -206,8 +215,21 @@
       <div class="caption">
         <h4 style="color:black;">${product.prodName }</h4>
         <p>${product.price }</p>
+        
+        <c:choose>
+        
+        <c:when test="${product.cancel=='1' }">
+        <p style="color:red;">판매중지</p>
         <p><a href="/product/getProduct?menu=search&prodNo=${product.prodNo }" class="btn btn-default" role="button">상세정보</a> 
-        <a href="/purchase/addPurchase?menu=search&prodNo=${product.prodNo }" class="btn btn-default" role="button">구매</a></p>
+        
+        <a class="btn btn-default" disabled="disabled" role="button">구매</a></p>
+        </c:when>
+        
+        <c:otherwise>
+        <p><a href="/product/getProduct?menu=search&prodNo=${product.prodNo }" class="btn btn-default" role="button">상세정보</a> 
+        <a href="/purchase/addPurchase?menu=search&&prodNo=${product.prodNo }" class="btn btn-default" role="button">구매</a> 
+        </c:otherwise>
+        </c:choose>
       </div>
     </div>
   </div>		
@@ -216,6 +238,7 @@
     
 <c:if test="${param.menu=='manage'}">
     <c:forEach var="product" items="${list}">
+    
  <div class="col-sm-6 col-md-4">
  <br/> <br/>
     <div class="thumbnail">
@@ -235,9 +258,12 @@
       <div class="caption">
         <h4 style="color:black;">${product.prodName }</h4>
         <p>${product.price }</p>
+        <c:if test="${product.cancel=='1' }">
+        <p style="color:red;">판매중지</p>
+        </c:if>
         <p><a href="/product/getProduct?menu=search&prodNo=${product.prodNo }" class="btn btn-default" role="button" >상세정보</a> 
         <a href="/product/updateProduct?menu=${param.menu}&prodNo=${product.prodNo }" class="btn btn-default" role="button">수정</a>
-        <a href="/product/deleteProduct?prodNo=${product.prodNo }" class="btn btn-default" role="button">삭제</a></p>
+       
       </div>
     </div>
   </div>		
@@ -248,7 +274,6 @@
 	  
  	</div>
  	<!--  화면구성 div End /////////////////////////////////////-->
- 	
  	
  	<!-- PageNavigation Start... -->
 	<jsp:include page="../common/pageNavigator_new.jsp"/>

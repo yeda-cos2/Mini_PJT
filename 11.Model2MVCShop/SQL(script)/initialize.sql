@@ -34,6 +34,7 @@ CREATE TABLE product (
 	image_file 			 		VARCHAR2(100),
 	reg_date 			 		DATE,
 	total          number,
+	cancel     VARCHAR2(10),
 	PRIMARY KEY(prod_no)
 );
 
@@ -121,14 +122,11 @@ INSERT INTO users
 VALUES ( 'user19', 'SCOTT', '1919', 'user', NULL, NULL, NULL, NULL, sysdate);
            
            
-insert into product values (seq_product_prod_no.nextval,'vaio vgn FS70B','소니 바이오 노트북 신동품','20120514',2000000, 'AHlbAAAAtBqyWAAA.jpg',to_date('2012/12/14 11:27:27', 'YYYY/MM/DD HH24:MI:SS'),1);
-insert into product values (seq_product_prod_no.nextval,'자전거','자전거 좋아요~','20120514',10000, 'AHlbAAAAvetFNwAA.jpg',to_date('2012/11/14 10:48:43', 'YYYY/MM/DD HH24:MI:SS'),1);
-insert into product values (seq_product_prod_no.nextval,'보르도','최고 디자인 신품','20120201',1170000, 'AHlbAAAAvewfegAB.jpg',to_date('2012/10/14 10:49:39', 'YYYY/MM/DD HH24:MI:SS'),1);
-insert into product values (seq_product_prod_no.nextval,'보드세트','한시즌 밖에 안썼습니다. 눈물을 머금고 내놓음 ㅠ.ㅠ','20120217', 200000, 'AHlbAAAAve1WwgAC.jpg',to_date('2012/11/14 10:50:58', 'YYYY/MM/DD HH24:MI:SS'),1);
-insert into product values (seq_product_prod_no.nextval,'인라인','좋아욥','20120819', 20000, 'AHlbAAAAve37LwAD.jpg',to_date('2012/11/14 10:51:40', 'YYYY/MM/DD HH24:MI:SS'),1);
-insert into product values (seq_product_prod_no.nextval,'삼성센스 2G','sens 메모리 2Giga','20121121',800000, 'AHlbAAAAtBqyWAAA.jpg',to_date('2012/11/14 18:46:58', 'YYYY/MM/DD HH24:MI:SS'),1);
-insert into product values (seq_product_prod_no.nextval,'연꽃','정원을 가꿔보세요','20121022',232300, 'AHlbAAAAtDPSiQAA.jpg',to_date('2012/11/15 17:39:01', 'YYYY/MM/DD HH24:MI:SS'),1);
-insert into product values (seq_product_prod_no.nextval,'삼성센스','노트북','20120212',600000, 'AHlbAAAAug1vsgAA.jpg',to_date('2012/11/12 13:04:31', 'YYYY/MM/DD HH24:MI:SS'),1);
 
+insert into product values (seq_product_prod_no.nextval,'Conchiglioni Rigati','타이풍 쉬림프 파스타','20220512',14000, '1622711370004681.jpg',sysdate,51,0);
+insert into product values (seq_product_prod_no.nextval,'Vintage Plate','북유럽 빈티지 접시','20210516',31000, 'ddc55d4ef3b0257f17c2bb8560a40c91.jpg',sysdate,51,0);
+insert into product values (seq_product_prod_no.nextval,'Wood Tray','혼밥 우드 트레이','20220315',16000, 'ddd.PNG',sysdate,51,0);
+insert into product values (seq_product_prod_no.nextval,'Buttermilk Scone','고소한 스콘을 즐겨보세요','20220512',2500, 'waf.PNG',sysdate,51,0);
+insert into product values (seq_product_prod_no.nextval,'Tiramisu Cake','달달한 조각 케이크','20220412',5000, '6627852889_l.jpg',sysdate,51,0);
 
 commit;
