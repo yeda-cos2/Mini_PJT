@@ -28,6 +28,12 @@
 							#{fileName} , SYSDATE,#{total} )
 	 </insert>
 	 
+	 <delete 	id="deleteProduct"		parameterType="product" >
+	 	DELETE
+		FROM product
+		WHERE prod_no=#{prodNo}
+	 </delete>
+	 
 	 
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getProduct"	parameterType="int"	resultMap="productSelectMap">

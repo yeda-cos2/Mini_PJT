@@ -43,6 +43,13 @@
             padding-top : 50px;
         }
         
+        div.thumbnail{
+        height:470px;
+        width:340px;
+        
+        }
+        
+        
        
     </style>
     
@@ -67,28 +74,22 @@
 		 
 		 $(function() {
 			 //==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			 $( "button.btn.btn-default" ).on("click" , function() {
-				fncGetList(1);
-			});
-			 
+			
+				$( "button.btn.btn-default:contains('삭제')" ).on("click" , function() {
+					console.log('삭제완료');
+				 
+			 });
 				
-			$("td.manage").css("color","brown");
-			$("td.search").css("color","brown");
-
-			
-			$("td.manage").on("click" , function() {
-				console.log($(this).attr("value"));
-				self.location ="/product/updateProduct?menu=${param.menu}&prodNo="+$(this).attr("value")
-
-			});
-			
-			$("td.search").on("click",function() {
-				console.log($(this).attr("value"));
-				self.location = "/product/getProduct?menu=${param.menu}&prodNo="
-						+ $(this).attr("value")
-
-			
-		 });
+				$( "button.btn.btn-default:contains('정렬')" ).on("click" , function() {
+					fncGetList(1);
+				 
+			 });
+				
+				$( "button.btn.btn-default:contains('검색')" ).on("click" , function() {
+					fncGetList(1);
+				 
+			 });
+			 
 		 
 				});
 		 
@@ -174,6 +175,7 @@
 
 
 		</div>
+		</div>
 	
 		
 <div class="container">
@@ -181,11 +183,26 @@
 <div class="row">
 	<c:set var="i" value="0" />
 
+<c:if test="${param.menu=='search'}">
 <c:forEach var="product" items="${list}">
  <div class="col-sm-6 col-md-4">
  <br/> <br/>
     <div class="thumbnail">
-      <img src="/images/uploadFiles/${product.fileName}" height="300">
+    				<c:choose>
+    
+    	<c:when test="${(product.fileName).contains('/')}">
+    		<c:forEach var="name" items="${(product.fileName).split('/')[0]}">
+		<img class="imange" src="/images/uploadFiles/${name}" width="320" height="300" ><br/>
+			</c:forEach>
+		
+      </c:when>
+		
+		<c:otherwise>
+		
+		<img class="imange" src="/images/uploadFiles/${product.fileName}" width="320" height="300"><br/>
+		</c:otherwise>
+		</c:choose>
+		
       <div class="caption">
         <h4 style="color:black;">${product.prodName }</h4>
         <p>${product.price }</p>
@@ -195,6 +212,37 @@
     </div>
   </div>		
     </c:forEach>
+    </c:if>
+    
+<c:if test="${param.menu=='manage'}">
+    <c:forEach var="product" items="${list}">
+ <div class="col-sm-6 col-md-4">
+ <br/> <br/>
+    <div class="thumbnail">
+     <c:choose>
+    
+    	<c:when test="${(product.fileName).contains('/')}">
+    		<c:forEach var="name" items="${(product.fileName).split('/')[0]}">
+		<img src="/images/uploadFiles/${name}" width="320" height="300"><br/>
+			</c:forEach>
+		
+      </c:when>                                                                                                                           
+		
+		<c:otherwise>
+		<img src="/images/uploadFiles/${product.fileName}" width="320" height="300"><br/>
+		</c:otherwise>
+		</c:choose>
+      <div class="caption">
+        <h4 style="color:black;">${product.prodName }</h4>
+        <p>${product.price }</p>
+        <p><a href="/product/getProduct?menu=search&prodNo=${product.prodNo }" class="btn btn-default" role="button" >상세정보</a> 
+        <a href="/product/updateProduct?menu=${param.menu}&prodNo=${product.prodNo }" class="btn btn-default" role="button">수정</a>
+        <a href="/product/deleteProduct?prodNo=${product.prodNo }" class="btn btn-default" role="button">삭제</a></p>
+      </div>
+    </div>
+  </div>		
+    </c:forEach>
+    </c:if>
   </div>
 		
 	  

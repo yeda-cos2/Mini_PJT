@@ -105,7 +105,7 @@ body>div.container {
 				return;
 			}
 
-			$("form").attr("method" , "POST").attr("action" , "/product/addProduct").submit();
+			$("form").attr("method" , "POST").attr("enctype","multipart/form-data").attr("action" , "/product/addProduct").submit();
 
 		}
 
@@ -119,7 +119,7 @@ body>div.container {
 		});
 		
 	
-		 
+
 	</script>		
     
 </head>
@@ -181,7 +181,7 @@ body>div.container {
 		  <div class="form-group">
 		    <label for="fileName" class="col-sm-offset-1 col-sm-3 control-label">상품이미지</label>
 		     <div class="col-sm-4">
-	     	 <input type="file" class="form-control" id="fileName" name="fileName" placeholder="상품이미지">
+	     	 <input multiple="multiple"	 type="file" class="form-control" id="fileName" name="multiFiles[]" placeholder="상품이미지">
 
 		    </div>
 		  </div>

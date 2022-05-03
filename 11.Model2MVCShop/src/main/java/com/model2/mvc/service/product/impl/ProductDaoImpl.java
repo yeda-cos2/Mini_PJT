@@ -52,4 +52,10 @@ public class ProductDaoImpl implements ProductDao{
 	public int getTotalCount(Search search) throws Exception {
 		return sqlSession.selectOne("ProductMapper.getTotalCount", search);
 	}
+
+	@Override
+	public int deleteProduct(Product product) throws Exception {
+		return sqlSession.delete("ProductMapper.deleteProduct", product);
+		
+	}
 }

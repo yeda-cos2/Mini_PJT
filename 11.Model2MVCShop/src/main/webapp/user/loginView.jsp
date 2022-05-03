@@ -103,7 +103,7 @@
 	
 </head>
 
-<body>
+<body width="1000">
 
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<div class="navbar  navbar-default">
@@ -120,20 +120,20 @@
 		
 			<div class="col-md-6">
 			<br/>
-					<img src="/images/hot1613625568490.jpg"  width="400" height="455" /><br/>
+					<img src="/images/hot1613625568490.jpg"  width="400" height="430" /><br/>
 			</div>
 	   	 	
 	 	 	<div class="col-md-6">
 	 	 	
 		 	 	<br/>
 				
-		 	 		<h1><img src="/images/bbbb.PNG"  width="300" height="150" /><br/></h1>
+		 	 		<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="/images/bbbb.PNG"  width="300" height="150" /><br/></h1>
 
 				<div class="jumbotron">
 					<form class="form-horizontal">
 
 						<div class="form-group">
-							<label for="userId" class="col-sm-4 control-label">Id&nbsp;</label>
+							<label for="userId" class="col-sm-1 control-label">Id&nbsp;</label>
 							<div class="col-sm-6">
 								<input type="text" class="form-control" name="userId"
 									id="userId" placeholder="아이디">
@@ -141,25 +141,18 @@
 						</div>
 
 						<div class="form-group">
-							<label for="password" class="col-sm-4 control-label">pwd</label>
+							<label for="password" class="col-sm-1 control-label">pwd</label>
 							<div class="col-sm-6">
 								<input type="password" class="form-control" name="password"
 									id="password" placeholder="패스워드">
 							</div>
 
-							<div class="checkbox">
-								<label> <input type="checkbox"> Remember me
-								</label>
-							</div>
 				</div>
 					  
 					  <div class="form-group">
-					    <div class="col-sm-offset-4 col-sm-6 text-center">
-					      <button type="button" class="btn btn-primary"  >로 &nbsp;그 &nbsp;인</button>
-					      <a class="btn btn-primary btn" href="#" role="button">회 &nbsp;원 &nbsp;가 &nbsp;입</a>
-					      <a id="custom-login-btn" href="javascript:loginWithKakao()">
- 						 <img  src="/images/kakao_login_small.png"   alt="카카오 로그인 버튼"/>
-						</a>
+					    <div class="col-sm-offset-1 col-sm-6 text-center">
+					      <button type="button" class="btn btn-default"  >로 &nbsp;그 &nbsp;인</button>
+					      <a class="btn btn-default btn" href="#" role="button">회 &nbsp;원 &nbsp;가 &nbsp;입</a>
 								
 
 
@@ -170,7 +163,6 @@
 			
 					</form>
 			   	 </div>
-			
 			</div>
 			
   	 	</div>

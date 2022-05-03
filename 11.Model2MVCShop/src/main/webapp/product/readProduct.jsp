@@ -80,7 +80,18 @@
 		</div>
 		
 		<div class="row">
-			<img src="/images/uploadFiles/${product.fileName}" width="300" height="300"><br/>
+		
+		<c:choose>
+		<c:when test="${(product.fileName).contains('/')}">
+		<c:forEach var="name" items="${(product.fileName).split('/')}">
+		<img src="/images/uploadFiles/name" width="300" height="300"><br/>
+		</c:forEach>
+		</c:when>
+		
+		<c:otherwise>
+		<img src="/images/uploadFiles/${product.fileName}" width="300" height="300"><br/>
+		</c:otherwise>
+		</c:choose>
 		</div>
 		<hr />
 
