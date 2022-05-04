@@ -54,4 +54,14 @@ public class UserRestController {
 		return dbUser;
 	}
 	
+	@RequestMapping( value="json/checkDuplication", method=RequestMethod.POST )
+	public int checkDuplication( @RequestBody String userId ) throws Exception{
+		
+		System.out.println("/restcontroller check : "+userId);
+		
+		
+		//Business Logic
+		return userService.checkDuplication(userId.substring(7));
+	}
+	
 }

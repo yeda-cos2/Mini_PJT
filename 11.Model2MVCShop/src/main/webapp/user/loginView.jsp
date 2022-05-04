@@ -20,30 +20,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
 
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-	<script>
-	
-
-      
-
-        	
-        	 function loginWithKakao() {
-        		  	$("alert-kakao-login").addClass("d-none");
-                	Kakao.init('f06d31450aeb08260bb47968cf12ac89'); //발급받은 키 중 javascript키를 사용해준다.
-                	console.log(Kakao.isInitialized());
-                	
-        		    Kakao.Auth.login({
-        		      success: function(response) {
-        		        console.log("성공"+response);
-
-        		      },
-        		      fail: function(err) {
-        		    	    console.log("실패"+err);
-        		      },
-        		    })
-        		  }
-        
-	</script>
 	
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
@@ -51,6 +27,8 @@
         	border: 4px solid #D6CDB7;
             margin-top: 170px;
         }
+        
+
     </style>
     
     <style type="text/css">
@@ -99,6 +77,7 @@
 			});
 		});
 		
+		
 	</script>		
 	
 </head>
@@ -136,7 +115,8 @@
 							<label for="userId" class="col-sm-1 control-label">Id&nbsp;</label>
 							<div class="col-sm-6">
 								<input type="text" class="form-control" name="userId"
-									id="userId" placeholder="아이디">
+									id="userId" placeholder="아이디" >
+									
 							</div>
 						</div>
 
