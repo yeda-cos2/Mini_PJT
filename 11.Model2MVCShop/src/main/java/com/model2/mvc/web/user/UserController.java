@@ -55,21 +55,7 @@ public class UserController {
 
 		System.out.println("/user/addUser : POST");
 		//Business Logic
-		System.out.println(user.getEmail());
-		System.out.println(user.getEmail2());
-		
-		if(user.getEmail2().equals("0")) {
-			user.setEmail(user.getEmail());
-		}else {
-			user.setEmail(user.getEmail()+user.getEmail2());
-		}
-		
-		if(user.getAddr_detail()!=null&&user.getAddr_detail()!="") {
-			user.setAddr(user.getAddr()+" "+user.getAddr_detail());
-		}
 		userService.addUser(user);
-		
-		
 		
 		return "redirect:/user/loginView.jsp";
 	}
@@ -119,7 +105,7 @@ public class UserController {
 	@RequestMapping( value="login", method=RequestMethod.GET )
 	public String login() throws Exception{
 		
-		System.out.println("/user/logon : GET 여기");
+		System.out.println("/user/logon : GET");
 
 		return "redirect:/user/loginView.jsp";
 	}
@@ -137,7 +123,6 @@ public class UserController {
 		
 		return "redirect:/index.jsp";
 	}
-	
 		
 	
 	@RequestMapping( value="logout", method=RequestMethod.GET )
@@ -152,24 +137,17 @@ public class UserController {
 	
 	
 	@RequestMapping( value="checkDuplication", method=RequestMethod.POST )
-	public int  checkDuplication( @RequestParam("userId") String userId , Model model ) throws Exception{
+	public String checkDuplication( @RequestParam("userId") String userId , Model model ) throws Exception{
 		
 		System.out.println("/user/checkDuplication : POST");
 		//Business Logic
-//		boolean result=userService.checkDuplication(userId);
+		boolean result=userService.checkDuplication(userId);
 		// Model 과 View 연결
+		model.addAttribute("result", new Boolean(result));
+		model.addAttribute("userId", userId);
 
-		System.out.println("userIdCheck 진입");
-        int cnt = userService.checkDuplication(userId);
-        System.out.println("확인 결과:"+cnt);
-        return cnt;
-//		model.addAttribute("result", new Boolean(result));
-//		model.addAttribute("userId", userId);
-//
-//		return "forward:/user/checkDuplication.jsp";
-//	}
-    }
-
+		return "forward:/user/checkDuplication.jsp";
+	}
 
 	
 	@RequestMapping( value="listUser" )

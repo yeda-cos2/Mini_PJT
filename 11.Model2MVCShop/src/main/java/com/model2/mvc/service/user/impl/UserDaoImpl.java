@@ -50,10 +50,4 @@ public class UserDaoImpl implements UserDao{
 	public int getTotalCount(Search search) throws Exception {
 		return sqlSession.selectOne("UserMapper.getTotalCount", search);
 	}
-
-	@Override
-	public int checkDuplication(String userId) throws Exception {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("UserMapper.checkDuplication",userId);
-	}
 }

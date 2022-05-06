@@ -95,13 +95,4 @@
 						</if> ) countTable						
 	 </select>
 	 
-	 
-	<select 	id="checkDuplication"	parameterType="String"	resultType="int">
-		SELECT
-		count (user_id) 		
-		FROM users 
-		WHERE user_id = #{userId}
-	 </select>
-	 
-	 
 </mapper>

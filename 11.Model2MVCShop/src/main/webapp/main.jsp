@@ -5,6 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
+
 <html lang="ko">
 	
 <head>
@@ -29,17 +30,7 @@
 	<style>
         body {
             padding-top : 70px;
-			font-family: 'Gowun Batang', serif; 
-     
         }
-        
-        blockquote {
-  margin-left: 0px;
-  margin-right: 0px;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-left: 10px solid #75574B;
-}
    	</style>
    	
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
@@ -56,99 +47,23 @@
 	<!--  아래의 내용은 http://getbootstrap.com/getting-started/  참조 -->	
    	<div class="container ">
       <!-- Main jumbotron for a primary marketing message or call to action -->
-
-	<div id="myCarousel" class="carousel slide" data-ride="carousel">
-	      <!-- Indicators -->
-	      <ol class="carousel-indicators">
-	        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-	        <li data-target="#myCarousel" data-slide-to="1"></li>
-	        <li data-target="#myCarousel" data-slide-to="2"></li>
-	      </ol>
-	      <div class="carousel-inner" role="listbox">
-	        <div class="item active">
-	          <img class="first-slide" src="/images/mandoo.PNG" alt="First slide">
-	          
-	          <div class="container">
-	            <div class="carousel-caption">
-	            </div>
-	          </div>
-	        </div>
-	        <div class="item">
-	          <img class="second-slide" src="/images/gajung.PNG" alt="Second slide">
-	          <div class="container">
-	            <div class="carousel-caption">
-	            </div>
-	          </div>
-	        </div>
-	        <div class="item">
-	          <img class="third-slide" src="/images/mandoo.PNG" alt="Third slide">
-	          <div class="container">
-	            <div class="carousel-caption">
-	            </div>
-	          </div>
-	        </div>
-	      </div>
-	      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-	        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-	        <span class="sr-only">Previous</span>
-	      </a>
-	      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-	        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-	        <span class="sr-only">Next</span>
-	      </a>
-	    </div>
-	
-	</div>
-
+      <div class="jumbotron">
+        <h1>Model2MVCShop </h1>
+        <p>J2SE , DBMS ,JDBC , Servlet & JSP, Java Framework , HTML5 , UI Framework 학습 후 Mini-Project 진행</p>
+     </div>
+    </div>
 
 	<!-- 참조 : http://getbootstrap.com/css/   : container part..... -->
 	<div class="container">
-	
-<div class="row">
+        <h3>나폴레옹은 이렇게 말했다.</h3>
+        <p>"오늘 나의 불행은 언젠가 내가 잘못 보낸 시간의 보복이다."</p>
+  	 	<h3>"... 장벽은 절실하게 원하지 않는 사람들을 걸러내려고 존재합니다. 장벽은. 당신이 아니라 '다른' 사람들을 멈추게 하려고 거기 있는 것이지요."</h3>
+         <h3>혜광스님</h3>
+         <p>행복한 삶의 비결은.</p>
+         <p>좋아하는 일을 하는 것이 아리라,</p>
+         <p>지금 하는 일을 좋아하는 것입니다.</p>
+  	 </div>
 
-<br/><br/>
-  <div class="col-sm-12 col-md-12 col-lg-12">
-<blockquote>
-  <p style="color:#75574B  ;"><b>이달의 Best 상품</b></p>
-</blockquote>
-</div>
-
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="/images/ddc55d4ef3b0257f17c2bb8560a40c91.jpg" height="300" alt="...">
-      <div class="caption">
-        <h4 style="color:black;">Vintage Plate</h4>
-        <p>31000원</p>
-        <p><a href="/product/getProduct?menu=search&prodNo=10000" class="btn btn-default" role="button">상세정보</a> <a href="/purchase/addPurchase?menu=search&prodNo=10000" class="btn btn-default" role="button">구매</a></p>
-      </div>
-    </div>
-  </div>
-  
-   <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="/images/ddd.PNG" height="300" alt="...">
-      <div class="caption">
-        <h4 style="color:black;">Wood Tray</h4>
-        <p>12000원</p>
-        <p><a href="/product/getProduct?menu=search&prodNo=10001" class="btn btn-default" role="button">상세정보</a> <a href="/purchase/addPurchase?menu=search&prodNo=10000" class="btn btn-default" role="button">구매</a></p>
-      </div>
-    </div>
-  </div>
-  
-   <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="/images/1622711370004681.jpg" height="300" alt="...">
-      <div class="caption">
-        <h4 style="color:black;">Conchiglioni Rigati</h4>
-        <p>14000원</p>
-        <p><a href="/product/getProduct?menu=search&prodNo=10002" class="btn btn-default" role="button">상세정보</a> <a href="/purchase/addPurchase?menu=search&prodNo=10000" class="btn btn-default" role="button">구매</a></p>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-</div>
 </body>
+
 </html>

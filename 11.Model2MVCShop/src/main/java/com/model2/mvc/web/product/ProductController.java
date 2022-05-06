@@ -1,6 +1,5 @@
 package com.model2.mvc.web.product;
 
-import java.io.File;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
@@ -66,30 +64,17 @@ public class ProductController {
 	//@RequestMapping("/addProduct.do")
 	@RequestMapping( value="addProduct", method=RequestMethod.POST )
 
-	public String addProduct(@RequestParam("multiFiles[]") MultipartFile[] multiFiles,
-			@ModelAttribute("product") Product product, Model model) throws Exception {
+	public String addProduct(@ModelAttribute("product") Product product,Model model) throws Exception {
 
-		System.out.println("/product/addProduct : post");
+		System.out.println("/product/addProduct : POST");
 		// Business Logic
-		String FILE_SERVER_PATH = "C:\\workspace2\\Mini_PJT\\11.Model2MVCShop\\src\\main\\webapp\\images\\uploadFiles\\";
-
-		String files = "";
-
-		for (int i = 0; i < multiFiles.length; i++) {
-			if (!multiFiles[i].getOriginalFilename().isEmpty()) {
-				multiFiles[i].transferTo(new File(FILE_SERVER_PATH, multiFiles[i].getOriginalFilename()));
-				files += multiFiles[i].getOriginalFilename() + "/";
-			}
-		}
-		product.setFileName(files);
-		
+		System.out.println("¿Ö¾Æ³­¿È"+product.getManuDate());
 		product.setManuDate(product.getManuDate().replace("/", ""));
 		System.out.println("¹¹¾ß"+product.getManuDate());
 		productService.addProduct(product);
 		
 		return "forward:/product/readProduct.jsp";
 	}
-	
 
 	//@RequestMapping("/getProduct.do")
 	@RequestMapping( value="getProduct")
@@ -121,25 +106,12 @@ public class ProductController {
 
 	//@RequestMapping("/updateProduct.do")
 	@RequestMapping( value="updateProduct", method=RequestMethod.POST )
-	public String updateProduct(@ModelAttribute("product") Product product,@RequestParam("multiFiles[]") MultipartFile[] multiFiles,
+	public String updateProduct(@ModelAttribute("product") Product product,
 			@ModelAttribute("purchase") Purchase purchase,Model model, HttpSession session)
 			throws Exception {
 
 		System.out.println("/product/updateProduct :  POST");
 		// Business Logic
-		
-		String files = "";
-		String FILE_SERVER_PATH = "C:\\workspace2\\Mini_PJT\\11.Model2MVCShop\\src\\main\\webapp\\images\\uploadFiles\\";
-
-		for (int i = 0; i < multiFiles.length; i++) {
-			if (!multiFiles[i].getOriginalFilename().isEmpty()) {
-				multiFiles[i].transferTo(new File(FILE_SERVER_PATH, multiFiles[i].getOriginalFilename()));
-				files += multiFiles[i].getOriginalFilename() + "/";
-			}
-		}
-		product.setFileName(files);
-		System.out.println("¾Ë¼ö"+product.getFileName());
-		
 		product.setManuDate(product.getManuDate().replace("-", ""));
 
 		
@@ -164,7 +136,7 @@ public class ProductController {
 		
 		System.out.println("sort"+search.getSortCondition());
 		if(search.getSortCondition()==null) {
-			search.setSortCondition("100");
+			search.setSortCondition("3");
 		}
 		
 		search.setSortCondition(search.getSortCondition().replace(",", ""));
