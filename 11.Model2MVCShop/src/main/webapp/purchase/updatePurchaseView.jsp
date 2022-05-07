@@ -7,9 +7,19 @@
 <title>회원정보수정</title>
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
 	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	<style>
+body>div.container {
+	border: 3px solid #D6CDB7;
+	margin-top: 50px;
+		font-family: 'Gowun Batang', serif; font-weight:bold; color:#75574B
 	
+}
+</style>
 	<script type="text/javascript">
 
 	function fncUpdatePurchase() {

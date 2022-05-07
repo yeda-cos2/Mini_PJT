@@ -15,6 +15,9 @@
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	
@@ -31,7 +34,13 @@
             padding-top : 50px;
         }
      </style>
-    
+     
+     <style>
+	.page-header {font-family: 'Gowun Batang', serif; font-weight:bold; color:brown}
+	.text-info {font-family: 'Gowun Batang', serif; font-weight:bold; color:brown}
+	.row { font-family: 'Gowun Batang', serif;}
+	</style>
+     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
 		
@@ -57,8 +66,9 @@
 	<div class="container">
 	
 		<div class="page-header">
-	       <h3 class=" text-info">회원정보조회</h3>
-	       <h5 class="text-muted">내 정보를 <strong class="text-danger">최신정보로 관리</strong>해 주세요.</h5>
+		
+	       <h3 class=" text-info" style="color:#75574B;">회원정보조회</h3>
+	       <br></br>
 	    </div>
 	
 		<div class="row">
@@ -105,7 +115,7 @@
 		
 		<div class="row">
 	  		<div class="col-md-12 text-center ">
-	  			<button type="button" class="btn btn-primary">회원정보수정</button>
+	  			<button type="button" id="susu" class="btn btn-default">회원정보수정</button>
 	  		</div>
 		</div>
 		

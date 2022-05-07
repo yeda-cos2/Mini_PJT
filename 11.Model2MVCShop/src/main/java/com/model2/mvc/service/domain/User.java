@@ -14,7 +14,9 @@ public class User {
 	private String ssn;
 	private String phone;
 	private String addr;
+	private String addr_detail;
 	private String email;
+	private String email2;
 	private Date regDate;
 	/////////////// EL 적용 위해 추가된 Field ///////////
 	private String phone1;
@@ -26,6 +28,14 @@ public class User {
 
 	
 	
+	public String getAddr_detail() {
+		return addr_detail;
+	}
+
+	public void setAddr_detail(String addr_detail) {
+		this.addr_detail = addr_detail;
+	}
+
 	///Constructor
 	public User(){
 	}
@@ -141,5 +151,13 @@ public class User {
 
 	public void setRegDateString(String regDateString) {
 		this.regDateString = regDateString;
+	}
+
+	public String getEmail2() {
+		return email2;
+	}
+
+	public void setEmail2(String email2) {
+		this.email2 = email2;
 	}
 }

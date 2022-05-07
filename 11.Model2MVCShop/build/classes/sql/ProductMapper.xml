@@ -17,25 +17,26 @@
 		<result property="regDate" 				column="reg_date" 					jdbcType="DATE" />
 		<result property="proTranCode"      column="TRAN_STATUS_CODE"           jdbcType="VARCHAR"/>
 		<result property="total" 			column="total" 			jdbcType="NUMERIC"/>
+		<result property="cancel"      column="cancel"           jdbcType="VARCHAR"/>
 		
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
 	<insert 	id="addProduct"		parameterType="product" >
 	 	INSERT
-		INTO product( prod_no , prod_name , prod_detail , manufacture_day , price, image_file, reg_date,total) 
+		INTO product( prod_no , prod_name , prod_detail , manufacture_day , price, image_file, reg_date,total,cancel) 
 		VALUES	 (	seq_product_prod_no.nextval , #{prodName} , #{prodDetail} , #{manuDate} , #{price} , 
-							#{fileName} , SYSDATE,#{total} )
+							#{fileName} , SYSDATE,#{total},#{cancel} )
 	 </insert>
+	 
 	 
 	 
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getProduct"	parameterType="int"	resultMap="productSelectMap">
-		SELECT
-		p.*, t.TRAN_STATUS_CODE
-		FROM product p LEFT OUTER JOIN transaction t
-		ON t.prod_no=p.prod_no
-		WHERE p.prod_no= #{prodNo}
+		SELECT *
+		FROM product 
+		
+		WHERE prod_no= #{prodNo}
 	 </select>
 	 
 	 <!-- SQL : UPDATE -->
@@ -47,7 +48,8 @@
 			manufacture_day 				= #{manuDate} ,
 			image_file				=	#{fileName},
 			price=#{price},
-			total=#{total} 
+			total=#{total},
+			cancel=#{cancel} 
 	   	</set>
 	   	WHERE prod_no = #{prodNo}
 	 </update>
@@ -58,36 +60,46 @@
 	<select  id="getProductList"  parameterType="search"	resultMap="productSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	SELECT p.*,t.TRAN_STATUS_CODE 
-											FROM transaction t, product p
-											<where>
-											t.prod_no(+)=p.prod_no
+	  					FROM		(	SELECT *
+											FROM product
 											<if test="searchCondition != null">
-													<if test="searchCondition == 0 and searchKeyword !='' ">
-										 				and p.PROD_NO LIKE '%'||#{searchKeyword}||'%'
-													</if>
-													<if test="searchCondition == 1 and searchKeyword !='' ">
-										 				and p.prod_name LIKE '%'||#{searchKeyword}||'%'
-													</if>
-													<if test="searchCondition == 2 and searchKeyword !='' ">
-										 				and p.PRICE LIKE '%'||#{searchKeyword}||'%'
-													</if>
-											</if>
-													</where>
-													
-											<if test="sortCondition != null">
 											<choose>
-													<when test="sortCondition == 0  ">
-										 				ORDER BY p.price ASC
+													<when test="searchCondition == 0 and searchKeyword !='' ">
+										 				where PROD_NO LIKE '%'||#{searchKeyword}||'%'
 													</when>
-													<when test="sortCondition == 1 ">
-										 				ORDER BY p.price DESC
+													<when test="searchCondition == 1 and searchKeyword !='' ">
+										 				 where prod_name LIKE '%'||#{searchKeyword}||'%'
 													</when>
-													<when test="sortCondition == 2  ">
-										 				ORDER BY p.reg_date DESC
+													<when test="searchCondition == 2 and searchKeyword !='' ">
+										 				where PRICE LIKE '%'||#{searchKeyword}||'%'
 													</when>
 													<otherwise>
-														ORDER BY p.prod_NO
+													  where PROD_NO LIKE '%'|| ''||'%'
+													</otherwise>
+													</choose>
+											</if>
+											
+													
+											<if test="sortCondition != null">
+											
+											<choose>
+													<when test="sortCondition == 0  ">
+										 				ORDER BY price ASC
+													</when>
+													<when test="sortCondition == 1 ">
+										 				ORDER BY price DESC
+													</when>
+													<when test="sortCondition == 2  ">
+										 				ORDER BY reg_date DESC
+													</when>
+													<when test="sortCondition == 3 ">
+														and cancel='0'
+													</when>
+													<when test="sortCondition == 4">
+														and cancel='1'
+													</when>
+													<otherwise>
+														order by prod_no
 													</otherwise>
 													</choose>
 													</if>

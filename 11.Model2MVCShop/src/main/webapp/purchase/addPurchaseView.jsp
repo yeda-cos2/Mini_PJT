@@ -11,7 +11,9 @@
 	
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
 
 <link rel="stylesheet"
 	href="resources/css/plugin/datepicker/bootstrap-datepicker.css">
@@ -52,6 +54,7 @@
 body>div.container {
 	border: 3px solid #D6CDB7;
 	margin-top: 150px;
+	font-family: 'Gowun Batang', serif; font-weight:bold; color:#75574B
 }
 </style>
     
@@ -61,7 +64,7 @@ body>div.container {
 		//============= "가입"  Event 연결 =============
 		 $(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "button.btn.btn-primary" ).on("click" , function() {
+			$( "button.btn.btn-default" ).on("click" , function() {
 				fncAddPurchase();
 			});
 		});	
@@ -82,9 +85,9 @@ body>div.container {
 			
 			var purchaseCount=$("input[name='purchaseCount']").val();
 			var total=$("input[name='total']").val();
-
-			if (purchaseCount > total) {
-				console.log("아");
+			console.log(total);
+			console.log(purchaseCount);
+			if (total < purchaseCount) {
 				alert("구매 가능 개수가 초과되었습니다");
 				return;
 			}
@@ -113,7 +116,7 @@ body>div.container {
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<div class="navbar  navbar-default">
         <div class="container">
-        	<a class="navbar-brand" href="/index.jsp">Model2 MVC Shop</a>
+        	<a class="navbar-brand" href="/index.jsp">식탁의 온도</a>
    		</div>
    	</div>
    	<!-- ToolBar End /////////////////////////////////////-->
@@ -122,7 +125,7 @@ body>div.container {
 	<div class="container">
 	
 		<h1 class="bg-defualt text-center">상품구매</h1>
-		
+		<br/><br/>
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal">
 		
@@ -234,8 +237,8 @@ body>div.container {
 		  
 		  <div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button"  class="btn btn-primary"  >등&nbsp;록</button>
-			  <a class="btn btn-primary btn" href="#" role="button">취&nbsp;소</a>
+		      <button type="button"  class="btn btn-default"  >구&nbsp;매</button>
+			  <a class="btn btn-default btn" href="#" role="button">취&nbsp;소</a>
 		    </div>
 		  </div>
 		</form>

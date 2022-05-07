@@ -6,6 +6,21 @@
 
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
+	<style>
+ 		body {
+            padding-top : 50px;
+            font-family: 'Gowun Batang', serif;
+        }
+     </style>
+     
+     <style>
+	.page-header {font-family: 'Gowun Batang', serif; font-weight:bold; color:brown}
+	.text-info {font-family: 'Gowun Batang', serif; font-weight:bold; color:brown}
+	.row { font-family: 'Gowun Batang', serif;}
+	</style>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 

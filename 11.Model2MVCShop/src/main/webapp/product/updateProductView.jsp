@@ -11,7 +11,9 @@
 	
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
 
 <link rel="stylesheet"
 	href="resources/css/plugin/datepicker/bootstrap-datepicker.css">
@@ -51,7 +53,9 @@
 <style>
 body>div.container {
 	border: 3px solid #D6CDB7;
-	margin-top: 150px;
+	margin-top: 50px;
+		font-family: 'Gowun Batang', serif; font-weight:bold; color:#75574B
+	
 }
 </style>
     
@@ -61,9 +65,10 @@ body>div.container {
 		//============= "가입"  Event 연결 =============
 		 $(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "button.btn.btn-primary" ).on("click" , function() {
+			$( "button.btn.btn-default" ).on("click" , function() {
 				fncUpdateProduct();
 			});
+			
 		});	
 		
 		
@@ -76,7 +81,6 @@ body>div.container {
 		});	
 	
 		
-
 
 		function fncUpdateProduct() {
 			//Form 유효성 검증
@@ -102,7 +106,7 @@ body>div.container {
 				return;
 			}
 
-			$("form").attr("method" , "POST").attr("action" , "/product/updateProduct").submit();
+			$("form").attr("method" , "POST").attr("enctype","multipart/form-data").attr("action" , "/product/updateProduct").submit();
 		}
 
 
@@ -125,7 +129,7 @@ body>div.container {
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<div class="navbar  navbar-default">
         <div class="container">
-        	<a class="navbar-brand" href="/index.jsp">Model2 MVC Shop</a>
+        	<a class="navbar-brand" href="/index.jsp">식탁의 온도</a>
    		</div>
    	</div>
    	<!-- ToolBar End /////////////////////////////////////-->
@@ -141,14 +145,14 @@ body>div.container {
 		  <div class="form-group">
 		    <label for="prodName" class="col-sm-offset-1 col-sm-3 control-label">상품명</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="prodName" name="prodName" placeholder="상품명">
+		      <input type="text" class="form-control" id="prodName" name="prodName" value="${product.prodName }">
 		    </div>
 		  </div>
-		  
+		  <input type="hidden" name="prodNo" value="${product.prodNo }"/>
 		  <div class="form-group">
 		    <label for="total" class="col-sm-offset-1 col-sm-3 control-label">상품수량</label>
 		    <div class="col-sm-4">
-		      <input type="number" class="form-control" id="total" name="total" placeholder="상품수량">
+		      <input type="number" class="form-control" id="total" name="total"  value="${product.total }">
 		    </div>
 		  </div>
 		  
@@ -156,37 +160,45 @@ body>div.container {
 		  <div class="form-group">
 		    <label for="prodDetail" class="col-sm-offset-1 col-sm-3 control-label">상품상세정보</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="prodDetail" name="prodDetail" placeholder="상품상세정보">
+		      <input type="text" class="form-control" id="prodDetail" name="prodDetail"  value="${product.prodDetail }">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="manuDate" class="col-sm-offset-1 col-sm-3 control-label">제조일자</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="manuDate" name="manuDate" placeholder="제조일자">
+		      <input type="text" class="form-control" id="manuDate" name="manuDate"  value="${product.manuDate }">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="price" class="col-sm-offset-1 col-sm-3 control-label">가격</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="price" name="price" placeholder="가격">
+		      <input type="text" class="form-control" id="price" name="price"  value="${product.price }">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="fileName" class="col-sm-offset-1 col-sm-3 control-label">상품이미지</label>
 		     <div class="col-sm-4">
-	     	 <input type="file" class="form-control" id="fileName" name="fileName" placeholder="상품이미지">
+	     	 <input multiple="multiple"	  type="file" class="form-control" id="fileName" name="multiFiles[]"  >
 
+		    </div>
+		  </div>
+		  
+		   <div class="form-group">
+		    <label for="cancel" class="col-sm-offset-1 col-sm-3 control-label">판매상태</label>
+		     <div class="col-sm-4">
+	     	 <input type="radio"  name="cancel" value="0" checked>&nbsp;판매중&nbsp;&nbsp;&nbsp;&nbsp;
+	     	 <input type="radio"   name="cancel" value="1">&nbsp;판매중지
 		    </div>
 		  </div>
 		  
 		  
 		  <div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button"  class="btn btn-primary"  >수&nbsp;정</button>
-			  <a class="btn btn-primary btn" href="#" role="button">취&nbsp;소</a>
+		      <button type="button"  class="btn btn-default"  >수&nbsp;정</button>
+			  <a class="btn btn-default btn" href="#" role="button">취&nbsp;소</a>
 		    </div>
 		  </div>
 		</form>

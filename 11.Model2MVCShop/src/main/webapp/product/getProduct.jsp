@@ -14,6 +14,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -30,8 +33,16 @@
 	<style>
  		body {
             padding-top : 50px;
+            font-family: 'Gowun Batang', serif;
         }
      </style>
+     
+     <style>
+	.page-header {font-family: 'Gowun Batang', serif; font-weight:bold; color:brown}
+	.text-info {font-family: 'Gowun Batang', serif; font-weight:bold; color:brown}
+	.row { font-family: 'Gowun Batang', serif;}
+	</style>
+     
      
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
@@ -72,17 +83,18 @@
 		</div>
 		
 		<div class="row">
-			<img src="/images/uploadFiles/${product.fileName}" width="300" height="300"><br/>
+				<c:choose>
+		<c:when test="${(product.fileName).contains('/')}">
+		<c:forEach var="name" items="${(product.fileName).split('/')}">
+		<img src="/images/uploadFiles/${name}" width="300" height="300"><br/>
+		</c:forEach>
+		</c:when>
+		
+		<c:otherwise>
+		<img src="/images/uploadFiles/${product.fileName}" width="300" height="300"><br/>
+		</c:otherwise>
+		</c:choose>
 		</div>
-		<hr />
-
-		<div class="row">
-			<div class="col-xs-4 col-md-2">
-				<strong>상품번호</strong>
-			</div>
-			<div class="col-xs-8 col-md-4">${product.prodNo}</div>
-		</div>
-
 		<hr />
 
 		<div class="row">
@@ -124,14 +136,14 @@
 	  		<div class="col-md-12 text-center ">
 	  	
 	  		<c:if test="${param.menu=='manage'}">
-	  			  			<button type="button" class="btn btn-default">확인</button>
+	  		<button type="button" class="btn btn-default">확인</button>
 	  		
 			</c:if>
 			<c:if test="${param.menu=='search'}">
 	  			<button type="button" class="btn btn-default">구매</button>
+		<button type="button" class="btn btn-default">취소</button>
 				</c:if>	
 		
-		<button type="button" class="btn btn-default">취소</button>
 				
 				
 				

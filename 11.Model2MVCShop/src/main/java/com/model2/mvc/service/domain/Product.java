@@ -15,6 +15,7 @@ public class Product {
 	private String proTranCode;
 	private int total;
 	private int purchaseCount;
+	private String cancel;
 	
 	public Product(){
 	}
@@ -83,6 +84,14 @@ public class Product {
 
 	public void setPurchaseCount(int purchaseCount) {
 		this.purchaseCount = purchaseCount;
+	}
+
+	public String getCancel() {
+		return cancel;
+	}
+
+	public void setCancel(String cancel) {
+		this.cancel = cancel;
 	}
 
 	// Override
