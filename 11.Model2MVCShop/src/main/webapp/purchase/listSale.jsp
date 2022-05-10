@@ -108,7 +108,7 @@
 								//alert("JSONData : \n"+JSONData);
 
 								var displayValue = "<h5>"
-															+":: 판매 정보 조회 ::<br/><br/>"
+															+":: 구매 정보 조회 ::<br/><br/>"
 															+"구매번호 : "+JSONData.tranNo+"<br/>"
 															+"구매방법 : "+JSONData.paymentOption+"<br/>"
 															+"구매자성명 : "+JSONData.receiverName+"<br/>"

@@ -58,6 +58,8 @@
 	                         </c:if>
 	                         
 	                         
+	                         <li class="divider"></li>
+	                         <li><a href="#">etc...</a></li>
 	                     </ul>
 	                 </li>
 	                 
@@ -89,6 +91,7 @@
 	                           <li><a href="#">구매이력조회</a></li>
 	                         </c:if>
 	                         
+	                         <li><a href="#">최근본상품</a></li>
 	                         <li class="divider"></li>
 	                     </ul>
 	                 </li>
@@ -106,7 +109,59 @@
 		<!-- ToolBar End /////////////////////////////////////-->
  	
    	
-   	
+   	<script>
+
+var userId="${sessionScope.user.userId}";
+var userName="${sessionScope.user.userName}";
+var phone="";
+
+  (function() {
+	  
+    var w = window;
+    if (w.ChannelIO) {
+      return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
+    }
+    var ch = function() {
+      ch.c(arguments);
+    };
+    ch.q = [];
+    ch.c = function(args) {
+      ch.q.push(args);
+    };
+    w.ChannelIO = ch;
+    function l() {
+      if (w.ChannelIOInitialized) {
+        return;
+      }
+      w.ChannelIOInitialized = true;
+      var s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.async = true;
+      s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
+      s.charset = 'UTF-8';
+      var x = document.getElementsByTagName('script')[0];
+      x.parentNode.insertBefore(s, x);
+    }
+    if (document.readyState === 'complete') {
+      l();
+    } else if (window.attachEvent) {
+      window.attachEvent('onload', l);
+    } else {
+      window.addEventListener('DOMContentLoaded', l, false);
+      window.addEventListener('load', l, false);
+    }
+  })();
+ 
+  ChannelIO('boot', {
+	 
+    "pluginKey": "3310c66b-352b-4d99-abe5-07c258370f2d", //please fill with your plugin key
+    "memberId": userId, //fill with user id
+    "profile": {
+      "name": userId, //fill with user name
+      "mobileNumber": phone //fill with user phone number
+    }
+  });
+</script>
    	<script type="text/javascript">
 	
 		//============= logout Event  처리 =============	

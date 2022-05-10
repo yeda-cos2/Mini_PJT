@@ -2,6 +2,7 @@
 <%@ page pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
 
 <!DOCTYPE html>
 
@@ -61,6 +62,8 @@
 			 $( "button:contains('취소')" ).on("click" , function() {
 					history.go(-1);
 				});
+			 
+			 
 		});
 		
 	</script>
@@ -130,7 +133,9 @@
 			<div class="col-xs-8 col-md-4">${product.price}</div>
 		</div>
 		<hr/>
-		
+				
+				
+
 		
 		<div class="row">
 	  		<div class="col-md-12 text-center ">
@@ -145,14 +150,29 @@
 				</c:if>	
 		
 				
-				
-				
 	  		</div>
 		</div>
 		
 		<br/>
+
+
+		<div class="page-header">
+			<h2>Review</h2>
+		</div>
 		
- 	</div>
+		
+		<form action="/product/reviewProduct?reviewNo=10000" method="post">
+		<div class="col-md-12 text-center ">
+		
+			<textarea name="text" class="form-control" rows="5"></textarea>
+			<br/>
+			<input type="submit" value="리뷰등록">
+		</div>
+		</form>
+
+		
+		
+	</div>
  	<!--  화면구성 div Start /////////////////////////////////////-->
 
 </body>

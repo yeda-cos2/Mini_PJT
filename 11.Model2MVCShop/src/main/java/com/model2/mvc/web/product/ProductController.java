@@ -1,6 +1,7 @@
 package com.model2.mvc.web.product;
 
 import java.io.File;
+import java.security.Principal;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,15 +13,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.Purchase;
+import com.model2.mvc.service.domain.Review;
 import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.product.ProductService;
 import com.model2.mvc.service.purchase.PurchaseService;
@@ -85,7 +89,7 @@ public class ProductController {
 
 		product.setManuDate(product.getManuDate().replace("/", ""));
 		System.out.println("¹¹¾ß" + product.getManuDate());
-		
+
 		product.setCancel("0");
 		productService.addProduct(product);
 
@@ -172,6 +176,7 @@ public class ProductController {
 
 		// Business logic ¼öÇà
 		Map<String, Object> map = productService.getProductList(search);
+		Map<String , Object> mapName = productService.getProdNames(search);
 
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit,
 				pageSize);
@@ -187,8 +192,22 @@ public class ProductController {
 		System.out.println("resultPage´Â" + resultPage);
 		model.addAttribute("search", search);
 		model.addAttribute("user", user);
-		System.out.println("user::::" + user);
+		model.addAttribute("autoproduct",mapName.get("list"));
 
 		return "forward:/product/listProduct.jsp?menu=" + menu;
 	}
+	
+	@RequestMapping(value = "reviewProduct", method = RequestMethod.GET)
+	public ModelAndView reviewProduct( @ModelAttribute("review") Review review, @ModelAttribute("user") User user) throws Exception {
+		System.out.println(review.getReviewNo());
+		Review review1=new Review();
+		review1.setUserId(user.getUserId());
+		review1.setReviewNo(review.getReviewNo());
+		ModelAndView modelAndView=new ModelAndView();
+		modelAndView.addObject("review",review1);
+		modelAndView.setViewName("forward:/product/getProduct.jsp?prodNo=10009");
+		return modelAndView;
+	}
+	
+
 }

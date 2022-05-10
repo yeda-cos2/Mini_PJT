@@ -38,30 +38,41 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	
 	<!--  ///////////////////////// CSS ////////////////////////// -->
-	<style>
-	  body {
-            padding-top : 50px;
-        }
-        
-        div.thumbnail{
-        height:500px;
-        width:340px;
-        
-        }
-        
-        
-       
-    </style>
-    
-        <style>
-	.page-header.text-info {font-family: 'Gowun Batang', serif; font-weight:bold; color:#75574B}
-	.text-info {font-family: 'Gowun Batang', serif; font-weight:bold; color:#75574B}
-	.row { font-family: 'Gowun Batang', serif;}
-	.table.table-hover.table-striped { font-family: 'Gowun Batang', serif;}
+<style>
+body {
+	padding-top: 50px;
+}
 
+div.thumbnail {
+	height: 500px;
+	width: 340px;
+}
 </style>
-    
-     <!--  ///////////////////////// JavaScript ////////////////////////// -->
+
+
+<style>
+.page-header.text-info {
+	font-family: 'Gowun Batang', serif;
+	font-weight: bold;
+	color: #75574B
+}
+
+.text-info {
+	font-family: 'Gowun Batang', serif;
+	font-weight: bold;
+	color: #75574B
+}
+
+.row {
+	font-family: 'Gowun Batang', serif;
+}
+
+.table.table-hover.table-striped {
+	font-family: 'Gowun Batang', serif;
+}
+</style>
+
+<!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
 	
 		//=============    검색 / page 두가지 경우 모두  Event  처리 =============	
@@ -85,10 +96,146 @@
 					fncGetList(1);
 				 
 			 });
-			 
+				
+				 $(document).on('click', 'a.btn-defualt', function(){
+					 var prodNo =$(this).attr("value");
+					 console.log('상세조회');
+					 self.location = "/product/getProduct?menu=search&prodNo="+prodNo
 				});
+				 
+				
+				 $(document).on('click', 'a.update', function(){
+					 var prodNo =$(this).attr("value");
+					 console.log('수정하기');
+					 self.location = "/product/updateProduct?prodNo="+prodNo
+				});
+				 
+				 $(document).on('click', 'a.buy', function(){
+					 var prodNo =$(this).attr("value");
+					 console.log('구매하기');
+					 self.location = "/product/getProduct?menu=search&prodNo="+prodNo
+				});
+				
+				 //=========autoComplete=================================================
+				 
+				 var list = [];
+			   		<c:forEach var="names" items="${autoproduct }" >
+			   		list.push("${names.prodName}");
+			   		</c:forEach>
+			   		
+		   		    
+			   		$( "#prodname" ).autocomplete({
+			   		      source: list,
+			   		      
+			   		});
+			   		
+			   	//====================================================================
+			 
+			   	 $(window).scroll(function() {
+		                if($(window).scrollTop() == $(document).height() - $(window).height()) { 
+		                	
+		                	var cpage = $("#currentPage").val();
+		                	console.log(cpage);
+		                	cpage = Number(cpage)+1;
+		                	console.log(cpage);
+		        	   		
+		        	   		
+					            $.ajax({
+					                
+					                  url : "/product/json/listProduct?&menu=${param.menu }" ,
+					                  method : "POST" ,
+					                  data : JSON.stringify({
+					                	  currentPage : cpage
+					                  }), 
+					                  dataType : "json" ,
+					                  headers : {
+					                     "Accept" : "application/json",
+					                     "Content-Type" : "application/json"
+					                  },
+					                success : function(JSONData , status) {
+					                	 
+					                	$("#currentPage").val(cpage)
+					                	//console.log(cpage); 
+					                	//alert(JSONData.list[0].prodName);
+					                	//alert(JSONData.list.length);
+					                	console.log(JSONData.list[0].prodName);
+						                	 
+					                	for(var i=0; i<JSONData.list.length-1; i++){
+					                		///*
+					                		var image;
+					                		var message;
+					                		var cancel;
+					                		var button;
+					                
+					                		if(JSONData.list[i].cancel == '0'){
+				                				
+				                					image = "<img src='/images/uploadFiles/"+JSONData.list[i].fileName.split('/')[0]+"' id='image'>";
+				                				
+					                			
+					                		}else if(JSONData.list[i].cancel == '1'){
+					                			
+				                					image = "<img src='/images/uploadFiles/"+JSONData.list[i].fileName.split('/')[0]+"' id='image_none'>";
+				                				
+					                		}
+					                		
+					                		
+					                		if(${user.role.equals('admin') && param.menu.equals('manage')}){
+					                			message="<p>남은 재고량 : "+JSONData.list[i].total+"</p>";
+					                		}else{
+					                			message="<p></p>";
+					                		}
+					                		
+					                		
+					                		if(JSONData.list[i].cancel == '1' && param.menu.equals('search')){
+					                			cancel = "<p style='color:#DB4455'>판매중지</p>";
+					                		}else if(JSONData.list[i].cancel == '1' && param.menu.equals('manage')){
+					                			cancel = "<p style='color:#DB4455'>*판매중지된 상품입니다.</p>";
+					                		}else if(JSONData.list[i].cancel == '0'){
+					                			cancel = "<p></p>";
+					                		}
+					                		
+					                		if(${param.menu=='manage' }){
+					                			button = "<a class='btn btn-defualt btn update'  role='button' value='"+JSONData.list[i].prodNo+"'>수정하기</a>" ;
+					                		}else{
+					                			if(JSONData.list[i].total == "0"){
+					                				button = "<a class='btn btn-defualt btn disabled' role='button' >재고없음</a>";
+					                			}else{
+					                				if(JSONData.list[i].cancel=='0'){
+					                					button = "<a class='btn btn-default btn buy' role='button' value='"+JSONData.list[i].prodNo+"'>구매하기</a>";
+					                				}else{
+					                					button = "<a class='btn btn-default btn disabled' role='button' value='"+JSONData.list[i].prodNo+"'>구매하기</a>";
+					                				}
+					                			}
+					                		}
+					                		
+						                     var displayValue = "<div class='col-sm-6 col-md-4'>"
+						                     					+"<div class='thumbnail'>"
+						                     					+image
+					                     						+"<div class='caption'>"
+					                     						+"<h3>"+JSONData.list[i].prodName+"</h3>"
+					                     						+cancel
+					                     						+"<p>"+JSONData.list[i].price+" 원</p>"
+					                     						+"<p align='right'>"
+					                     						+"<a class='btn btn-defualt btn'  role='button' value='"+JSONData.list[i].prodNo+"' style='color:#bc8f8f'>상세조회</a>"
+
+					                     						+button
+					                     						+"</p>"
+					                     						+"</div></div></div>"
+					                     						
+					                     		//*/				
+						               	$( '#scrollList' ).append(displayValue);	
+					                     						
+					                     						 		
+					                    						
+					                     						
+					                	}//for 
+					                 }
+					            });//ajax
+					           
+		                }//if
+		            });//function
 		 
-		 
+		   });
 		 
 	</script>
 	
@@ -176,7 +323,7 @@
 				</div>
 					
 					
-						<input type="hidden" id="currentPage" name="currentPage" value="" />
+						<input type="hidden" id="currentPage" name="currentPage" value="1" />
 				
 		</form>
 			
@@ -271,6 +418,9 @@
   </div>		
     </c:forEach>
     </c:if>
+    
+              <div  id="scrollList"></div>
+    
   </div>
 		
 	  
@@ -278,7 +428,6 @@
  	<!--  화면구성 div End /////////////////////////////////////-->
  	
  	<!-- PageNavigation Start... -->
-	<jsp:include page="../common/pageNavigator_new.jsp"/>
 	<!-- PageNavigation End... -->
 	
 </body>

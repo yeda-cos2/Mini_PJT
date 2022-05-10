@@ -57,6 +57,17 @@ public class ProductServiceImpl implements ProductService{
 		productDao.updateProduct(product);
 	}
 
+	@Override
+	public Map<String, Object> getProdNames(Search search) throws Exception {
+		// TODO Auto-generated method stub
+	List<Product> list= productDao.getProdNames(search);	
+		
+		Map map = new HashMap<String, Object>();
+		map.put("list", list );
+		
+		return map;
+	}
+
 
 	
 }

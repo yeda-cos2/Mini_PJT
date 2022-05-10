@@ -108,6 +108,7 @@ public class ProductRestController {
 
 		
 		Map<String, Object> map = productService.getProductList(search);
+		Map<String , Object> mapName = productService.getProdNames(search);
 
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit,
 				pageSize);
@@ -117,6 +118,8 @@ public class ProductRestController {
 		map2.put("list", map.get("list"));
 		map2.put("resultPage", map);
 		map2.put("search", search);
+		map2.put("prodNames",mapName.get("list"));
+
 		System.out.println("map" + map);
 		return map2;
 	}

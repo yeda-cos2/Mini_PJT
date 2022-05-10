@@ -86,7 +86,7 @@
 			},
 			titleFormat : function(date) {
 				return date.date.year + '년 ' + (parseInt(date.date.month) + 1) + '월';
-			}, customButtons: {
+			},customButtons: {
                 addEventButton: { // 추가한 버튼 설정
                     text : "일정 추가",  // 버튼 내용
                     click : function(){ // 버튼 클릭 시 이벤트 추가
@@ -139,7 +139,9 @@
 			});
 		*/
 </script> 	
-	
+	<!-- Channel Plugin Scripts -->
+
+<!-- End Channel Plugin -->
 </head>
 	
 <body>
@@ -241,7 +243,6 @@
 
 </div>
 
-<c:if test="${user.role=='admin' }">
     	<div id='calendar'></div>
  <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -272,7 +273,7 @@
             </div>
         </div>
     </div>
-</c:if>
+
  
  
 </div>

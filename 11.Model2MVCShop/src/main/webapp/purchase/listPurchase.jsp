@@ -114,6 +114,7 @@
 																+"구매수량 : "+JSONData.purchaseCount+"개<br/>"
 																+"요청사항 : "+JSONData.divyRequest+"<br/>"
 																+"배송희망일자 : "+JSONData.divyDate+"<br/>"
+																+"</br>"+"<img src='/images/hot1585752371188.jpg' width='300' height='300' /><br/><br/>"
 
 																+"</h4>";
 									//Debug...									

@@ -160,4 +160,10 @@
 													) countTable						
 	 </select>
 	 
+	  <select  id="getProductNames" resultMap="productSelectMap">
+	  	SELECT * 
+	  	FROM product
+	  	ORDER BY prod_no
+	 </select>
+	 
 </mapper>

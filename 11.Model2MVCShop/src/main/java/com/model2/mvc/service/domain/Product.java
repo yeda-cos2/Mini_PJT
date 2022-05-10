@@ -16,10 +16,19 @@ public class Product {
 	private int total;
 	private int purchaseCount;
 	private String cancel;
+	private int reviewNo;
 	
 	public Product(){
 	}
 	
+	public int getReviewNo() {
+		return reviewNo;
+	}
+
+	public void setReviewNo(int reviewNo) {
+		this.reviewNo = reviewNo;
+	}
+
 	public String getProTranCode() {
 		return proTranCode;
 	}
