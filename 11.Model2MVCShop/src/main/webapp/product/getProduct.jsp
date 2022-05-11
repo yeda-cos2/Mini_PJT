@@ -13,24 +13,38 @@
 	
 	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
-	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-	
-	<!-- Bootstrap Dropdown Hover CSS -->
+ 
+ <!-- Bootstrap Dropdown Hover CSS -->
    <link href="/css/animate.min.css" rel="stylesheet">
    <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+      <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
    
-    <!-- Bootstrap Dropdown Hover JS -->
-   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+   
+	<!--  ///////////////////////// font ////////////////////////// -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+
+    
+    
+   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+    <!-- 로컬 파일 summernote css/js -->
+   <!-- 서머노트를 위해 추가해야할 부분 -->
+  <script src="/javascript/summernote-lite.js"></script>
+  <script src="/javascript/summernote-ko-KR.js"></script>
+  <link rel="stylesheet" href="/css/summernote-lite.css">
+  <!--  -->
+    
 	
-	<!--  ///////////////////////// CSS ////////////////////////// -->
+   
 	<style>
  		body {
             padding-top : 50px;
@@ -67,7 +81,7 @@
 		});
 		
 	</script>
-	
+
 </head>
 
 <body>
@@ -161,14 +175,19 @@
 		</div>
 		
 		
-		<form action="/product/reviewProduct?reviewNo=10000" method="post">
-		<div class="col-md-12 text-center ">
-		
-			<textarea name="text" class="form-control" rows="5"></textarea>
-			<br/>
-			<input type="submit" value="리뷰등록">
-		</div>
-		</form>
+<div class="form-group">
+     <label>내용</label>
+     <textarea id="summernote" class="form-control" name="content">
+      
+     </textarea>
+    <script>
+      $('#summernote').summernote({
+        placeholder: '내용을 입력하세요',
+        tabsize: 2,
+        height: 300
+      });
+    </script>
+  </div>
 
 		
 		
