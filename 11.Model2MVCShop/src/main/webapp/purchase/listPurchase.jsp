@@ -68,6 +68,7 @@
 			$( ".ct_list_pop td:nth-child(3)" ).css("color" , "green");
 			$( "td.cancel:contains('구매취소')" ).css("color" , "red");
 			$( "td.cancel:contains('물건도착')" ).css("color" , "blue");
+			$( "td.cancel:contains('리뷰작성')" ).css("color" , "brown");
 			
 			
 			$( "td.cancel:contains('구매취소')" ).on("click" , function() {
@@ -78,6 +79,10 @@
 			$( "td.cancel:contains('물건도착')" ).on("click" , function() {
 				console.log($(this).attr("value"));
 				self.location ="/purchase/updateTranCode?menu=search&tranCode=200&tranNo="+$(this).attr("value")
+		});
+			
+			$( "td.cancel:contains('리뷰작성')" ).on("click" , function() {
+				self.location ="/purchase/review.jsp"
 		});
 			
 			
@@ -237,11 +242,14 @@
 			  </td>
 			  <td align="left" class="cancel" value="${purchase.tranNo }">
 			  	<c:if test="${purchase.tranCode=='100'}">
-		구매취소
-		</c:if>
-		<c:if test="${purchase.tranCode=='200'}">
-		물건도착
-		</c:if>
+					구매취소
+				</c:if>
+				<c:if test="${purchase.tranCode=='200'}">
+					물건도착
+				</c:if>
+				<c:if test="${purchase.tranCode=='300'}">
+					리뷰작성
+				</c:if>
 			  </td>
 			</tr>
           </c:forEach>

@@ -2,7 +2,6 @@
 <%@ page pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
 
 <!DOCTYPE html>
 
@@ -13,51 +12,57 @@
 	
 	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	
+	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
- 
- <!-- Bootstrap Dropdown Hover CSS -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	
+	<!--  ///////////////////////// font ////////////////////////// -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap"
+	rel="stylesheet">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	
+	<!-- Bootstrap Dropdown Hover CSS -->
    <link href="/css/animate.min.css" rel="stylesheet">
    <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-      <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
    
-   
-	<!--  ///////////////////////// font ////////////////////////// -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-
-    
-    
-   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-    <!-- 로컬 파일 summernote css/js -->
-   <!-- 서머노트를 위해 추가해야할 부분 -->
-  <script src="/javascript/summernote-lite.js"></script>
-  <script src="/javascript/summernote-ko-KR.js"></script>
-  <link rel="stylesheet" href="/css/summernote-lite.css">
-  <!--  -->
-    
+    <!-- Bootstrap Dropdown Hover JS -->
+   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
 	
-   
+	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
- 		body {
-            padding-top : 50px;
-            font-family: 'Gowun Batang', serif;
-        }
-     </style>
-     
-     <style>
-	.page-header {font-family: 'Gowun Batang', serif; font-weight:bold; color:brown}
-	.text-info {font-family: 'Gowun Batang', serif; font-weight:bold; color:brown}
-	.row { font-family: 'Gowun Batang', serif;}
-	</style>
-     
+body {
+	padding-top: 50px;
+	font-family: 'Gowun Batang', serif;
+}
+</style>
+
+
+<style>
+.page-header {
+	font-family: 'Gowun Batang', serif;
+	font-weight: bold;
+	color: brown
+}
+
+.text-info {
+	font-family: 'Gowun Batang', serif;
+	font-weight: bold;
+	color: brown
+}
+
+.row {
+	font-family: 'Gowun Batang', serif;
+}
+</style>
      
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
@@ -76,12 +81,10 @@
 			 $( "button:contains('취소')" ).on("click" , function() {
 					history.go(-1);
 				});
-			 
-			 
 		});
 		
 	</script>
-
+	
 </head>
 
 <body>
@@ -100,18 +103,17 @@
 		</div>
 		
 		<div class="row">
-				<c:choose>
-		<c:when test="${(product.fileName).contains('/')}">
-		<c:forEach var="name" items="${(product.fileName).split('/')}">
-		<img src="/images/uploadFiles/${name}" width="300" height="300"><br/>
-		</c:forEach>
-		</c:when>
-		
-		<c:otherwise>
-		<img src="/images/uploadFiles/${product.fileName}" width="300" height="300"><br/>
-		</c:otherwise>
-		</c:choose>
+			<img src="/images/uploadFiles/${product.fileName}" width="300" height="300"><br/>
 		</div>
+		<hr />
+
+		<div class="row">
+			<div class="col-xs-4 col-md-2">
+				<strong>상품번호</strong>
+			</div>
+			<div class="col-xs-8 col-md-4">${product.prodNo}</div>
+		</div>
+
 		<hr />
 
 		<div class="row">
@@ -147,51 +149,29 @@
 			<div class="col-xs-8 col-md-4">${product.price}</div>
 		</div>
 		<hr/>
-				
-				
-
+		
 		
 		<div class="row">
 	  		<div class="col-md-12 text-center ">
 	  	
 	  		<c:if test="${param.menu=='manage'}">
-	  		<button type="button" class="btn btn-default">확인</button>
+	  			  			<button type="button" class="btn btn-default">확인</button>
 	  		
 			</c:if>
 			<c:if test="${param.menu=='search'}">
 	  			<button type="button" class="btn btn-default">구매</button>
-		<button type="button" class="btn btn-default">취소</button>
 				</c:if>	
 		
+		<button type="button" class="btn btn-default">취소</button>
+				
+				
 				
 	  		</div>
 		</div>
 		
 		<br/>
-
-
-		<div class="page-header">
-			<h2>Review</h2>
-		</div>
 		
-		
-<div class="form-group">
-     <label>내용</label>
-     <textarea id="summernote" class="form-control" name="content">
-      
-     </textarea>
-    <script>
-      $('#summernote').summernote({
-        placeholder: '내용을 입력하세요',
-        tabsize: 2,
-        height: 300
-      });
-    </script>
-  </div>
-
-		
-		
-	</div>
+ 	</div>
  	<!--  화면구성 div Start /////////////////////////////////////-->
 
 </body>
