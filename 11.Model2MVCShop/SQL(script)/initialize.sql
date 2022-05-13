@@ -25,6 +25,13 @@ CREATE TABLE users (
 	PRIMARY KEY(user_id)
 );
 
+CREATE TABLE review(
+review_no  NUMBER 		 		NOT NULL,
+user_id   VARCHAR2(20)   	REFERENCES  users(user_id),
+text        VARCHAR2(100),
+PRIMARY KEY(review_no)
+);
+
 
 CREATE TABLE product ( 
 	prod_no 			 			NUMBER 		 		NOT NULL,

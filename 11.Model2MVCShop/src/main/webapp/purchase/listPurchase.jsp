@@ -82,8 +82,12 @@
 		});
 			
 			$( "td.cancel:contains('∏Æ∫‰¿€º∫')" ).on("click" , function() {
-				self.location ="/purchase/review.jsp"
+				var tranNo=$("td.tno").attr("value");
+				console.log(tranNo);
+				self.location ="/purchase/review.jsp?tranNo="+tranNo
 		});
+			
+		
 			
 			
 		});	

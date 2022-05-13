@@ -19,9 +19,11 @@ import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.Purchase;
+import com.model2.mvc.service.domain.Review;
 import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.product.ProductService;
 import com.model2.mvc.service.purchase.PurchaseService;
+import com.model2.mvc.service.review.ReviewService;
 
 @Controller
 @RequestMapping("/purchase/*")
@@ -35,6 +37,10 @@ public class PurchaseController {
 		@Autowired
 		@Qualifier("productServiceImpl")
 		private ProductService productService;
+		
+		@Autowired
+		@Qualifier("reviewServiceImpl")
+		private ReviewService reviewService;
 		
 		//setter Method 구현 않음
 			
@@ -280,4 +286,18 @@ public class PurchaseController {
 			
 			return modelAndView;
 		}
+
+		
+		@RequestMapping( value="reviewPurchase" )
+		public void reviewPurchase(@ModelAttribute("review") Review review, @RequestParam("tranNo") int tranNo ) throws Exception{
+
+			System.out.println("/purchase/reviewPurchase : TRANnO"+tranNo);
+			System.out.println(review);
+			
+			ModelAndView modelAndView=new ModelAndView();
+			modelAndView.setViewName("forward:/purchase/listPurchase.jsp");
+
+		//return modelAndView;
+		}
+			
 }
