@@ -14,8 +14,5 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/activation-1.1.jar"/>
-	<classpathentry kind="lib" path="C:/javax.mail.jar"/>
-	<classpathentry kind="lib" path="C:/mail-1.4.7.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

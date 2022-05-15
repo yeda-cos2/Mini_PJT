@@ -171,7 +171,26 @@ body {
 		
 		<br/>
 		
- 	</div>
+		<div class="row">
+			<h3 class=" text-info" style="color: #75574B;">府轰格废</h3>
+			<br/>
+	<c:set var="i" value="0" />
+<c:forEach var="review" items="${list}">
+		<div class="caption">
+
+        
+        
+        <blockquote>
+  <p>${review.title }</p>
+  <footer>${review.content }</footer>
+</blockquote>
+
+        <hr/>
+        </div>
+        </c:forEach>
+		</div>
+
+ 	</div> <!-- container -->
  	<!--  拳搁备己 div Start /////////////////////////////////////-->
 
 </body>

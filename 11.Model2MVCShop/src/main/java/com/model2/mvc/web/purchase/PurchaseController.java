@@ -287,17 +287,17 @@ public class PurchaseController {
 			return modelAndView;
 		}
 
-		
-		@RequestMapping( value="reviewPurchase" )
-		public void reviewPurchase(@ModelAttribute("review") Review review, @RequestParam("tranNo") int tranNo ) throws Exception{
-
-			System.out.println("/purchase/reviewPurchase : TRANnO"+tranNo);
-			System.out.println(review);
-			
-			ModelAndView modelAndView=new ModelAndView();
-			modelAndView.setViewName("forward:/purchase/listPurchase.jsp");
-
-		//return modelAndView;
-		}
-			
+//		
+//		@RequestMapping( value="reviewPurchase" )
+//		public void reviewPurchase(@ModelAttribute("review") Review review, @RequestParam("tranNo") int tranNo ) throws Exception{
+//
+//			System.out.println("/purchase/reviewPurchase : TRANnO"+tranNo);
+//			System.out.println(review);
+//			
+//			ModelAndView modelAndView=new ModelAndView();
+//			modelAndView.setViewName("forward:/purchase/listPurchase.jsp");
+//
+//		//return modelAndView;
+//		}
+//			
 }

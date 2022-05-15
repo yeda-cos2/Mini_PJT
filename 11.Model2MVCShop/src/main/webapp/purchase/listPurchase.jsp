@@ -84,7 +84,7 @@
 			$( "td.cancel:contains('∏Æ∫‰¿€º∫')" ).on("click" , function() {
 				var tranNo=$("td.tno").attr("value");
 				console.log(tranNo);
-				self.location ="/purchase/review.jsp?tranNo="+tranNo
+				self.location ="/review/addReview.jsp?tranNo="+tranNo
 		});
 			
 		

@@ -96,6 +96,23 @@
 	                     </ul>
 	                 </li>
 	                 
+	                 <li class="dropdown">
+	                     <a  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+	                         <span >레시피</span>
+	                         <span class="caret"></span>
+	                     </a>
+	                     <ul class="dropdown-menu">
+	                         <li><a href="#">레시피검색</a></li>
+              	             <li><a href="#">레시피등록</a></li>
+	                         <c:if test="${sessionScope.user.role == 'user'}">
+	                           <li><a href="#">나의레시피</a></li>
+	                         </c:if>
+	                         
+	                         <li><a href="#">최근본상품</a></li>
+	                         <li class="divider"></li>
+	                     </ul>
+	                 </li>
+	                 
 	             </ul>
 	             
 	             <ul class="nav navbar-nav navbar-right">
@@ -214,5 +231,16 @@ var phone="";
 	 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$(self.location).attr("href","/product/listProduct?menu=search");
 		});
+		
+		$( "a:contains('레시피검색')" ).on("click" , function() {
+	 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$(self.location).attr("href","/recipe/listRecipe");
+		});
+		
+		$( "a:contains('레시피등록')" ).on("click" , function() {
+	 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$(self.location).attr("href","/recipe/addRecipe.jsp");
+		});
+	 	
 		
 	</script>  

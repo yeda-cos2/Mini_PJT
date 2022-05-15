@@ -1,7 +1,6 @@
 package com.model2.mvc.web.product;
 
 import java.io.File;
-import java.security.Principal;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +26,7 @@ import com.model2.mvc.service.domain.Review;
 import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.product.ProductService;
 import com.model2.mvc.service.purchase.PurchaseService;
+import com.model2.mvc.service.review.ReviewService;
 
 @Controller
 @RequestMapping("/product/*")
@@ -40,6 +39,11 @@ public class ProductController {
 	@Autowired
 	@Qualifier("purchaseServiceImpl")
 	private PurchaseService purchaseService;
+
+	@Autowired
+	@Qualifier("reviewServiceImpl")
+	private ReviewService reviewService;
+	
 	// setter Method 구현 않음
 
 	public ProductController() {
@@ -98,15 +102,29 @@ public class ProductController {
 
 	// @RequestMapping("/getProduct.do")
 	@RequestMapping(value = "getProduct")
-	public String getProduct(@RequestParam("prodNo") int prodNo, @RequestParam("menu") String menu, Model model)
+	public String getProduct(@ModelAttribute("search") Search search,@RequestParam("prodNo") int prodNo, @RequestParam("menu") String menu, Model model)
 			throws Exception {
 
 		System.out.println("/product/getProduct : post / get");
 		// Business Logic
 		Product product = productService.getProduct(prodNo);
+		
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		System.out.println("모냐prodno"+prodNo);
+		Map<String, Object> map = reviewService.getReviewList(search,prodNo);
+		System.out.println("map:"+map.get("list"));
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit,
+				pageSize);
+		System.out.println(resultPage);
 
 		// Model 과 View 연결
 		model.addAttribute("product", product);
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
 
 		return "forward:/product/getProduct.jsp?menu=" + menu;
 	}

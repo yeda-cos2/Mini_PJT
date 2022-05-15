@@ -86,7 +86,8 @@ div.thumbnail {
 		 $(function() {
 			 //==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			
-				
+			
+			 
 				$( "button.btn.btn-default:contains('정렬')" ).on("click" , function() {
 					fncGetList(1);
 				 
