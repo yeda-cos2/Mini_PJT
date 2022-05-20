@@ -78,6 +78,7 @@ public class ProductController {
 			@ModelAttribute("product") Product product, Model model) throws Exception {
 
 		System.out.println("/product/addProduct : post");
+		System.out.println(product.getTotal());
 		// Business Logic
 		String FILE_SERVER_PATH = "C:\\workspace2\\Mini_PJT\\11.Model2MVCShop\\src\\main\\webapp\\images\\uploadFiles\\";
 
@@ -90,7 +91,7 @@ public class ProductController {
 			}
 		}
 		product.setFileName(files);
-
+		System.out.println(product.getTotal());
 		product.setManuDate(product.getManuDate().replace("/", ""));
 		System.out.println("¹¹¾ß" + product.getManuDate());
 

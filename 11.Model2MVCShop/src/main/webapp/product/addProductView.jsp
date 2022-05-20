@@ -88,10 +88,18 @@ body>div.container {
 		 	var detail = $("input[name='prodDetail']").val();
 		 	var manuDate = $("input[name='manuDate']").val();
 		 	var price = $("input[name='price']").val();
-
+		 	var total= $("input[name='total']").val();
+		 	
 			if(name == null || name.length<1){
 				alert("상품명은 반드시 입력하여야 합니다.");
 				return;
+			}
+			if(total == null || total.length<1 ||total==''){
+				console.log(total);
+				total=0;
+				console.log(total);
+				
+
 			}
 			if(detail == null || detail.length<1){
 				alert("상품상세정보는 반드시 입력하여야 합니다.");
