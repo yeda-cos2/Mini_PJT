@@ -82,7 +82,7 @@
 		});
 			
 			$( "td.cancel:contains('리뷰작성')" ).on("click" , function() {
-				var tranNo=$("td.tno").attr("value");
+				var tranNo=$(this).attr("value");
 				console.log(tranNo);
 				self.location ="/review/addReview.jsp?tranNo="+tranNo
 		});
@@ -210,8 +210,8 @@
         <thead>
           <tr>
             <th align="left">No</th>
-            <th align="left" >회원 ID</th>
-            <th align="left">회원명</th>
+            <th align="left" >상품번호</th>
+            <th align="left">주문번호</th>
             <th align="left">전화번호</th>
             <th align="left">배송현황</th>
             <th align="left">구매취소</th>
@@ -224,9 +224,9 @@
 		  <c:forEach var="purchase" items="${list}">
 			<c:set var="i" value="${ i+1 }" />
 			<tr>
-			  <td align="left" class="tno" value="${purchase.tranNo }">${ i }</td>
-			  <td align="left">${purchase.buyer.userId}</td>
-			  <td align="left">${user.userName}</td>
+			  <td align="left" value="${purchase.tranNo }">${ i }</td>
+			  <td align="left">${purchase.purchaseProd.prodNo}</td>
+			  <td align="left">${purchase.tranNo}</td>
 			  <td align="left">${purchase.receiverPhone}</td>
 			  <td align="left">
 			  <c:choose>

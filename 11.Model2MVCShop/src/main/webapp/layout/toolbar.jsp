@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
 
+
 <style>
 .navbar-brand {font-family: 'Gowun Batang', serif; font-weight:bold; color:brown}
 .navbar-brand li { font-family: 'Gowun Batang', serif;}

@@ -63,8 +63,7 @@ CREATE TABLE review(
 review_no  NUMBER 		 		NOT NULL,
 user_id   VARCHAR2(20)   	REFERENCES  users(user_id),
 prod_no   NUMBER(16)    NOT  NULL  REFERENCES  product(prod_no),
-title        VARCHAR2(100),
-content        VARCHAR2(1000),
+content        CLOB,
 PRIMARY KEY(review_no)
 );
 
@@ -78,7 +77,7 @@ file_name VARCHAR2(200),
 difficulty NUMBER,
 cooking_time NUMBER,		 
 ingredient VARCHAR2(100),
-recipe_order VARCHAR2(100),
+recipe_order VARCHAR2(1000),
 theme NUMBER,
 review_num NUMBER 		 
 );
