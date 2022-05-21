@@ -14,6 +14,7 @@ CREATE  SEQUENCE  seq_product_prod_no	 	 	INCREMENT BY  1  START  WITH  10000;
 CREATE  SEQUENCE  seq_transaction_tran_no	 INCREMENT  BY  1  START  WITH  10000;
 CREATE  SEQUENCE  seq_review_no	 INCREMENT  BY  1  START  WITH  10000;
 CREATE  SEQUENCE  seq_recipe_no	 INCREMENT  BY  1  START  WITH  10000;
+CREATE  SEQUENCE  seq_reply_no	 INCREMENT  BY  1  START  WITH  10000;
 
 
 CREATE TABLE users ( 
@@ -69,15 +70,15 @@ PRIMARY KEY(review_no)
 
 CREATE TABLE recipe(
 recipe_no NUMBER 		 		NOT NULL,
-recipe_name  VARCHAR2(20),
-recipe_detail  VARCHAR2(50),
+recipe_name  VARCHAR2(1000),
+recipe_detail  VARCHAR2(1000),
 writer  VARCHAR2(20) REFERENCES  users(user_id),
 reg_date  VARCHAR2(10),
 file_name VARCHAR2(200),
 difficulty NUMBER,
 cooking_time NUMBER,		 
 ingredient VARCHAR2(100),
-recipe_order VARCHAR2(1000),
+recipe_order VARCHAR2(4000),
 theme NUMBER,
 review_num NUMBER 		 
 );
