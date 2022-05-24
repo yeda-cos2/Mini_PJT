@@ -60,7 +60,7 @@
 	                         
 	                         
 	                         <li class="divider"></li>
-	                         <li><a href="#">etc...</a></li>
+	                         <li><a href="#">마이페이지</a></li>
 	                     </ul>
 	                 </li>
 	                 
@@ -241,6 +241,11 @@ var phone="";
 		$( "a:contains('레시피등록')" ).on("click" , function() {
 	 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$(self.location).attr("href","/recipe/addRecipe.jsp");
+		});
+		
+		$( "a:contains('마이페이지')" ).on("click" , function() {
+	 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$(self.location).attr("href","/bookmark/listBookmark");
 		});
 	 	
 		
