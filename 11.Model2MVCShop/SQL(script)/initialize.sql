@@ -9,11 +9,14 @@ DROP SEQUENCE seq_product_prod_no;
 DROP SEQUENCE seq_transaction_tran_no;
 DROP SEQUENCE seq_review_no;
 DROP SEQUENCE seq_recipe_no;
+DROP SEQUENCE seq_bookmark_no;
 
 CREATE  SEQUENCE  seq_product_prod_no	 	 	INCREMENT BY  1  START  WITH  10000;
 CREATE  SEQUENCE  seq_transaction_tran_no	 INCREMENT  BY  1  START  WITH  10000;
 CREATE  SEQUENCE  seq_review_no	 INCREMENT  BY  1  START  WITH  10000;
 CREATE  SEQUENCE  seq_recipe_no	 INCREMENT  BY  1  START  WITH  10000;
+CREATE  SEQUENCE  seq_reply_no	 INCREMENT  BY  1  START  WITH  10000;
+CREATE  SEQUENCE  seq_bookmark_no	 INCREMENT  BY  1  START  WITH  10000;
 
 
 CREATE TABLE users ( 
@@ -68,20 +71,27 @@ PRIMARY KEY(review_no)
 );
 
 CREATE TABLE recipe(
-recipe_no NUMBER 		 		NOT NULL,
-recipe_name  VARCHAR2(20),
-recipe_detail  VARCHAR2(50),
+recipe_no NUMBER 	NOT NULL,
+review_num NUMBER ,
+recipe_name  VARCHAR2(1000),
+recipe_detail  VARCHAR2(1000),
 writer  VARCHAR2(20) REFERENCES  users(user_id),
 reg_date  VARCHAR2(10),
 file_name VARCHAR2(200),
 difficulty NUMBER,
 cooking_time NUMBER,		 
 ingredient VARCHAR2(100),
-recipe_order VARCHAR2(1000),
 theme NUMBER,
-review_num NUMBER 		 
+recipe_order  CLOB,
+	PRIMARY KEY(recipe_no)
 );
-insert into recipe values (seq_recipe_no.nextval,'Conchiglioni Rigati','타이풍 쉬림프 파스타','user12','20221220', '1622711370004681.jpg','초급',30,'야채','순서순서','양식','0');
+
+CREATE TABLE bookmark(
+bookmark_no  NUMBER NOT NULL,
+recipe_no NUMBER REFERENCES recipe(recipe_no),
+user_id   VARCHAR2(20)   	REFERENCES  users(user_id),
+PRIMARY KEY(bookmark_no)
+);
 
 INSERT 
 INTO users ( user_id, user_name, password, role, ssn, cell_phone, addr, email, reg_date ) 

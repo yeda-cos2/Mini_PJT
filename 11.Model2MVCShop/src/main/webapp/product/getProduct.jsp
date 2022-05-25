@@ -181,7 +181,6 @@ body {
         
         
         <blockquote>
-  <p>${review.title }</p>
   <footer>${review.content }</footer>
 </blockquote>
 

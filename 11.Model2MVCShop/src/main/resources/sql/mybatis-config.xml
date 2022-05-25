@@ -20,6 +20,7 @@
 		<typeAlias alias="review" type="com.model2.mvc.service.domain.Review" />
 		<typeAlias alias="recipe" type="com.model2.mvc.service.domain.Recipe" />
 		<typeAlias alias="search" type="com.model2.mvc.common.Search" />
+		<typeAlias alias="bookmark" type="com.model2.mvc.service.domain.Bookmark" />
 	</typeAliases>
 	
 	 <!-- SQL Definition :: file include -->
@@ -29,6 +30,7 @@
 		<mapper resource="sql/PurchaseMapper.xml"/>
 		<mapper resource="sql/ReviewMapper.xml"/>
 		<mapper resource="sql/RecipeMapper.xml"/>
+		<mapper resource="sql/BookmarkMapper.xml"/>
 	</mappers>
 
 </configuration>
