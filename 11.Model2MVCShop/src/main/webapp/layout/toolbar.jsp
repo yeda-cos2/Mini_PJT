@@ -247,6 +247,11 @@ var phone="";
 	 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$(self.location).attr("href","/bookmark/listBookmark");
 		});
+		
+		$( "a:contains('나의레시피')" ).on("click" , function() {
+	 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$(self.location).attr("href","/recipe/getMyRecipeList");
+		});
 	 	
 		
 	</script>  

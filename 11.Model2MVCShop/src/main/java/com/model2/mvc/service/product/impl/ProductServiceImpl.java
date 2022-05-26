@@ -68,6 +68,12 @@ public class ProductServiceImpl implements ProductService{
 		return map;
 	}
 
+	public Map<String , Object> bestProductList() throws Exception{
+		List<Product> list= productDao.bestProductList();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list );
+		return map;
 
+	}
 	
 }

@@ -62,5 +62,7 @@ public class PurchaseDaoImpl implements PurchaseDao{
 		map.put("search", search);
 		return sqlSession.selectOne("PurchaseMapper.getTotalCount", map);
 	}
+	
+	
 
 }

@@ -18,15 +18,16 @@
 		<result property="proTranCode"      column="TRAN_STATUS_CODE"           jdbcType="VARCHAR"/>
 		<result property="total" 			column="total" 			jdbcType="NUMERIC"/>
 		<result property="cancel"      column="cancel"           jdbcType="VARCHAR"/>
+		<result property="reviewNum" 			column="review_num" 			jdbcType="NUMERIC"/>
 		
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
 	<insert 	id="addProduct"		parameterType="product" >
 	 	INSERT
-		INTO product( prod_no , prod_name , prod_detail , manufacture_day , price, image_file, reg_date,total,cancel) 
+		INTO product( prod_no , prod_name , prod_detail , manufacture_day , price, image_file, reg_date,total,cancel,review_num) 
 		VALUES	 (	seq_product_prod_no.nextval , #{prodName} , #{prodDetail} , #{manuDate} , #{price} , 
-							#{fileName} , SYSDATE,#{total},#{cancel} )
+							#{fileName} , SYSDATE,#{total},#{cancel},#{reviewNum} )
 	 </insert>
 	 
 	 
@@ -35,7 +36,6 @@
 	 <select 	id="getProduct"	parameterType="int"	resultMap="productSelectMap">
 		SELECT *
 		FROM product 
-		
 		WHERE prod_no= #{prodNo}
 	 </select>
 	 
@@ -49,7 +49,8 @@
 			image_file				=	#{fileName},
 			price=#{price},
 			total=#{total},
-			cancel=#{cancel} 
+			cancel=#{cancel},
+			review_num=#{reviewNum}
 	   	</set>
 	   	WHERE prod_no = #{prodNo}
 	 </update>
@@ -164,6 +165,12 @@
 	  	SELECT * 
 	  	FROM product
 	  	ORDER BY prod_no
+	 </select>
+	 
+	 	<select  id="bestProductList"  parameterType="product"	resultMap="productSelectMap">
+	  	SELECT *
+			FROM product
+		ORDER BY review_num DESC
 	 </select>
 	 
 </mapper>

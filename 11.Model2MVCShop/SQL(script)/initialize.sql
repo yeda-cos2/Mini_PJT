@@ -1,9 +1,9 @@
-
+DROP TABLE bookmark;
+DROP TABLE recipe;
+DROP TABLE review;
 DROP TABLE transaction;
 DROP TABLE product;
 DROP TABLE users;
-DROP TABLE review;
-DROP TABLE recipe;
 
 DROP SEQUENCE seq_product_prod_no;
 DROP SEQUENCE seq_transaction_tran_no;
@@ -43,6 +43,7 @@ CREATE TABLE product (
 	reg_date 			 		DATE,
 	total          number,
 	cancel     VARCHAR2(10),
+	review_num number,
 	PRIMARY KEY(prod_no)
 );
 
@@ -160,10 +161,10 @@ VALUES ( 'user19', 'SCOTT', '1919', 'user', NULL, NULL, NULL, NULL, sysdate);
            
            
 
-insert into product values (seq_product_prod_no.nextval,'Conchiglioni Rigati','타이풍 쉬림프 파스타','20220512',14000, '1622711370004681.jpg',sysdate,51,0);
-insert into product values (seq_product_prod_no.nextval,'Vintage Plate','북유럽 빈티지 접시','20210516',31000, 'ddc55d4ef3b0257f17c2bb8560a40c91.jpg',sysdate,51,0);
-insert into product values (seq_product_prod_no.nextval,'Wood Tray','혼밥 우드 트레이','20220315',16000, 'ddd.PNG',sysdate,51,0);
-insert into product values (seq_product_prod_no.nextval,'Buttermilk Scone','고소한 스콘을 즐겨보세요','20220512',2500, 'waf.PNG',sysdate,51,0);
-insert into product values (seq_product_prod_no.nextval,'Tiramisu Cake','달달한 조각 케이크','20220412',5000, '6627852889_l.jpg',sysdate,51,0);
+insert into product values (seq_product_prod_no.nextval,'Conchiglioni Rigati','타이풍 쉬림프 파스타','20220512',14000, '1622711370004681.jpg',sysdate,51,0,0);
+insert into product values (seq_product_prod_no.nextval,'Vintage Plate','북유럽 빈티지 접시','20210516',31000, 'ddc55d4ef3b0257f17c2bb8560a40c91.jpg',sysdate,51,0,0);
+insert into product values (seq_product_prod_no.nextval,'Wood Tray','혼밥 우드 트레이','20220315',16000, 'ddd.PNG',sysdate,51,0,0);
+insert into product values (seq_product_prod_no.nextval,'Buttermilk Scone','고소한 스콘을 즐겨보세요','20220512',2500, 'waf.PNG',sysdate,51,0,0);
+insert into product values (seq_product_prod_no.nextval,'Tiramisu Cake','달달한 조각 케이크','20220412',5000, '6627852889_l.jpg',sysdate,51,0,0);
 
 commit;
